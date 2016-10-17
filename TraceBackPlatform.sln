@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "http://localhost:58826", "{B0737851-1D4B-47B2-B07A-77E9B5A2B360}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{7cbb09d1-a9d4-45b6-966d-e1ef21cde067}|D2012.Common.dll;{3EFC7AAF-C1F3-4A50-B405-91C20D157ACB}|D2012.Common.DbCommon.dll;{F79D8BE3-16C9-47F5-8C7B-C3FF44B52D94}|D2012.DBUtility.dll;{4153AC9B-5228-4B3D-8B8F-B979CA036AE8}|D2012.Domain.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58826"
+		Debug.AspNetCompiler.PhysicalPath = "Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58826\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58826"
+		Release.AspNetCompiler.PhysicalPath = "Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58826\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "Web\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D2012.Common", "D2012.Common\D2012.Common.csproj", "{7CBB09D1-A9D4-45B6-966D-E1EF21CDE067}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D2012.Common.DbCommon", "D2012.Common.DbCommon\D2012.Common.DbCommon.csproj", "{3EFC7AAF-C1F3-4A50-B405-91C20D157ACB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D2012.DBUtility", "D2012.DBUtility\D2012.DBUtility.csproj", "{F79D8BE3-16C9-47F5-8C7B-C3FF44B52D94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D2012.Domain", "D2012.Domain\D2012.Domain.csproj", "{4153AC9B-5228-4B3D-8B8F-B979CA036AE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0737851-1D4B-47B2-B07A-77E9B5A2B360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0737851-1D4B-47B2-B07A-77E9B5A2B360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0737851-1D4B-47B2-B07A-77E9B5A2B360}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0737851-1D4B-47B2-B07A-77E9B5A2B360}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7CBB09D1-A9D4-45B6-966D-E1EF21CDE067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CBB09D1-A9D4-45B6-966D-E1EF21CDE067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CBB09D1-A9D4-45B6-966D-E1EF21CDE067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CBB09D1-A9D4-45B6-966D-E1EF21CDE067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EFC7AAF-C1F3-4A50-B405-91C20D157ACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EFC7AAF-C1F3-4A50-B405-91C20D157ACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EFC7AAF-C1F3-4A50-B405-91C20D157ACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EFC7AAF-C1F3-4A50-B405-91C20D157ACB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F79D8BE3-16C9-47F5-8C7B-C3FF44B52D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F79D8BE3-16C9-47F5-8C7B-C3FF44B52D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F79D8BE3-16C9-47F5-8C7B-C3FF44B52D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F79D8BE3-16C9-47F5-8C7B-C3FF44B52D94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4153AC9B-5228-4B3D-8B8F-B979CA036AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4153AC9B-5228-4B3D-8B8F-B979CA036AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4153AC9B-5228-4B3D-8B8F-B979CA036AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4153AC9B-5228-4B3D-8B8F-B979CA036AE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
