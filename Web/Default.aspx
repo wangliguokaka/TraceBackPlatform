@@ -26,7 +26,7 @@
     <script type="text/javascript">
 
         //测试用的数据
-        var test_list = ["小张", "小苏", "小杨", "老张", "老苏", "老杨", "老爷爷", "小妹妹", "老奶奶", "大鹏", "大明", "大鹏展翅", "你好", "hello", "hi"];
+        var test_list = [{ name: "小张", pinyin: "xiaozhang" }, { name: "小王", pinyin: "xiaowang" }, { name: "大王", pinyin: "dawang" }];
         var old_value = "";
         var highlightindex = -1;   //高亮
 
@@ -38,11 +38,18 @@
                 var n = 0;
                 old_value = $("#" + search).val();
 
-                for (i in mylist) {
-                    if (mylist[i].indexOf(old_value) >= 0) {
-                        carlist[n++] = mylist[i];
+                //for (i in mylist) {
+                //    if (mylist[i].indexOf(old_value) >= 0) {
+                //        carlist[n++] = mylist[i];
+                //    }
+                //}
+                $(test_list).each(function(index,item)
+                    {
+                    if (item.name.indexOf(old_value) >= 0 || item.pinyin.indexOf(old_value) >= 0) {
+                        carlist[n++] = item.name;
                     }
-                }
+                    }
+                )
                 if (carlist.length == 0) {
                     autoNode.hide();
                     return;
@@ -109,8 +116,15 @@
             });
 
             $("#search_text").keyup(function () {
+              
                 AutoComplete("auto_div", "search_text", test_list);
             });
+           
+            var search_text = document.getElementById("search_text");
+
+            search_text.addEventListener("input", function () {
+                AutoComplete("auto_div", "search_text", test_list);
+            }, false);
         });
     </script>
 </head>
