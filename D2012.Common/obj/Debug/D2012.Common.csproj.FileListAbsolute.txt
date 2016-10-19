@@ -110,3 +110,14 @@ E:\Code\GeeStarPlatform\D2012.Common\bin\Debug\D2012.Domain.pdb
 E:\Code\GeeStarPlatform\D2012.Common\obj\Debug\D2012.Common.csprojResolveAssemblyReference.cache
 E:\Code\GeeStarPlatform\D2012.Common\obj\Debug\D2012.Common.dll
 E:\Code\GeeStarPlatform\D2012.Common\obj\Debug\D2012.Common.pdb
+G:\Zmt\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.dll
+G:\Zmt\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.pdb
+G:\Zmt\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.DbCommon.dll
+G:\Zmt\TraceBackPlatform\D2012.Common\bin\Debug\D2012.DBUtility.dll
+G:\Zmt\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Domain.dll
+G:\Zmt\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.DbCommon.pdb
+G:\Zmt\TraceBackPlatform\D2012.Common\bin\Debug\D2012.DBUtility.pdb
+G:\Zmt\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Domain.pdb
+G:\Zmt\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.csprojResolveAssemblyReference.cache
+G:\Zmt\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.dll
+G:\Zmt\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.pdb

@@ -99,3 +99,13 @@ E:\Code\GeeStarPlatform\D2012.Domain\bin\Debug\D2012.DBUtility.pdb
 E:\Code\GeeStarPlatform\D2012.Domain\obj\Debug\D2012.Domain.csprojResolveAssemblyReference.cache
 E:\Code\GeeStarPlatform\D2012.Domain\obj\Debug\D2012.Domain.dll
 E:\Code\GeeStarPlatform\D2012.Domain\obj\Debug\D2012.Domain.pdb
+G:\Zmt\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Domain.dll.config
+G:\Zmt\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Domain.dll
+G:\Zmt\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Domain.pdb
+G:\Zmt\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Common.DbCommon.dll
+G:\Zmt\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.DBUtility.dll
+G:\Zmt\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Common.DbCommon.pdb
+G:\Zmt\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.DBUtility.pdb
+G:\Zmt\TraceBackPlatform\D2012.Domain\obj\Debug\D2012.Domain.csprojResolveAssemblyReference.cache
+G:\Zmt\TraceBackPlatform\D2012.Domain\obj\Debug\D2012.Domain.dll
+G:\Zmt\TraceBackPlatform\D2012.Domain\obj\Debug\D2012.Domain.pdb
