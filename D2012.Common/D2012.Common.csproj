@@ -64,7 +64,6 @@
     <Compile Include="EncryptClass.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="LoginService.cs" />
     <Compile Include="MetarnetRegex.cs" />
     <Compile Include="Pop3Exception.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

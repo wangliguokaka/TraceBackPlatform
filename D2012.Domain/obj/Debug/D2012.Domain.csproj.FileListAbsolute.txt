@@ -99,3 +99,14 @@ E:\Code\GeeStarPlatform\D2012.Domain\bin\Debug\D2012.DBUtility.pdb
 E:\Code\GeeStarPlatform\D2012.Domain\obj\Debug\D2012.Domain.csprojResolveAssemblyReference.cache
 E:\Code\GeeStarPlatform\D2012.Domain\obj\Debug\D2012.Domain.dll
 E:\Code\GeeStarPlatform\D2012.Domain\obj\Debug\D2012.Domain.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Domain.dll.config
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Domain.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Domain.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Common.DbCommon.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.DBUtility.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.Common.DbCommon.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\bin\Debug\D2012.DBUtility.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\obj\Debug\D2012.Domain.csprojResolveAssemblyReference.cache
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\obj\Debug\D2012.Domain.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Domain\obj\Debug\D2012.Domain.pdb

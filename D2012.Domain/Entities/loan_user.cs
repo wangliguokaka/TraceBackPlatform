@@ -28,14 +28,16 @@ namespace D2012.Domain.Entities
 
 
         /// <summary>
-        /// 公司ID : 1：大连 2：北京 3：烟台
+        /// 公司ID : 1：大连 2：北京 3：烟台
+
 
         /// </summary>
         [Column("companyid", DataType.Int, false, false)]
         public int? companyid { set; get; }
 
         /// <summary>
-        /// 所属城市
+        /// 所属城市
+
 
         /// </summary>
         [Column("CITYID", DataType.Int, false, false)]
@@ -78,7 +80,8 @@ namespace D2012.Domain.Entities
         public string jiekuanjingli { set; get; }
 
         /// <summary>
-        /// 是否是线下业务客户：0、线上注册会员 1、线下业务客户
+        /// 是否是线下业务客户：0、线上注册会员 1、线下业务客户
+
 
         /// </summary>
         [Column("ISOFFLINE", DataType.Int, false, false)]
@@ -103,14 +106,16 @@ namespace D2012.Domain.Entities
         public DateTime? Vdeadline { set; get; }
 
         /// <summary>
-        /// 当前启用状态 0、未启用 1、启用
+        /// 当前启用状态 0、未启用 1、启用
+
 
         /// </summary>
         [Column("VSTATUS", DataType.Int, false, false)]
         public int? Vstatus { set; get; }
 
         /// <summary>
-        /// 推广人
+        /// 推广人
+
 
         /// </summary>
         [Column("INVITE", DataType.Varchar, false, false)]
@@ -171,7 +176,8 @@ namespace D2012.Domain.Entities
         public DateTime? pcreatedatetime { set; get; }
 
         /// <summary>
-        /// 系统分配人名称
+        /// 系统分配人名称
+
 
         /// </summary>
         [Column("PCREATENAME", DataType.Varchar, false, false)]
@@ -196,7 +202,8 @@ namespace D2012.Domain.Entities
         public int? emailvalid { set; get; }
 
         /// <summary>
-        /// 邮箱验证码
+        /// 邮箱验证码
+
 
         /// </summary>
         [Column("EMAILCODE", DataType.Varchar, false, false)]
@@ -275,7 +282,8 @@ namespace D2012.Domain.Entities
         public int? logintimes { set; get; }
 
         /// <summary>
-        /// 最后登录次数
+        /// 最后登录次数
+
 
         /// </summary>
         [Column("LASTLOGINTIME", DataType.Datetime, false, false)]
