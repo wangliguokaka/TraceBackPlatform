@@ -10,9 +10,9 @@ namespace D2012.Domain.Entities
     /// </summary>
     [Serializable]
     [Table("Client", "ID", false, false)]
-    public partial class Client : BaseEntity
+    public partial class ModelClient : BaseEntity
     {
-        public Client()
+        public ModelClient()
         { }
         #region Client
 
