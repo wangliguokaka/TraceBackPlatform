@@ -9,9 +9,9 @@ namespace D2012.Domain.Entities
     /// </summary>
     [Serializable]
     [Table("Sale", "Id", false, false)]
-    public partial class Sale : BaseEntity
+    public partial class ModelSale : BaseEntity
     {
-        public Sale()
+        public ModelSale()
         { }
         #region Sale
 

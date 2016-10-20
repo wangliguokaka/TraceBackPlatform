@@ -76,15 +76,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BaseEntity.cs" />
-    <Compile Include="Entities\Client.cs" />
-    <Compile Include="Entities\DictArea.cs" />
+    <Compile Include="Entities\ModelClient.cs" />
+    <Compile Include="Entities\ModelDictArea.cs" />
     <Compile Include="Entities\JX_USERS.cs" />
     <Compile Include="Entities\loan_user.cs" />
     <Compile Include="Entities\ModelSpec.cs" />
     <Compile Include="Entities\DatabaseSetup.cs" />
-    <Compile Include="Entities\Orders.cs" />
-    <Compile Include="Entities\Sale.cs" />
-    <Compile Include="Entities\SaleDetail.cs" />
+    <Compile Include="Entities\ModelOrders.cs" />
+    <Compile Include="Entities\ModelSale.cs" />
+    <Compile Include="Entities\ModelSaleDetail.cs" />
     <Compile Include="Entities\WUSERS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServiceCommon.cs" />

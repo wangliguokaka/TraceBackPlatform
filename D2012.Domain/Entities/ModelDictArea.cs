@@ -10,9 +10,9 @@ namespace D2012.Domain.Entities
         /// </summary>
         [Serializable]
         [Table("DictArea", "codeid", false, false)]
-        public partial class DictArea : BaseEntity
+        public partial class ModelDictArea : BaseEntity
         {
-            public DictArea()
+            public ModelDictArea()
             { }
             #region DictArea
 

@@ -10,9 +10,9 @@ namespace D2012.Domain.Entities
         /// </summary>
         [Serializable]
         [Table("Orders", null ,false, false)]
-        public partial class Orders : BaseEntity
+        public partial class ModelOrders : BaseEntity
         {
-            public Orders()
+            public ModelOrders()
             { }
             #region Orders
 
