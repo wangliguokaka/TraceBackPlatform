@@ -54,3 +54,15 @@ D:\Project\GeeStarPlatform\D2012.Common\bin\Release\D2012.Domain.pdb
 D:\Project\GeeStarPlatform\D2012.Common\obj\Release\D2012.Common.csprojResolveAssemblyReference.cache
 D:\Project\GeeStarPlatform\D2012.Common\obj\Release\D2012.Common.dll
 D:\Project\GeeStarPlatform\D2012.Common\obj\Release\D2012.Common.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.Common.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.Common.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.Common.DbCommon.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.DBUtility.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.Domain.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.Common.DbCommon.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.DBUtility.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.Domain.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Release\D2012.Common.csprojResolveAssemblyReference.cache
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Release\D2012.Common.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Release\D2012.Common.pdb

@@ -22,3 +22,8 @@ D:\Project\GeeStarPlatform\D2012.Common.DbCommon\bin\Release\D2012.Common.DbComm
 D:\Project\GeeStarPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.dll
 D:\Project\GeeStarPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.pdb
 D:\Project\GeeStarPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\bin\Release\D2012.Common.DbCommon.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\bin\Release\D2012.Common.DbCommon.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.pdb
