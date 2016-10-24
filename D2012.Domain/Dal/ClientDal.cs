@@ -1,6 +1,7 @@
 ﻿using D2012.Common.DbCommon;
 using D2012.DBUtility.Data.Core.SQLCore;
 using D2012.Domain.Entities;
+using D2012.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,8 +28,8 @@ namespace D2012.Domain.Dal
         #region  按客户名查询
         public DataSet SelectByClient(string client)
         {
-            string sql = "select Id,Class,Serial,Client,Tel,Tel2,Country,province,city,addr,Email,UserName,Passwd from  dbo.Client where client like '%@client%'";
-            SqlParameter sqlparameter = new SqlParameter("@client", client);
+            string sql = "select Id,Class,Serial,Client,Tel,Tel2,Country,province,city,addr,Email,UserName,Passwd from  dbo.Client where client like '%" + @client + "%'";
+            SqlParameter sqlparameter = new SqlParameter("@client",  client);
             DataSet ds = new DataSet();
             ds = DbHelperSQL.Query(sql, sqlparameter);
             return ds;
@@ -38,7 +39,7 @@ namespace D2012.Domain.Dal
         #region 按id查询
         public DataSet SelectById(string id)
         {
-            string sql = "select Id,Class,Serial,	Client,	Tel,	Tel2,	Country,	province,	city,	addr,	Email,	UserName,Passwd from  dbo.Client where id=@id";
+            string sql = "select Id,Class,Serial,Client,Tel,Tel2,Country,province,city,addr,Email,UserName,Passwd from  dbo.Client where id=@id";
             SqlParameter sqlparameter = new SqlParameter("@id", id);
             DataSet ds = new DataSet();
             ds = DbHelperSQL.Query(sql, sqlparameter);
@@ -60,11 +61,12 @@ namespace D2012.Domain.Dal
 
 
         #region 更新数据
-        public void UpdateClientById(string Class, string Serial, string Client, string Tel, string Tel2, string Country, string province, string city, string addr, string Email, string UserName, string Passwd)
+        public void UpdateClientById(string Class, string Serial, string Client, string Tel, string Tel2, string Country, string province, string city, string addr, string Email, string UserName, string Passwd,string id)
         {
-            string updateclient = "update dbo.Client set Class='@Class',Serial='@Serial',Client='@Client',Tel='@Tel,' "
-            + "Tel2='@Tel2',Country='@Country',province='@province',city='@city',addr='@addr',Email='@Email',UserName='@UserName',Passwd='@Passwd'  "
-            +" where id=@id ";
+            string updateclient = "update dbo.Client set Class='"+@Class+"',Serial='"+@Serial+"',Client='"+@Client+"',Tel='"+@Tel+",'"
+            + "Tel2='"+@Tel2+"',Country='"+@Country+"',province='"+@province+"',city='"+@city+"',addr='"+@addr+"',Email='"+@Email+
+            "',UserName='" + @UserName + "',Passwd='" + @Passwd + "'"
+            +"  where id=@id ";
             SqlParameter sqlparameter1 = new SqlParameter("@Class", Class);
             SqlParameter sqlparameter2 = new SqlParameter("@Serial", Serial);
             SqlParameter sqlparameter3 = new SqlParameter("@Client", Client);
@@ -77,8 +79,9 @@ namespace D2012.Domain.Dal
             SqlParameter sqlparameter10 = new SqlParameter("@Email", Email);
             SqlParameter sqlparameter11 = new SqlParameter("@UserName", UserName);
             SqlParameter sqlparameter12 = new SqlParameter("@Passwd", Passwd);
+            SqlParameter sqlparameter13 = new SqlParameter("@id", id);
             DbHelperSQL.ExecuteSql(updateclient, sqlparameter1, sqlparameter2, sqlparameter3, sqlparameter4,
-                sqlparameter5, sqlparameter6, sqlparameter7, sqlparameter8, sqlparameter9, sqlparameter10, sqlparameter11, sqlparameter12); 
+                sqlparameter5, sqlparameter6, sqlparameter7, sqlparameter8, sqlparameter9, sqlparameter10, sqlparameter11, sqlparameter12, sqlparameter13); 
         }
 
         #endregion 更新数据
@@ -87,7 +90,8 @@ namespace D2012.Domain.Dal
         public void AddClient(string Class, string Serial, string Client, string Tel, string Tel2, string Country, string province, string city, string addr, string Email, string UserName, string Passwd)
         {
             string addclient = "insert into Client(Class,Serial,Client,Tel,Tel2,Country,province,city,addr,Email,UserName,Passwd) values"
-                + "('@Class','@Serial','@Client','@Tel','@Tel2','@Country','@province','@city','@addr','@Email','@UserName','@Passwd')";
+                + "('" + @Class + "','"+@Serial+"','"+@Client+"','"+@Tel+"','"+@Tel2+"','"+@Country+"','"+@province+"','"+@city+"','"+@addr+"','"+
+                @Email+"','"+@UserName+"','"+@Passwd+"')";
             SqlParameter sqlparameter1 = new SqlParameter("@Class", Class);
             SqlParameter sqlparameter2 = new SqlParameter("@Serial", Serial);
             SqlParameter sqlparameter3 = new SqlParameter("@Client", Client);
