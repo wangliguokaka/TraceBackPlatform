@@ -30,90 +30,90 @@
             <pagerstyle backcolor="LightBlue" height="30px" verticalalign="Bottom" horizontalalign="Center"/>
 
             <Columns>
-                <asp:TemplateField HeaderText="类型" HeaderStyle-HorizontalAlign="Center" SortExpression="Name">
+                <asp:TemplateField HeaderText="类型" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("class")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="序号" HeaderStyle-HorizontalAlign="Center" SortExpression="Sex">
+                <asp:TemplateField HeaderText="序号" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("Serial")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="客户" HeaderStyle-HorizontalAlign="Center" SortExpression="Permission">
+                <asp:TemplateField HeaderText="客户" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("Client")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="手机号码" HeaderStyle-HorizontalAlign="Center" SortExpression="Telephone">
+                <asp:TemplateField HeaderText="手机号码" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("Tel")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="固定号码" HeaderStyle-HorizontalAlign="Center" SortExpression="Email">
+                <asp:TemplateField HeaderText="固定号码" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("Tel2")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="国家" HeaderStyle-HorizontalAlign="Center" SortExpression="Email">
+                <asp:TemplateField HeaderText="国家" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("Country")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="省份" HeaderStyle-HorizontalAlign="Center" SortExpression="Email">
+                <asp:TemplateField HeaderText="省份" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("province")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="城市" HeaderStyle-HorizontalAlign="Center" SortExpression="Email">
+                <asp:TemplateField HeaderText="城市" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("city")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="地址" HeaderStyle-HorizontalAlign="Center" SortExpression="Email">
+                <asp:TemplateField HeaderText="地址" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("addr")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Email" HeaderStyle-HorizontalAlign="Center" SortExpression="Email">
+                <asp:TemplateField HeaderText="Email" HeaderStyle-HorizontalAlign="Center">
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("Email")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="用户名" HeaderStyle-HorizontalAlign="Center" SortExpression="Email">
+                <asp:TemplateField HeaderText="用户名" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("UserName")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="密码" HeaderStyle-HorizontalAlign="Center" SortExpression="Email">
+               <%-- <asp:TemplateField HeaderText="密码" HeaderStyle-HorizontalAlign="Center" >
                     <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                     <ItemTemplate>
                         <%#Eval("Passwd")%>
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                </asp:TemplateField>
+                </asp:TemplateField>--%>
                 <asp:TemplateField HeaderText="操作">
                     <ItemTemplate>
                         <asp:HiddenField ID="selectclientid" runat="server" Value='<%#Eval("Id")%>' />

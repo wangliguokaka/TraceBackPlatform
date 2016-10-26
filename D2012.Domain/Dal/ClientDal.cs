@@ -63,10 +63,10 @@ namespace D2012.Domain.Dal
         #region 更新数据
         public void UpdateClientById(string Class, string Serial, string Client, string Tel, string Tel2, string Country, string province, string city, string addr, string Email, string UserName, string Passwd,string id)
         {
-            string updateclient = "update dbo.Client set Class='"+@Class+"',Serial='"+@Serial+"',Client='"+@Client+"',Tel='"+@Tel+",'"
-            + "Tel2='"+@Tel2+"',Country='"+@Country+"',province='"+@province+"',city='"+@city+"',addr='"+@addr+"',Email='"+@Email+
+            string updateclient = "update dbo.Client set Class='"+@Class+"',Serial='"+@Serial+"',Client='"+@Client+"',Tel='"+@Tel+"'"
+            + ",Tel2='" + @Tel2 + "',Country='" + @Country + "',province='" + @province + "',city='" + @city + "',addr='" + @addr + "',Email='" + @Email +
             "',UserName='" + @UserName + "',Passwd='" + @Passwd + "'"
-            +"  where id=@id ";
+            +"  where id="+@id ;
             SqlParameter sqlparameter1 = new SqlParameter("@Class", Class);
             SqlParameter sqlparameter2 = new SqlParameter("@Serial", Serial);
             SqlParameter sqlparameter3 = new SqlParameter("@Client", Client);
