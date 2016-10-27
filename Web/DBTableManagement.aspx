@@ -11,6 +11,7 @@
     <form id="form1" runat="server">
     <!--搜索框开始-->
     <div class="search">
+
         <div class="searchcontent">
             <asp:Label ID="SelectNameLabel" runat="server" Text="姓名："></asp:Label>
             <asp:TextBox ID="SelectName" runat="server"></asp:TextBox>
