@@ -52,3 +52,8 @@ D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Com
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.dll
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.pdb
+C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.dll
+C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.pdb
+C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.dll
+C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.pdb
