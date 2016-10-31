@@ -23,9 +23,9 @@
                     <th><a href="javascript:addMailClassTableRow('tbMainClass')" title="新增"><span class="icon icon-add">xinzeng</span></a></th>                      
                 </tr>
                 <tr>
-                    <td><input id="Relation" type="text"  style="width: 100px" class="required" /></td>
-                    <td><input id="RelativesName" type="text" style="width: 100px" class="required" /></td>
-                    <td><input id="UnitName" type="text" style="width: 150px" class="required" /></td>
+                    <td><input id="ClassID" type="text"  style="width: 100px" class="required" /></td>
+                    <td><input id="ClassName" type="text" style="width: 100px" class="required" /></td>
+                    <td><input id="Sortno" type="text" style="width: 150px" class="required" /></td>
                     <td>&nbsp;</td>
                 </tr>
             </thead>
@@ -56,11 +56,11 @@
             <tbody>
                 <tr >
                     <td>
-                        <input name="Relation" type="text" errormsg="必填" style="width: 100px" class="required" /></td>
+                        <input name="Code" type="text" errormsg="必填" style="width: 100px" class="required" /></td>
                     <td>
-                        <input name="RelativesName" type="text" style="width: 100px" class="required" /></td>
+                        <input name="DictName" type="text" style="width: 100px" class="required" /></td>
                     <td>
-                        <input name="UnitName" type="text" style="width: 150px" class="required" /></td>                    
+                        <input name="SortNo" type="text" style="width: 150px" class="required" /></td>                    
                     <td>
                         <button type="button" name="Id" class="btn btn-link" onclick="deleteRow(this)"><span class="icon icon-remove"></span></button>
                     </td>
@@ -76,9 +76,9 @@
              var resultArray = new Array();
              
             
-             resultArray.push({ w2: ee, e3: "", r3: "" });
+             resultArray.push({ ClassID: "", ClassName: "", Sortno: "" });
            
-             resultArray.push( { w2: "555", e3: "", r3: "" });
+             resultArray.push({ ClassID: "555", ClassName: "", Sortno: "" });
            
         //删除行
              function deleteRow(obj) {                 
@@ -91,25 +91,26 @@
         }
         function ShowValue(value1,value2,value3)
         {
-            $("#Relation").val(value1);
-            $("#RelativesName").val(value2);
-            $("#UnitName").val(value3);
+            $("#ClassID").val(value1);
+            $("#ClassName").val(value2);
+            $("#Sortno").val(value3);
         }
         function addMailClassTableRow(gridId)
         {
             $.fn.tables.addRow(gridId);
             $("#" + gridId).find("tr").last().find("td").each(function (index, item) {
+              
                 if (index == 0)
                 {
                    
-                    $(this).text($("#Relation").val());
+                    $(this).text($("#ClassID").val());
                 }
                 else if (index == 1)
                 {
-                    $(this).text($("#RelativesName").val());
+                    $(this).text($("#ClassName").val());
                 }
                 else if (index == 2) {
-                    $(this).text($("#UnitName").val());
+                    $(this).text($("#Sortno").val());
                 }
                 else {
                     $(this).parent().bind("click", function () {

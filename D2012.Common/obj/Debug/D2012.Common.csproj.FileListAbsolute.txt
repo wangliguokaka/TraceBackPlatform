@@ -145,3 +145,14 @@ C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common\bin\Debug\D20
 C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.dll
 C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.pdb
+D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.dll
+D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.pdb
+D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.DbCommon.dll
+D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.DBUtility.dll
+D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Domain.dll
+D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.DbCommon.pdb
+D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.DBUtility.pdb
+D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Domain.pdb
+D:\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.csprojResolveAssemblyReference.cache
+D:\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.dll
+D:\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.pdb
