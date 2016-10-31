@@ -76,9 +76,9 @@
              var resultArray = new Array();
              
             
-             resultArray.push({ w2: ee, e3: "", r3: "" });
+             resultArray.push({ ClassID: "", ClassName: "", Sortno: "" });
            
-             resultArray.push( { w2: "555", e3: "", r3: "" });
+             resultArray.push({ ClassID: "555", ClassName: "", Sortno: "" });
            
         //删除行
              function deleteRow(obj) {                 
