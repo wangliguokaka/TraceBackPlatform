@@ -78,6 +78,7 @@
     <Compile Include="Common\BaseEntity.cs" />
     <Compile Include="Dal\ClientDal.cs" />
     <Compile Include="Entities\ModelClient.cs" />
+    <Compile Include="Entities\ModelDict.cs" />
     <Compile Include="Entities\ModelDictArea.cs" />
     <Compile Include="Entities\JX_USERS.cs" />
     <Compile Include="Entities\loan_user.cs" />

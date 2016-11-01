@@ -9,11 +9,31 @@
         <script type="text/javascript" src="../Scripts/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.8.20.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-tables.js"></script>
+    <script type="text/javascript">
 
+         function SaveMainClass() {
+            $.ajax({
+                type: "post",
+                url: "DictManagement.aspx",
+
+                cache: false,
+                async: false,
+                data: { actiontype: "SaveMainClass", ClassID: $("#ClassID").val(), ClassName: $("#ClassName").val(), Sortno: $("#Sortno").val() },
+                dataType: "json",
+                success: function(data) {
+                    //用到这个方法的地方需要重写这个success方法
+                    alert(data);
+                    $.fn.tables.bindData('tbMainClass', data);
+                }
+            });
+        }
+        //
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
+        <input type="button" value="保存" onclick="SaveMainClass()" />
         <table class="table table-editable" id="tbMainClass">
             <thead>
                 <tr>
@@ -31,12 +51,9 @@
             </thead>
             <tbody>
                 <tr >
-                    <td>
-                        </td>
-                    <td> 
-                        </td>
-                    <td>
-                        </td>  
+                    <td><input type="text" name="ClassID" /> </td>
+                    <td><input type="text" name="ClassName" /></td>
+                    <td><input type="text" name="Sortno" /></td>  
                     <td></td>                 
                 </tr>
             </tbody>
@@ -117,7 +134,7 @@
                        
                         ShowValue($(this).find("td").eq(0).text(), $(this).find("td").eq(1).text(), $(this).find("td").eq(2).text());
                     })
-                    $(this).parent().css("cursor", "hand");
+                    $(this).parent().css("cursor", "pointer");
                     $(this).html("<button type=\"button\" name=\"Id\" class=\"btn btn-link\" onclick=\"deleteRow(this)\">删除</button>")
                 }
                 
