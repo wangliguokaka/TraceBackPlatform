@@ -19,14 +19,38 @@
                 cache: false,
                 async: false,
                 data: { actiontype: "SaveMainClass", ClassID: $("#ClassID").val(), ClassName: $("#ClassName").val(), Sortno: $("#Sortno").val() },
-                dataType: "json",
+                dataType: "text",
                 success: function(data) {
                     //用到这个方法的地方需要重写这个success方法
                    
                     $.fn.tables.bindData('tbMainClass', data);
                 }
             });
-        }
+         }
+         $(document).ready(function () {
+             $.ajax({
+                 type: "post",
+                 url: "DictManagement.aspx",
+
+                 cache: false,
+                 async: false,
+                 data: { actiontype: "SaveMainClass" },
+                 dataType: "text",
+                 success: function (data) {
+                     //用到这个方法的地方需要重写这个success方法
+
+                     $.fn.tables.bindData('tbMainClass', data);
+                 }
+             });
+
+             $("#tbMainClass tbody").find("tr").each(function () {
+                 
+                 $(this).bind("click", function () {
+                     
+                     ShowValue($(this).find("input").eq(0).val(), $(this).find("input").eq(1).val(), $(this).find("input").eq(2).val());
+                 })
+             });
+         });
         //
     </script>
 </head>
@@ -46,15 +70,15 @@
                     <td><input id="ClassID" type="text"  style="width: 100px" class="required" /></td>
                     <td><input id="ClassName" type="text" style="width: 100px" class="required" /></td>
                     <td><input id="Sortno" type="text" style="width: 150px" class="required" /></td>
-                    <td>&nbsp;</td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
-                <tr >
-                    <td><input type="text" name="ClassID" /> </td>
-                    <td><input type="text" name="ClassName" /></td>
-                    <td><input type="text" name="Sortno" /></td>  
-                    <td></td>                 
+                <tr style="display:none;">
+                    <td><input type="text" name="ClassID" style="border:none;" disabled="disabled" /> </td>
+                    <td><input type="text" name="ClassName" style="border:none;"disabled="disabled"/></td>
+                    <td><input type="text" name="Sortno" style="border:none;" disabled="disabled"/></td>  
+                    <td><button type="button" name="Id" class="btn btn-link" onclick="deleteRow(this)">删除</button></td>                 
                 </tr>
             </tbody>
         </table>
@@ -108,6 +132,7 @@
         }
         function ShowValue(value1,value2,value3)
         {
+           
             $("#ClassID").val(value1);
             $("#ClassName").val(value2);
             $("#Sortno").val(value3);

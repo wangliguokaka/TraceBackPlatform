@@ -213,16 +213,16 @@
 
         //遍历行结果
         for (var i = 0; i < jsons.length; i++) {
-            var trnum = $("#" + gridId + " tbody").find("tr").slice(0).length - 1;
-            if (i > trnum) {
+            //var trnum = $("#" + gridId + " tbody").find("tr").slice(0).length - 1;
+            //if (i > trnum) {
                 $("#" + gridId).append("<tr>" + trHtml + "</tr>");
 
-            }
+            //}
 
             //遍历行中每一列的key 
             for (var key in jsons[i]) {
 
-                $("#" + gridId).find("tr").eq(i + 1).find("td").each(function () {
+                $("#" + gridId + " tbody").find("tr").eq(i + 1).find("td").each(function () {
                     var $child = $(this).children();
 
                     if ($child.attr("name") === key || $child.attr("propertys") === key) {

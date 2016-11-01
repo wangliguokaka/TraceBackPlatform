@@ -26,16 +26,19 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
                 string ClassID = Request["ClassID"];
                 string ClassName = Request["ClassName"];
                 string Sortno = Request["Sortno"];
+                if (!String.IsNullOrEmpty(ClassID))
+                {
+                    ModelDict modelDict = new ModelDict();
+                    modelDict.ClassID = ClassID;
+                    modelDict.ClassName = ClassName;
+                    modelDict.Sortno = int.Parse(Sortno);
+                    modelDict.UpdateTime = DateTime.Now;
+                    modelDict.UpdateUser = "User1";
 
-                ModelDict modelDict = new ModelDict();
-                modelDict.ClassID = ClassID;
-                modelDict.ClassName = ClassName;
-                modelDict.Sortno = int.Parse(Sortno);
-                modelDict.UpdateTime = DateTime.Now;
-                modelDict.UpdateUser = "User1";
-                
-                servComm.Add(modelDict);
+                    servComm.Add(modelDict);
+                }
 
+                servComm.strOrderString = "Sortno";
                 List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0,"*","Dict", null).ToList<ModelDict>();
                 var timeConvert = new IsoDateTimeConverter();
                 timeConvert.DateTimeFormat = "yyyy-MM-dd";
