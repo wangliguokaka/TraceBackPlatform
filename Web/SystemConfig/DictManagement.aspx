@@ -22,7 +22,7 @@
                 dataType: "json",
                 success: function(data) {
                     //用到这个方法的地方需要重写这个success方法
-                    alert(data);
+                   
                     $.fn.tables.bindData('tbMainClass', data);
                 }
             });

@@ -39,8 +39,8 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
                 List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0,"*","Dict", null).ToList<ModelDict>();
                 var timeConvert = new IsoDateTimeConverter();
                 timeConvert.DateTimeFormat = "yyyy-MM-dd";
-
-                Response.Write(JsonConvert.SerializeObject(modelDict, Formatting.Indented, timeConvert));
+                string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
+                Response.Write(responseJson);
                 Response.End();
             }
         }

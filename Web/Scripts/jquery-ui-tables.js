@@ -209,11 +209,11 @@
         if (jsons == null) {
             return;
         }
-        var trHtml = $("#" + gridId).find("tr").slice(1).first().html();
+        var trHtml = $("#" + gridId + " tbody").find("tr").eq(0).html();
 
         //遍历行结果
         for (var i = 0; i < jsons.length; i++) {
-            var trnum = $("#" + gridId).find("tr").slice(1).length - 1;
+            var trnum = $("#" + gridId + " tbody").find("tr").slice(0).length - 1;
             if (i > trnum) {
                 $("#" + gridId).append("<tr>" + trHtml + "</tr>");
 
