@@ -48,7 +48,7 @@ namespace D2012.Domain.Entities
             /// <summary>
             /// 
             /// </summary>
-            [Column("UpdateUser", DataType.Varchar, true, false)]
+            [Column("UpdateUser", DataType.Varchar, false, false)]
             public string UpdateUser { set; get; }
 
 

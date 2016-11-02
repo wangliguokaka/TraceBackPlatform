@@ -11,46 +11,42 @@
     <script type="text/javascript" src="../Scripts/jquery-ui-tables.js"></script>
     <script type="text/javascript">
 
-         function SaveMainClass() {
-            $.ajax({
-                type: "post",
-                url: "DictManagement.aspx",
+        function SaveMainClass() {
 
-                cache: false,
-                async: false,
-                data: { actiontype: "SaveMainClass", ClassID: $("#ClassID").val(), ClassName: $("#ClassName").val(), Sortno: $("#Sortno").val() },
-                dataType: "text",
-                success: function(data) {
-                    //用到这个方法的地方需要重写这个success方法
-                   
-                    $.fn.tables.bindData('tbMainClass', data);
-                }
-            });
+            AjaxHandle({ actiontype: "SaveMainClass", ClassID: $("#ClassID").val(), ClassName: $("#ClassName").val(), Sortno: $("#Sortno").val() });
+            
          }
          $(document).ready(function () {
+             
+             AjaxHandle({ actiontype: "SaveMainClass" });
+             
+         });
+
+         function AjaxHandle(paraData)
+         {
              $.ajax({
                  type: "post",
                  url: "DictManagement.aspx",
 
                  cache: false,
                  async: false,
-                 data: { actiontype: "SaveMainClass" },
+                 data: paraData,
                  dataType: "text",
                  success: function (data) {
                      //用到这个方法的地方需要重写这个success方法
-
+                     $("#tbMainClass tbody").find("tr").slice(1).remove();
                      $.fn.tables.bindData('tbMainClass', data);
                  }
              });
 
              $("#tbMainClass tbody").find("tr").each(function () {
-                 
+
                  $(this).bind("click", function () {
-                     
+
                      ShowValue($(this).find("input").eq(0).val(), $(this).find("input").eq(1).val(), $(this).find("input").eq(2).val());
                  })
              });
-         });
+         }
         //
     </script>
 </head>
@@ -78,7 +74,7 @@
                     <td><input type="text" name="ClassID" style="border:none;" disabled="disabled" /> </td>
                     <td><input type="text" name="ClassName" style="border:none;"disabled="disabled"/></td>
                     <td><input type="text" name="Sortno" style="border:none;" disabled="disabled"/></td>  
-                    <td><button type="button" name="Id" class="btn btn-link" onclick="deleteRow(this)">删除</button></td>                 
+                    <td><button type="button" name="Id" class="btn btn-link" onclick="deleteMainClassRow(this)">删除</button></td>                 
                 </tr>
             </tbody>
         </table>
@@ -122,8 +118,13 @@
              resultArray.push({ ClassID: "555", ClassName: "", Sortno: "" });
            
         //删除行
-             function deleteRow(obj) {                 
-                $.fn.tables.deleteRow(obj);
+        function deleteRow(obj) {                 
+           $.fn.tables.deleteRow(obj);
+        }
+
+        function deleteMainClassRow(obj)
+        {
+            AjaxHandle({ actiontype: "SaveMainClass", deleteKey: $(obj).parent().parent().find("input").eq(0).val() });
         }
 
         //增加行
