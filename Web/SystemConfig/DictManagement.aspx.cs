@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TraceBackPlatform.AppCode;
 
 public partial class SystemConfig_DictManagement : System.Web.UI.Page
 {
@@ -52,6 +53,13 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
                 timeConvert.DateTimeFormat = "yyyy-MM-dd";
                 string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
                 Response.Write(responseJson);
+                Response.End();
+            }
+            else if (type == "SaveClass")
+            {
+                string jsonResult = Request["data"];
+                List<ModelDict> listModel = Utility.ConvertJsonToEntity<ModelDict>(jsonResult.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries));
+                Response.Write("");
                 Response.End();
             }
         }

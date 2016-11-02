@@ -41,7 +41,7 @@
     $.fn.tables.getResult = function (gridId) {
 
         var resultArray = new Array();
-        $("#" + gridId).find("tr").slice(1).each(function () {
+        $("#" + gridId + " tbody").find("tr").slice(0).each(function () {
 
             var trResult = "{";
 

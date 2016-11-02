@@ -81,13 +81,14 @@
         <div class="table-toolbar"></div>
     </div>
     <div>
-        <table class="table table-editable" id="tbRelativesJob">
+        <input type="button" value="保存" onclick="SaveClass()" />
+        <table class="table table-editable" id="tbClass">
             <thead>
                 <tr>
                     <th>编码</th>
                     <th>名称</th>
                     <th>序号</th>                         
-                    <th><a href="javascript:addTableRow('tbRelativesJob')" title="新增"><span class="icon icon-add">xinzeng</span></a></th>
+                    <th><a href="javascript:addTableRow('tbClass')" title="新增"><span class="icon icon-add">xinzeng</span></a></th>
                 </tr>
             </thead>
             <tbody>
@@ -171,7 +172,7 @@
 
         function validateRow()
         {
-            var ispass = $.fn.tables.validateRow('tbRelativesJob');
+            var ispass = $.fn.tables.validateRow('tbClass');
            
             if (!ispass) {
                 layer.alert("还有必填项未填写！请继续完善后再保存!");
@@ -179,12 +180,14 @@
 
         }
 
-        //取结果
-        function getRowResult()
-        {
-            var relativesJob = $.fn.tables.getResult('tbRelativesJob');
-            $("#resultData").text(relativesJob.join('|'));
+        
 
+        //取结果
+        function SaveClass()
+        {
+            var relativesJob = $.fn.tables.getResult('tbClass');
+            relativesJob = relativesJob.join('|');
+            AjaxHandle({ actiontype: "SaveClass", data: relativesJob.toString() });
             //这种写法也可取到
             //var rowResult = $("#tbRelativesJob").tables.getResult('tbRelativesJob');
             //alert(rowResult);
