@@ -15,7 +15,7 @@
 
         function SaveMainClass()
         {
-            if (validateRow('tbMainClass'))
+            if (validateRow('tbMainClass',1) == true)
             {
                 AjaxHandle({ actiontype: "SaveMainClass", ClassID: $("#ClassID").val(), ClassName: $("#ClassName").val(), Sortno: $("#Sortno").val() });
             }
@@ -72,7 +72,17 @@
          }
 
          function deleteMainClassRow(obj) {
-             AjaxHandle({ actiontype: "SaveMainClass", deleteKey: $(obj).parent().parent().find("input").eq(0).val() });
+            layer.confirm('确认删除吗？', {
+                  
+                }, function(index){
+                    
+                    AjaxHandle({ actiontype: "SaveMainClass", deleteKey: $(obj).parent().parent().find("input").eq(0).val() });
+                  layer.close(index);
+                }, function(){
+                 
+                });
+
+           // 
          }
 
          //增加行
@@ -113,12 +123,14 @@
 
          //校验数据
 
-         function validateRow(tableID) {
-             var ispass = $.fn.tables.validateRow(tableID);
+         function validateRow(tableID,sliceIndex) {
+             var ispass = $.fn.tables.validateRow(tableID,sliceIndex);
 
              if (!ispass) {
                  layer.alert("还有必填项未填写！请继续完善后再保存!");
              }
+
+            return ispass;
 
          }
 
@@ -126,7 +138,12 @@
 
          //取结果
          function SaveClass() {
-             if (validateRow('tbClass')) {
+            if($('#tbClass tbody ').find("tr :visible").length==0)
+            {
+                layer.alert("请添加子类信息！");
+                return false;
+            }
+             if (validateRow('tbClass',2)) {
                  var relativesJob = $.fn.tables.getResult('tbClass');
                  relativesJob = relativesJob.join('|');
                  AjaxHandle({ actiontype: "SaveClass", selectMainClass: $("#selectMainClass").val(), data: relativesJob.toString() });
@@ -181,9 +198,9 @@
         <table class="table table-editable" id="tbClass">
             <thead>
                 <tr>
-                    <th>编码</th>
-                    <th>名称</th>
-                    <th>序号</th>                         
+                    <th style="width:120px;">编码</th>
+                    <th style="width:120px;">名称</th>
+                    <th style="width:120px;">序号</th>                         
                     <th><a href="javascript:addTableRow('tbClass')" title="新增"><span class="icon icon-add">xinzeng</span></a></th>
                 </tr>
             </thead>
@@ -196,7 +213,7 @@
                     <td>
                         <input name="SortNo" type="text" style="width: 150px" class="required" /></td>                    
                     <td>
-                        <button type="button" name="Id" class="btn btn-link" onclick="deleteRow(this)"><span class="icon icon-remove"></span></button>
+                        <button type="button" name="Id" class="btn btn-link" onclick="deleteRow(this)">删除</button>
                     </td>
                 </tr>
             </tbody>

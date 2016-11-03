@@ -126,12 +126,12 @@
     };
 
     //验证行
-    $.fn.tables.validateRow = function (gridId) {
+    $.fn.tables.validateRow = function (gridId,sliceIndex) {
 
         //是否验证通过
         var isPass = true;
 
-        $("#" + gridId).find("tr").slice(1).each(function () {
+        $("#" + gridId).find("tr").slice(sliceIndex).each(function () {
 
             $(this).find("td").each(function () {
                 if ($(this).children().hasClass('text-error'))
