@@ -1,4 +1,5 @@
 ﻿using D2012.Common;
+using D2012.Common.DbCommon;
 using D2012.Domain.Entities;
 using D2012.Domain.Services;
 using Newtonsoft.Json;
@@ -42,13 +43,25 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
                         modelDict.UpdateTime = DateTime.Now;
                         modelDict.UpdateUser = "User1";
 
-                        servComm.AddOrUpdate(modelDict);
+                        servComm.Add(modelDict);
                     }
                 }
-                
+
 
                 servComm.strOrderString = "Sortno";
-                List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0,"*","Dict", null).ToList<ModelDict>();
+                List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0, "*", "Dict", null).ToList<ModelDict>();
+                var timeConvert = new IsoDateTimeConverter();
+                timeConvert.DateTimeFormat = "yyyy-MM-dd";
+                string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
+                Response.Write(responseJson);
+                Response.End();
+            }
+            else if (type == "GetDetail")
+            {
+                servComm.strOrderString = "Sortno";
+                ConditionComponent ccwhere = new ConditionComponent();
+                ccwhere.AddComponent("ClassID", Request["selectMainClass"], SearchComponent.Equals, SearchPad.NULL);
+                List<ModelDictDetail> listObj = servComm.GetListTop<ModelDictDetail>(0, "*", "DictDetail", ccwhere).ToList<ModelDictDetail>();
                 var timeConvert = new IsoDateTimeConverter();
                 timeConvert.DateTimeFormat = "yyyy-MM-dd";
                 string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
@@ -58,8 +71,20 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
             else if (type == "SaveClass")
             {
                 string jsonResult = Request["data"];
-                List<ModelDict> listModel = Utility.ConvertJsonToEntity<ModelDict>(jsonResult.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries));
-                Response.Write("");
+                List<ModelDictDetail> listModel = Utility.ConvertJsonToEntity<ModelDictDetail>(jsonResult.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries));
+                string SelectClassID = Request["selectMainClass"];
+                servComm.ExecuteSql(" delete from DictDetail where ClassID = '" + SelectClassID + "'");
+                foreach (ModelDictDetail model in listModel)
+                {
+                    if (!String.IsNullOrEmpty(model.Code))
+                    {
+                        model.ClassID = SelectClassID;
+                        model.OperTime = DateTime.Now;
+                        model.oper = "User1";
+                        servComm.Add(model);
+                    }
+                }
+                Response.Write("DictDetail");
                 Response.End();
             }
         }

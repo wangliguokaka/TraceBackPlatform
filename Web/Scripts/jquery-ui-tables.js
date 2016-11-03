@@ -170,20 +170,20 @@
 
                                     isPass = false;
                                    
-                                    if ($this.attr("errormsg") == undefined) {
+                                    //if ($this.attr("errormsg") == undefined) {
 
-                                        $this.addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
-                                    } else {
-                                        errorMsg = $this.attr("errormsg");
-                                        $this.addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
-                                    }
+                                    //    $this.addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
+                                    //} else {
+                                    //    errorMsg = $this.attr("errormsg");
+                                    //    $this.addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
+                                    //}
                                 }
                             }
                             if ($this.hasClass("detepickers")) {
-                                if ($.trim($this.val()) == "") {
-                                    isPass = false;
-                                    $this.addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
-                                }
+                                //if ($.trim($this.val()) == "") {
+                                //    isPass = false;
+                                //    $this.addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
+                                //}
                             }
                             break;
                         case "select":

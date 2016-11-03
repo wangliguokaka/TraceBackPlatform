@@ -6,14 +6,19 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-        <script type="text/javascript" src="../Scripts/jquery-1.7.1.min.js"></script>
+     <link href="../Css/layer.css" rel="stylesheet" />
+     <script type="text/javascript" src="../Scripts/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.8.20.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-tables.js"></script>
+     <script type="text/javascript" src="../Scripts/layer.js"></script>
     <script type="text/javascript">
 
-        function SaveMainClass() {
-
-            AjaxHandle({ actiontype: "SaveMainClass", ClassID: $("#ClassID").val(), ClassName: $("#ClassName").val(), Sortno: $("#Sortno").val() });
+        function SaveMainClass()
+        {
+            if (validateRow('tbMainClass'))
+            {
+                AjaxHandle({ actiontype: "SaveMainClass", ClassID: $("#ClassID").val(), ClassName: $("#ClassName").val(), Sortno: $("#Sortno").val() });
+            }
             
          }
          $(document).ready(function () {
@@ -34,18 +39,108 @@
                  dataType: "text",
                  success: function (data) {
                      //用到这个方法的地方需要重写这个success方法
-                     $("#tbMainClass tbody").find("tr").slice(1).remove();
-                     $.fn.tables.bindData('tbMainClass', data);
+                     if (data == "DictDetail")
+                     { 
+                     } 
+                     else if (paraData.actiontype == "GetDetail") {
+                         $("#tbClass tbody").find("tr").slice(1).remove();
+                         $.fn.tables.bindData('tbClass', data);
+                     }
+                     else {
+                         $("#tbMainClass tbody").find("tr").slice(1).remove();
+                         $.fn.tables.bindData('tbMainClass', data);
+                     }
                  }
              });
+             if (paraData.actiontype == "SaveMainClass")
+             {
+                 $("#tbMainClass tbody").find("tr").each(function () {
 
-             $("#tbMainClass tbody").find("tr").each(function () {
+                     $(this).bind("click", function () {
+                         $("#selectMainClass").val($(this).find("input").eq(0).val());
+                         ShowValue($(this).find("input").eq(0).val(), $(this).find("input").eq(1).val(), $(this).find("input").eq(2).val());
+                         AjaxHandle({ actiontype: "GetDetail",selectMainClass:$("#selectMainClass").val(), })
+                     })
+                 });
+             }
+            
+         }
 
-                 $(this).bind("click", function () {
+         //删除行
+         function deleteRow(obj) {
+             $.fn.tables.deleteRow(obj);
+         }
 
-                     ShowValue($(this).find("input").eq(0).val(), $(this).find("input").eq(1).val(), $(this).find("input").eq(2).val());
-                 })
+         function deleteMainClassRow(obj) {
+             AjaxHandle({ actiontype: "SaveMainClass", deleteKey: $(obj).parent().parent().find("input").eq(0).val() });
+         }
+
+         //增加行
+         function addTableRow(gridId) {
+             $.fn.tables.addRow(gridId);
+         }
+         function ShowValue(value1, value2, value3) {
+
+             $("#ClassID").val(value1);
+             $("#ClassName").val(value2);
+             $("#Sortno").val(value3);
+         }
+         function addMailClassTableRow(gridId) {
+             $.fn.tables.addRow(gridId);
+             $("#" + gridId).find("tr").last().find("td").each(function (index, item) {
+
+                 if (index == 0) {
+
+                     $(this).text($("#ClassID").val());
+                 }
+                 else if (index == 1) {
+                     $(this).text($("#ClassName").val());
+                 }
+                 else if (index == 2) {
+                     $(this).text($("#Sortno").val());
+                 }
+                 else {
+                     $(this).parent().bind("click", function () {
+
+                         ShowValue($(this).find("td").eq(0).text(), $(this).find("td").eq(1).text(), $(this).find("td").eq(2).text());
+                     })
+                     $(this).parent().css("cursor", "pointer");
+                     $(this).html("<button type=\"button\" name=\"Id\" class=\"btn btn-link\" onclick=\"deleteRow(this)\">删除</button>")
+                 }
+
              });
+         }
+
+         //校验数据
+
+         function validateRow(tableID) {
+             var ispass = $.fn.tables.validateRow(tableID);
+
+             if (!ispass) {
+                 layer.alert("还有必填项未填写！请继续完善后再保存!");
+             }
+
+         }
+
+
+
+         //取结果
+         function SaveClass() {
+             if (validateRow('tbClass')) {
+                 var relativesJob = $.fn.tables.getResult('tbClass');
+                 relativesJob = relativesJob.join('|');
+                 AjaxHandle({ actiontype: "SaveClass", selectMainClass: $("#selectMainClass").val(), data: relativesJob.toString() });
+
+             }
+             //这种写法也可取到
+             //var rowResult = $("#tbRelativesJob").tables.getResult('tbRelativesJob');
+             //alert(rowResult);
+
+
+         }
+
+         function bindData() {
+             $.fn.tables.bindData('tbRelativesJob', $("#hdRelatives").val());
          }
         //
     </script>
@@ -53,6 +148,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <input id="selectMainClass" name="selectMainClass" type="hidden" />
         <input type="button" value="保存" onclick="SaveMainClass()" />
         <table class="table table-editable" id="tbMainClass">
             <thead>
@@ -92,9 +188,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr >
+                <tr style="display:none;">
                     <td>
-                        <input name="Code" type="text" errormsg="必填" style="width: 100px" class="required" /></td>
+                        <input name="Code" type="text" style="width: 100px" class="required" /></td>
                     <td>
                         <input name="DictName" type="text" style="width: 100px" class="required" /></td>
                     <td>
@@ -107,99 +203,6 @@
         </table>
         <div class="table-toolbar"></div>
     </div>
-
-         <script type="text/javascript">
-  
-             var ee = 4;
-             var resultArray = new Array();
-             
-            
-             resultArray.push({ ClassID: "", ClassName: "", Sortno: "" });
-           
-             resultArray.push({ ClassID: "555", ClassName: "", Sortno: "" });
-           
-        //删除行
-        function deleteRow(obj) {                 
-           $.fn.tables.deleteRow(obj);
-        }
-
-        function deleteMainClassRow(obj)
-        {
-            AjaxHandle({ actiontype: "SaveMainClass", deleteKey: $(obj).parent().parent().find("input").eq(0).val() });
-        }
-
-        //增加行
-        function addTableRow(gridId) {
-            $.fn.tables.addRow(gridId);
-        }
-        function ShowValue(value1,value2,value3)
-        {
-           
-            $("#ClassID").val(value1);
-            $("#ClassName").val(value2);
-            $("#Sortno").val(value3);
-        }
-        function addMailClassTableRow(gridId)
-        {
-            $.fn.tables.addRow(gridId);
-            $("#" + gridId).find("tr").last().find("td").each(function (index, item) {
-              
-                if (index == 0)
-                {
-                   
-                    $(this).text($("#ClassID").val());
-                }
-                else if (index == 1)
-                {
-                    $(this).text($("#ClassName").val());
-                }
-                else if (index == 2) {
-                    $(this).text($("#Sortno").val());
-                }
-                else {
-                    $(this).parent().bind("click", function () {
-                       
-                        ShowValue($(this).find("td").eq(0).text(), $(this).find("td").eq(1).text(), $(this).find("td").eq(2).text());
-                    })
-                    $(this).parent().css("cursor", "pointer");
-                    $(this).html("<button type=\"button\" name=\"Id\" class=\"btn btn-link\" onclick=\"deleteRow(this)\">删除</button>")
-                }
-                
-            });
-        }
-
-        //校验数据
-
-        function validateRow()
-        {
-            var ispass = $.fn.tables.validateRow('tbClass');
-           
-            if (!ispass) {
-                layer.alert("还有必填项未填写！请继续完善后再保存!");
-            }
-
-        }
-
-        
-
-        //取结果
-        function SaveClass()
-        {
-            var relativesJob = $.fn.tables.getResult('tbClass');
-            relativesJob = relativesJob.join('|');
-            AjaxHandle({ actiontype: "SaveClass", data: relativesJob.toString() });
-            //这种写法也可取到
-            //var rowResult = $("#tbRelativesJob").tables.getResult('tbRelativesJob');
-            //alert(rowResult);
-
-            
-        }
-
-        function bindData()
-        {
-            $.fn.tables.bindData('tbRelativesJob', $("#hdRelatives").val());
-        }
-    </script>
     </form>
 </body>
 </html>

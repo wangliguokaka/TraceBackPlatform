@@ -9,13 +9,13 @@ namespace D2012.Domain.Entities
         /// 
         /// </summary>
         [Serializable]
-        [Table("Dict", "ClassID", false, false)]
-        public partial class ModelDict : BaseEntity
+        [Table("DictDetail", "ClassID", false, false)]
+        public partial class ModelDictDetail : BaseEntity
         {
-            public ModelDict()
+            public ModelDictDetail()
             { }
 
-            public static string STRTABLENAME = "Dict";
+            public static string STRTABLENAME = "DictDetail";
             public static string STRKEYNAME = "ClassID";
 
 
@@ -28,28 +28,34 @@ namespace D2012.Domain.Entities
             /// <summary>
             /// 
             /// </summary>
-            [Column("ClassName", DataType.Varchar, false, false)]
-            public string ClassName { set; get; }
+            [Column("Code", DataType.Varchar, true, false)]
+            public string Code { set; get; }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            [Column("DictName", DataType.Varchar, true, false)]
+            public string DictName { set; get; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("Sortno", DataType.Int, false, false)]
+            public int? SortNo { set; get; }
 
 
             /// <summary>
             /// 
             /// </summary>
-            [Column("Sortno", DataType.Int, false, false)]
-            public int? Sortno { set; get; }
-
-
-            /// <summary>
-            /// 
-            /// </summary>
-            [Column("UpdateTime", DataType.Datetime, false, false)]
-            public DateTime UpdateTime { set; get; }
+            [Column("OperTime", DataType.Datetime, false, false)]
+            public DateTime OperTime { set; get; }
 
             /// <summary>
             /// 
             /// </summary>
-            [Column("UpdateUser", DataType.Varchar, false, false)]
-            public string UpdateUser { set; get; }
+            [Column("oper", DataType.Varchar, false, false)]
+            public string oper { set; get; }
 
 
 
