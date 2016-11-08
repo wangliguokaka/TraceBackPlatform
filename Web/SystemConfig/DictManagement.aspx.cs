@@ -21,7 +21,7 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
         {
         }
         string type = Request["actiontype"];
-        if (type != null)
+         if (type != null)
         {
             if (type == "SaveMainClass")
             {

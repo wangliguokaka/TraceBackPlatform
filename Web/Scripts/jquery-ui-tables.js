@@ -206,6 +206,7 @@
         //返回结果为一个数组
         // var result = $("#<%=hd"+gridId+".ClientID %>").val();
         var jsons = $.parseJSON(tbResult);
+        
         if (jsons == null) {
             return;
         }
