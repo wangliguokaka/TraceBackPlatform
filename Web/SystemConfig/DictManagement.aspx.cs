@@ -42,12 +42,29 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
                         modelDict.Sortno = int.Parse(Sortno);
                         modelDict.UpdateTime = DateTime.Now;
                         modelDict.UpdateUser = "User1";
-
-                        servComm.Add(modelDict);
+                        if (servComm.ExecuteSqlDatatable("select ClassID from Dict where ClassID = '" + ClassID + "'").Rows.Count > 0)
+                        {
+                            servComm.Update(modelDict);
+                        }
+                        else
+                        {
+                            servComm.Add(modelDict);
+                        }
+                        
                     }
                 }
+                servComm.strOrderString = "Sortno";
+                List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0, "*", "Dict", null).ToList<ModelDict>();
+                var timeConvert = new IsoDateTimeConverter();
+                timeConvert.DateTimeFormat = "yyyy-MM-dd";
+                string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
+                Response.Write(responseJson);
+                Response.End();
 
 
+            }
+            else if (type == "GetMainClass")
+            {
                 servComm.strOrderString = "Sortno";
                 List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0, "*", "Dict", null).ToList<ModelDict>();
                 var timeConvert = new IsoDateTimeConverter();

@@ -22,8 +22,8 @@
             
          }
          $(document).ready(function () {
-             
-             AjaxHandle({ actiontype: "SaveMainClass" });
+             $("#ClassAdd").attr("disabled", "disabled");
+             AjaxHandle({ actiontype: "GetMainClass" });
              
          });
 
@@ -32,36 +32,43 @@
              $.ajax({
                  type: "post",
                  url: "DictManagement.aspx",
-
                  cache: false,
                  async: false,
                  data: paraData,
                  dataType: "text",
-                 success: function (data) {
+                 success: function (data)
+                 {
                      //用到这个方法的地方需要重写这个success方法
                      if (data == "DictDetail")
                      { 
                      } 
-                     else if (paraData.actiontype == "GetDetail") {
+                     else if (paraData.actiontype == "GetDetail")
+                     {
                          $("#tbClass tbody").find("tr").slice(1).remove();
                          $.fn.tables.bindData('tbClass', data);
                      }
-                     else {
+                     else
+                     {
                          $("#tbMainClass tbody").find("tr").slice(1).remove();
                          $.fn.tables.bindData('tbMainClass', data);
                      }
+                     
                  }
              });
-             if (paraData.actiontype == "SaveMainClass")
-             {
+             if (paraData.actiontype == "GetMainClass" || paraData.actiontype == "SaveMainClass") {
                  $("#tbMainClass tbody").find("tr").each(function () {
 
                      $(this).bind("click", function () {
+                         $("#ClassAdd").removeAttr("disabled");
                          $("#selectMainClass").val($(this).find("input").eq(0).val());
                          ShowValue($(this).find("input").eq(0).val(), $(this).find("input").eq(1).val(), $(this).find("input").eq(2).val());
-                         AjaxHandle({ actiontype: "GetDetail",selectMainClass:$("#selectMainClass").val(), })
+                         AjaxHandle({ actiontype: "GetDetail", selectMainClass: $("#selectMainClass").val(), })
                      })
                  });
+             }
+
+             if (paraData.actiontype == "SaveMainClass" || paraData.actiontype == "SaveClass") {
+                 layer.msg("操作完成！");
              }
             
          }
@@ -111,7 +118,7 @@
                  }
                  else {
                      $(this).parent().bind("click", function () {
-
+                         
                          ShowValue($(this).find("td").eq(0).text(), $(this).find("td").eq(1).text(), $(this).find("td").eq(2).text());
                      })
                      $(this).parent().css("cursor", "pointer");
@@ -173,7 +180,7 @@
                     <th>分类编码：</th>
                     <th>分类名称：</th>
                     <th>序号：</th>
-                    <th><a href="javascript:addMailClassTableRow('tbMainClass')" title="新增"><span class="icon icon-add">xinzeng</span></a></th>                      
+                    <th>操作</th>                      
                 </tr>
                 <tr>
                     <td><input id="ClassID" type="text"  style="width: 100px" class="required" /></td>
@@ -201,7 +208,7 @@
                     <th style="width:120px;">编码</th>
                     <th style="width:120px;">名称</th>
                     <th style="width:120px;">序号</th>                         
-                    <th><a href="javascript:addTableRow('tbClass')" title="新增"><span class="icon icon-add">xinzeng</span></a></th>
+                    <th><a id="ClassAdd" href="javascript:addTableRow('tbClass')" title="新增"><span class="icon icon-add">新增</span></a></th>
                 </tr>
             </thead>
             <tbody>
