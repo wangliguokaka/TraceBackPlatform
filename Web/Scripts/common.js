@@ -12,29 +12,32 @@
     $(".number").live('keyup', function () {
         onlyNumber(this);
     });
-
+    
     $(".detepickers").live("focus", function () {
+        
         $(this).datepicker({
             dateFormat: "yy-mm-dd",
             //showOn: "button", 
             //buttonImage: "images/calendar.png",
             //buttonImageOnly: true,
+            monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+
             changeYear: true,
             changeMonth: true,
             onSelect: function () {
                 $(this).removeClass("hasDatepicker");
-                $(this).attr("id", "");
+               // $(this).attr("id", "");
 
             },
             onClose: function () {
                 var errorMsg = "";
-                $(this).attr("id", "");
+               // $(this).attr("id", "");
                 $(this).removeClass("hasDatepicker");
 
-                if ($.trim($(this).val()) == "") {
-                    errorMsg = "日期为必填项!";
-                    $(this).addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
-                }
+                //if ($.trim($(this).val()) == "") {
+                //    errorMsg = "日期为必填项!";
+                //    $(this).addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
+                //}
                 if ($.trim($(this).val()) != "") {
                     var reg = /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/;
                     if ($(this).val().match(reg) == null) {

@@ -30,7 +30,7 @@ namespace D2012.Domain.Entities
         /// 
         /// </summary>
         [Column("SaleDate", DataType.Datetime, false, false)]
-        public DateTime SaleDate { set; get; }
+        public DateTime? SaleDate { set; get; }
 
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace D2012.Domain.Entities
         /// 
         /// </summary>
         [Column("BillDate", DataType.Datetime, false, false)]
-        public DateTime BillDate { set; get; }
+        public DateTime? BillDate { set; get; }
 
 
         /// <summary>
