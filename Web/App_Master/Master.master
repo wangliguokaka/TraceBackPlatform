@@ -98,10 +98,11 @@
      <header class="header header-positive border-b">
          <div class="navbar navbar-duomi navbar-static-top" role="navigation">
             <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/Admin/index.html" id="logo">新华历史信息追溯系统
-                </a>
-            </div>
+                <div class="navbar-header" style="margin-left:20%;" >
+                    <img class="navbar-brand" src="../Css/images/logo.png" /><a class="navbar-brand" href="#" style=" font-size:15px; font-family:'Microsoft YaHei'" id="logo">新&nbsp;华&nbsp;医&nbsp;疗&nbsp;订&nbsp;单&nbsp;信&nbsp;息&nbsp;追&nbsp;溯&nbsp;系&nbsp;统
+                    </a>
+                </div>
+                <div  style="color:white; margin-top:20px; float:right;  margin-right:20%;">&nbsp;<span class="glyphicon glyphicon-user"><i style="font-size:10px;">&nbsp;王立国</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="注销"><i style="font-size:10px;">&nbsp;注销</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-lock" title="密码修改"><i style="font-size:10px;">&nbsp;密码修改</i></span></div>
         </div>
         </div>
     </header>
