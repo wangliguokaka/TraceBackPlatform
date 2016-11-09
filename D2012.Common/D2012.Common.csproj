@@ -43,7 +43,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CPMCSProject\GeeStarPlatform\References\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -58,12 +63,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category\DBLogging.cs" />
+    <Compile Include="Category\EventLogging.cs" />
+    <Compile Include="Category\LoggingCategory.cs" />
+    <Compile Include="Category\TxtLogging.cs" />
     <Compile Include="comutility.cs" />
     <Compile Include="CacheHelper.cs" />
+    <Compile Include="ConfigHelper.cs" />
     <Compile Include="CookieHelper.cs" />
     <Compile Include="EncryptClass.cs" />
     <Compile Include="Json.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="LogHandler.cs" />
     <Compile Include="MetarnetRegex.cs" />
     <Compile Include="Pop3Exception.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

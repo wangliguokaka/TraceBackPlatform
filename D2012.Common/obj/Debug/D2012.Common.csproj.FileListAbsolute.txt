@@ -156,3 +156,8 @@ D:\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Domain.pdb
 D:\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.csprojResolveAssemblyReference.cache
 D:\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.dll
 D:\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.pdb
+D:\TraceBackPlatform\D2012.Common\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\TraceBackPlatform\D2012.Common\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\TraceBackPlatform\D2012.Common\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\TraceBackPlatform\D2012.Common\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\TraceBackPlatform\D2012.Common\bin\Debug\Microsoft.Practices.Unity.dll
