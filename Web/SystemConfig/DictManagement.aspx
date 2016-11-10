@@ -21,7 +21,8 @@
             }
             
          }
-         $(document).ready(function () {
+        $(document).ready(function () {
+            
              $("#ClassAdd").attr("disabled", "disabled");
              AjaxHandle({ actiontype: "GetMainClass" });
              
