@@ -5,28 +5,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  
-
+  
     <link href="../Css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../Css/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
-    <link href="../Css/layer.css" rel="stylesheet" />
+    
     <link href="../Css/style.css" rel="stylesheet" />
-    <link href="../Css/jBootsrapPage.css" rel="stylesheet" />
-
-
-    <%--<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>--%>
-    <script type="text/javascript" src="../Scripts/jquery-1.7.1.min.js"></script>
+    <link href="../Css/layer.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="../Scripts/jquery-1.8.0.min.js"></script>
     <script type="text/javascript"  src="../Scripts/jquery-ui-1.8.20.min.js"></script>
     <script type="text/javascript" src="../Scripts/common.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-tables.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../Scripts/layer.js"></script>
-    <script type="text/javascript" src="../Scripts/jBootstrapPage.js"></script>
-    
     <script type="text/javascript">
         $(function () {
             $("#splitLine").css("height",$(window).height() - 100);
-            
+            $("#menu1").click();
+            $("#menu1").parent().attr("class","active");
         })
         
 
@@ -122,20 +117,20 @@
              <div class="col-md-2" >
                  <div style="float:left; width:95%;">
                      <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
-                    <li class="active">
+                    <%--<li class="active">
                         <a href="#">
                             <i class="glyphicon glyphicon-th-large"></i>
                             首页 		
                         </a>
-                    </li>
+                    </li>--%>
                     <li>
-                        <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">
+                        <a href="#systemSetting" id="menu1" class="nav-header collapsed" data-toggle="collapse">
                             <i class="glyphicon glyphicon-cog"></i>
                             系统管理
                                <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                         </a>
                         <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px; background-color:rgba(245, 243, 243, 0.3)">
-                            <li><a href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+                            <li style="background-color:#7c7c7c;"><a href="#" ><i class="glyphicon glyphicon-user "></i>用户管理</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
