@@ -9,9 +9,9 @@
 
     <link href="../Css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../Css/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
-    
-    <link href="../Css/style.css" rel="stylesheet" />
     <link href="../Css/layer.css" rel="stylesheet" />
+    <link href="../Css/style.css" rel="stylesheet" />
+    <link href="../Css/jBootsrapPage.css" rel="stylesheet" />
 
 
     <%--<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>--%>
@@ -21,6 +21,8 @@
     <script type="text/javascript" src="../Scripts/jquery-ui-tables.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../Scripts/layer.js"></script>
+    <script type="text/javascript" src="../Scripts/jBootstrapPage.js"></script>
+    
     <script type="text/javascript">
         $(function () {
             $("#splitLine").css("height",$(window).height() - 100);

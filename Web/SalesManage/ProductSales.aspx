@@ -300,28 +300,28 @@
             <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">订货号<span class="red" >*</span></td>
-                <td><input type="text" id="orderid"  class="pro_input required" /></td>
+                <td><input type="text" id="orderid" maxlength="50"  class="pro_input required" /></td>
                 <td class="pro_tableTd">存货编码</td>
-                <td><input type="text" id="Bh" value="BM00069"  class="pro_input required" /></td>
+                <td><input type="text" id="Bh" value="" maxlength="50"   class="pro_input required" /></td>
                 <td class="pro_tableTd">销售数量<span class="red" >*</span></td>
-                <td><input type="text" id="Qty" class="pro_input required number" /></td>
+                <td><input type="text" id="Qty" maxlength="10" class="pro_input required number" /></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">防伪卡数量<span class="red" >*</span></td>
-                <td><input type="text" id="NoQty" class="pro_input required number" /></td>
+                <td><input type="text" id="NoQty" maxlength="10"  class="pro_input required number" /></td>
                 <td class="pro_tableTd">防伪卡开始号<span class="red" >*</span></td>
-                <td><input type="text" id="NoStart" class="pro_input required" /></td>
+                <td><input type="text" id="NoStart" maxlength="50"  class="pro_input required" /></td>
                   <td class="pro_tableTd">防伪卡结束号<span class="red" >*</span></td>
-                <td><input type="text" id="NoEnd" class="pro_input required" /></td>
+                <td><input type="text" id="NoEnd" maxlength="50"  class="pro_input required" /></td>
                 
               </tr>
               <tr>
                 <td class="pro_tableTd">粉料类型</td>
-                <td><input type="text" id="OClass" class="pro_input" /></td>
+                <td><input type="text" id="OClass" maxlength="10"  class="pro_input" /></td>
                 <td class="pro_tableTd">粉料批号</td>
-                <td><input type="text" id="ObatchNo" class="pro_input" /></td>
+                <td><input type="text" id="ObatchNo" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">生产批号<span class="red" >*</span></td>
-                <td><input type="text" id="BatchNo" class="pro_input required" /></td>
+                <td><input type="text" id="BatchNo" maxlength="50"  class="pro_input required" /></td>
                
               </tr>
               <tr>
@@ -330,28 +330,28 @@
                 <td class="pro_tableTd">检验日期</td>
                 <td><input type="text" id="TestDate" class="detepickers pro_input" /></td>
                 <td class="pro_tableTd">批次数量</td>
-                <td><input type="text" id="BtQty" class="pro_input number" /></td>
+                <td><input type="text" id="BtQty" maxlength="10"  class="pro_input number" /></td>
                
               </tr>
               <tr>
                 <td class="pro_tableTd">收缩比</td>
-                <td><input type="text" id="SRate" class="pro_input" /></td>
+                <td><input type="text" id="SRate" maxlength="10"  class="pro_input" /></td>
                 <td class="pro_tableTd">有效期</td>
                 <td><input type="text" id="Valid" class="pro_input" /></td>
                  <td class="pro_tableTd">货运单号</td>
-                <td><input type="text" id="DistriNo" class="pro_input" /></td>
+                <td><input type="text" id="DistriNo" maxlength="50"  class="pro_input" /></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">收货单位地址</td>
-                <td colspan="5"><input id="Addr" type="text" class="pro_input" /></td>
+                <td colspan="5"><input id="Addr" maxlength="100"  type="text" class="pro_input" /></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">联系人</td>
-                <td><input type="text" id="Receiver" class="pro_input" /></td>
+                <td><input type="text" id="Receiver" maxlength="20"  class="pro_input" /></td>
                 <td class="pro_tableTd">联系电话</td>
-                <td><input type="text" id="Tel" class="pro_input" /></td>
+                <td><input type="text" id="Tel" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">货运公司</td>
-                <td><input type="text" id="Distri" class="pro_input" /></td>
+                <td><input type="text" id="Distri" maxlength="100"  class="pro_input" /></td>
               </tr>
               <tr>
                 <td colspan="6" style="text-align:right;">

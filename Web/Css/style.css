@@ -144,6 +144,7 @@ em, i{
 	width:100%;
 	font-size:12px;
 	color:#333;
+	text-align:left;
 	}
 .pro_table td{
 	height:30px;
@@ -239,7 +240,7 @@ em, i{
 	color:#555;
 	text-decoration:underline
 	}
-div.pager{
+div.newpager{
     width:98%;
     height:30px;
     line-height:30px;
@@ -250,7 +251,7 @@ div.pager{
 	color:#555;
 	font-size:12px;
     }
-div.pager a{
+div.newpager a{
     color:#555;
     }
 input[type=checkbox].pro_checkbox{
@@ -279,21 +280,6 @@ input[type=checkbox].pro_checkbox{
     text-align:left;
 	width:10%;
     }
-
-
-.footer-btn{
-   background:#333;
-   color: white;
-   }
-
-.footer{
-    position:fixed;
-    width:100%;
-     clear:both;
-	bottom:0;
-	height:56px;
-	}
-
 /*********弹出层*************/
 .cd-popup-add,.cd-popup-edit{
     position:fixed;
@@ -373,3 +359,24 @@ input[type=checkbox].pro_checkbox{
 	width:50%;
 	left:25%;
 	}
+.footer-btn{
+   background:#333;
+   color: white;
+   }
+
+.footer{
+    position:fixed;
+    width:100%;
+     clear:both;
+	bottom:0;
+	height:56px;
+	}
+
+
+
+
+
+
+
+
+
