@@ -5,13 +5,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  
+  
+
     <link href="../Css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../Css/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
     
     <link href="../Css/style.css" rel="stylesheet" />
     <link href="../Css/layer.css" rel="stylesheet" />
-
+
+
     <script type="text/javascript" src="../Scripts/jquery-1.8.0.min.js"></script>
     <script type="text/javascript"  src="../Scripts/jquery-ui-1.8.20.min.js"></script>
     <script type="text/javascript" src="../Scripts/common.js"></script>
@@ -19,41 +21,86 @@
     <script type="text/javascript" src="../Scripts/layer.js"></script>
     <script type="text/javascript">
         $(function () {
-            $("#splitLine").css("height",$(window).height() - 100);
-            $("#menu1").click();
-            $("#menu1").parent().attr("class","active");
+            $(".col-md-10").css("height",$(window).height() - 100);
+            //$("#SalesMenu").click();
+            //$("#SalesMenu").parent().attr("class", "active");
+           
+            if (location.href.indexOf("ProductSales.aspx") > -1)
+            {
+                $("#ProductSales").attr("class", "active");
+                $("#ProductSales").parent().parent().find("a").eq(0).click();
+                $("#ProductSales").parent().parent().find("a span").eq(0).css("color","white");
+                $("#ProductSales").parent().parent().attr("class", "active");
+            }
+            else if (location.href.indexOf("ProductSalesList.aspx") > -1) {
+                $("#ProductSalesList").attr("class", "active");
+                $("#ProductSalesList").parent().parent().find("a").eq(0).click();
+                $("#ProductSalesList").parent().parent().find("a span").eq(0).css("color","white");
+                $("#ProductSalesList").parent().parent().attr("class", "active");
+            }
+            else {
+                $("#ProductSalesList").attr("class", "active");
+                $("#ProductSalesList").parent().parent().find("a").eq(0).click();
+                $("#ProductSalesList").parent().parent().find("a span").eq(0).css("color","white");
+                $("#ProductSalesList").parent().parent().attr("class", "active");
+            }
+           
+            $(".nav-header").each(function () {
+
+                $(this).bind("click", function () {
+                 $("ul").removeClass("in");
+                 //$(this).parent().find("ul").eq(0).("in");
+                   
+                  
+                })
+            }
+
+                );
         })
         
 
     </script>
     <style>
-        #main-nav {
+        html {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Microsoft Yahei', '微软雅黑', '宋体', \5b8b\4f53, Tahoma, Arial, Helvetica, STHeiti;
+            margin: 0;
+        }
+
+        .main-nav {
             margin-left: 1px;
         }
 
-            #main-nav.nav-tabs.nav-stacked > li > a {
-                padding: 10px 8px;
-                font-size: 12px;
-                font-weight: 600;
-                color: #4A515B;
-                background: #E9E9E9;
-                background: -moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FAFAFA), color-stop(100%,#E9E9E9));
-                background: -webkit-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
-                background: -o-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
-                background: -ms-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
-                background: linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
-                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
-                border: 1px solid #D5D5D5;
-                border-radius: 4px;
+            .main-nav.nav-tabs.nav-stacked > li {
             }
 
-                #main-nav.nav-tabs.nav-stacked > li > a > span {
+                .main-nav.nav-tabs.nav-stacked > li > a {
+                    padding: 10px 8px;
+                    font-size: 12px;
+                    font-weight: 600;
                     color: #4A515B;
+                    background: #E9E9E9;
+                    background: -moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FAFAFA), color-stop(100%,#E9E9E9));
+                    background: -webkit-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+                    background: -o-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+                    background: -ms-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+                    background: linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+                    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+                    border: 1px solid #D5D5D5;
+                    border-radius: 4px;
                 }
 
-                #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover {
+                    .main-nav.nav-tabs.nav-stacked > li > a > span {
+                        color: #4A515B;
+                    }
+
+                .main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover {
                     color: #FFF;
                     background: #3C4049;
                     background: -moz-linear-gradient(top, #4A515B 0%, #3C4049 100%);
@@ -71,16 +118,78 @@
                         color: #FFF;
                     }
 
-            #main-nav.nav-tabs.nav-stacked > li {
+            .main-nav.nav-tabs.nav-stacked > li {
                 margin-bottom: 4px;
             }
 
-        /*定义二级菜单样式*/
+        .nav-header.collapsed > span.glyphicon-chevron-toggle:before {
+            content: "\e114";
+        }
+
+        .nav-header > span.glyphicon-chevron-toggle:before {
+            content: "\e113";
+        }
+
+        footer.duomi-page-footer {
+            background-color: white;
+        }
+
+            footer.duomi-page-footer .beta-message {
+                color: #a4a4a4;
+            }
+
+                footer.duomi-page-footer .beta-message a {
+                    color: #53a2e4;
+                }
+
+            footer.duomi-page-footer .list-inline a, footer.authenticated-footer .list-inline li {
+                color: #a4a4a4;
+                padding-bottom: 30px;
+            }
+
+
+
+
+        footer.duomi-page-footer {
+            background-color: white;
+        }
+
+            footer.duomi-page-footer .beta-message {
+                color: #a4a4a4;
+            }
+
+                footer.duomi-page-footer .beta-message a {
+                    color: #53a2e4;
+                }
+
+            footer.duomi-page-footer .list-inline a, footer.authenticated-footer .list-inline li {
+                color: #a4a4a4;
+                padding-bottom: 30px;
+            }
+
+        /*********************************************自定义部分*********************************************/
         .secondmenu a {
-            font-size: 10px;
+            font-size: 12px;
             color: #4A515B;
             text-align: center;
+            border-radius: 4px;
         }
+
+        .secondmenu > li > a:hover {
+            background-color: #6f7782;
+            border-color: #428bca;
+            color: #fff;
+        }
+
+        .secondmenu li.active {
+            background-color: #6f7782;
+            border-color: #428bca;
+            border-radius: 4px;
+        }
+
+            .secondmenu li.active > a {
+                color: #ffffff;
+            }
 
         .navbar-static-top {
             background-color: #212121;
@@ -94,7 +203,21 @@
             padding-left: 50px;
             color: #fff;
         }
+
+            .navbar-brand:hover {
+                color: #fff;
+            }
+
+
+        .collapse.glyphicon-chevron-toggle, .glyphicon-chevron-toggle:before {
+            content: "\e113";
+        }
+
+        .collapsed.glyphicon-chevron-toggle:before {
+            content: "\e114";
+        }
     </style>
+
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -114,79 +237,83 @@
         </div>
     </header>
     
-             <div class="col-md-2" >
-                 <div style="float:left; width:95%;">
-                     <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
-                    <%--<li class="active">
+          <div class="col-md-2">
+              
+                <ul id="main-nav" class="main-nav nav nav-tabs nav-stacked" style="">
+                   <%-- <li>
                         <a href="#">
                             <i class="glyphicon glyphicon-th-large"></i>
                             首页 		
                         </a>
                     </li>--%>
-                    <li>
-                        <a href="#systemSetting" id="menu1" class="nav-header collapsed" data-toggle="collapse">
+                    <li >
+                        <a href="#systemSetting" class="nav-header collapsed  " data-toggle="collapse">
                             <i class="glyphicon glyphicon-cog"></i>
                             系统管理
-                               <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                            
+                            <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                         </a>
-                        <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px; background-color:rgba(245, 243, 243, 0.3)">
-                            <li style="background-color:#7c7c7c;"><a href="#" ><i class="glyphicon glyphicon-user "></i>用户管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
+                        <ul id="systemSetting" class="nav nav-list secondmenu collapse" style="height: 0px;">
+                            <li id="ProductSales"><a href="../SalesManage/ProductSales.aspx"><i class="glyphicon glyphicon-user"></i>&nbsp;产品销售</a></li>
+                            <li id="ProductSalesList1"><a href="../SalesManage/ProductSalesList.aspx"><i class="glyphicon glyphicon-th-list"></i>&nbsp;产品销售查询</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>&nbsp;角色管理</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#wuliao" class="nav-header collapsed" data-toggle="collapse">
+                        <a href="#configSetting" class="nav-header collapsed" data-toggle="collapse">
                             <i class="glyphicon glyphicon-credit-card"></i>
-                            物料管理
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                            配置管理	
+                                   <span class="pull-right glyphicon  glyphicon-chevron-toggle"></span>
                         </a>
-                        <ul id="wuliao" class="nav nav-list collapse secondmenu" style="height: 0px;background-color:rgba(245, 243, 243, 0.3)">
-                            <li><a href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
+                        <ul id="configSetting" class="nav nav-list secondmenu collapse ">
+                            <li><a href="#"><i class="glyphicon glyphicon-globe"></i>&nbsp;全局缺省配置</a></li>
+                            <li id="ProductSalesList"><a href="../SalesManage/ProductSalesList.aspx"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;未开通用户配置</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-star"></i>&nbsp;退订用户配置</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-text-width"></i>&nbsp;试用用户配置</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;开通用户配置</a></li>
                         </ul>
                     </li>
 
                     <li>
-                        <a href="#wuliao1" class="nav-header collapsed" data-toggle="collapse">
+                        <a href="#disSetting" class="nav-header collapsed" data-toggle="collapse">
                             <i class="glyphicon glyphicon-globe"></i>
                             分发配置
-                            <span class="label label-warning pull-right">5</span>
+							 <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                         </a>
-                        <ul id="wuliao1" class="nav nav-list collapse secondmenu" style="height: 0px;background-color:rgba(245, 243, 243, 0.3)">
-                            <li><a href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
+                        <ul id="disSetting" class="nav nav-list secondmenu collapse">
+                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>&nbsp;分发包配置</a></li>
                         </ul>
                     </li>
 
                     <li>
-                        <a href="./charts.html">
-                            <i class="glyphicon glyphicon-calendar"></i>
-                            图表统计
+                        <a href="#dicSetting" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="glyphicon glyphicon-bold"></i>
+                            字典配置
+                            <span class="pull-right glyphicon glyphicon-chevron-toggle" ></span>
                         </a>
+                        <ul id="dicSetting" class="nav nav-list secondmenu collapse">
+                            <li><a href="#"><i class="glyphicon glyphicon-text-width"></i>&nbsp;关键字配置</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#">
                             <i class="glyphicon glyphicon-fire"></i>
                             关于系统
+                            <span class="badge pull-right">1</span>
                         </a>
                     </li>
 
                 </ul>
-                 </div>
-                 <div id="splitLine" style="float:right;border-width:1px;  border-left-style:solid; height:500px; border-color:#D5D5D5">&nbsp;</div>
-            </div>
-           
-           <div class="col-md-10">             
+              
+            </div>           
+           <div class="col-md-10" style=" border-left-style:solid; border-width:1px;border-color:#D5D5D5">       
+               <%--<div id="splitLine" style="float:left;border-width:0px; ">&nbsp;</div>--%>
+
+               <%--<div style="float:left; width:96%; margin-left:20px;">--%>
                  <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+               <%--</div>--%>      
             </div>
        
 
@@ -196,7 +323,7 @@
                  版权所有：山东新华医疗器械股份有限公司　　ICP备案号：鲁ICP备07005707号-1　互联网药品信息服务资格证书编号：（鲁）-非经营性-2016-0001
             </div>
         </footer>
-    </div>
+
     </form>
 </body>
 </html>
