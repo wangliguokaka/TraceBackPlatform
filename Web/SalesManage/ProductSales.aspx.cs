@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TraceBackPlatform.AppCode;
 
 public partial class SalesManage_ProductSales : System.Web.UI.Page
 {
@@ -30,15 +31,40 @@ public partial class SalesManage_ProductSales : System.Web.UI.Page
                 modelSale.BillClass = Request["BillClass"];
                 modelSale.Reg = "User1";
                 modelSale.RegTime = DateTime.Now;
-                identityID = servComm.Add(modelSale);
-                Response.Write(identityID);
-                Response.End();
+                if (String.IsNullOrEmpty(Request["Id"]))
+                {
+                    identityID = servComm.Add(modelSale);
+                }
+                else
+                {
+                    identityID = int.Parse(Request["Id"]);
+                    modelSale.Id = identityID;
+                    int result = servComm.Update(modelSale);
+                    
+                }
+                string jsonResult = Request["SalesDetail"];
+                jsonResult = jsonResult.Replace("[", "").Replace("]", "").Replace("},{", "}|{").Replace("\"Id\":\"\"", "\"Id\":" + identityID.ToString());
+                List<ModelSaleDetail> listModel = Utility.ConvertJsonToEntity<ModelSaleDetail>(jsonResult.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries));
+
+                servComm.ExecuteSql(" delete from SaleDetail where ID = '" + identityID + "'");
+                int serialIndex = 0;
+                foreach (ModelSaleDetail modelDetail in listModel)
+                {
+                    serialIndex = serialIndex+1;
+                    modelDetail.Serial = serialIndex;
+                    servComm.Add(modelDetail);
+                }
             }
             catch (Exception ex)
             {
-                Response.Write(identityID);
+                Response.Write(0);
                 Response.End();
-            }          
+            } 
+
+            Response.Write(identityID);
+            Response.End();
+           
+                     
            
         }
        

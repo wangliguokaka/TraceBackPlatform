@@ -27,31 +27,123 @@
              "NoEnd": "",
              "NoQty": ""
          }
-        arr.Id = 1;
+        var detailCount = 0;
 
-        json.push($.extend(true, {}, arr))
+        var arrayCheck = new Array();
 
-        arr.Id = 2;
-        json.push($.extend(true, {}, arr))
+        function EditDetail(obj,SerialIndex)
+        {
+            arrayCheck = new Array();
+            $("#gridDetail tbody input[type='checkbox']:checked").each(function ()
+            {
+              
+                arrayCheck.push($(this).val());
+            })
+           
+            if ($(obj).attr("checked") == "checked")
+            {
+                $("#Serial").val(SerialIndex);
+                var arrSelect = $.map(json, function (value) {
+                    return value.Serial == SerialIndex ? value : null;//isNaN:is Not a Number的缩写 
+                }
+                );
+                $.each(arrSelect[0], function (i, n) {
+                    $("#" + i).val(arrSelect[0][i]);
+                });
+            }          
 
-        var values = $.map(json, function (value) {
-            return value.Id == 2 ? value : null;//isNaN:is Not a Number的缩写 
         }
-        );
-        values[0].Id = 3
+
+        function SelectAll(obj)
+        {
+            $("#gridDetail tbody input[type='checkbox']").each(function () {
+
+                $(obj).attr("checked") == "checked"?$(this).attr("checked", "checked"):$(this).removeAttr("checked");
+            })
+        }
+
+        function DeleteDetail()
+        {
+            if (arrayCheck.length == 0)
+            {
+                layer.msg("请选择要删除的记录");
+                return false;
+            }
+            $(arrayCheck).each(function (i, n) {
+                var index = json.map(function (d) { return d['Serial']; }).indexOf(n);
+                json.splice(index, 1);
+            })
+            
+            BindGrid();
+        }
+
+        function SaveOrderDetail()
+        {
+            if (validateRow('gridLayer', 0) == false) {
+                return false;
+            }
+            if ($("#Serial").val() == "-1") {
+                detailCount = detailCount + 1;
+                $("#Serial").val(detailCount);
+
+                $.each(arr, function (i, n) {
+                    arr[i] = $("#" + i).val();
+                });
+
+                json.push($.extend(true, {}, arr))
+            }
+            else {
+                var arrEdit = $.map(json, function (value) {
+                    return value.Serial == $("#Serial").val() ? value : null;//isNaN:is Not a Number的缩写 
+                }
+                );
+                $.each(arrEdit[0], function (i, n) {
+                    arrEdit[0][i] = $("#" + i).val();
+                });
+            }
+            BindGrid();
+            $('.cd-popup-add').removeClass('is-visible');
+            
+        }
+       
+        function BindGrid()
+        {
+            $("#gridDetail tbody").empty();
+            var trHtml = $("#gridDetail tbody").find("tr").eq(0).html();
+            //遍历行结果
+            for (var i = 0; i < json.length; i++) {
+                //var trnum = $("#" + gridId + " tbody").find("tr").slice(0).length - 1;
+                //if (i > trnum) {
 
 
-        json.splice(1, 1);
+                //遍历行中每一列的key 
+
+                var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"EditDetail(this," + json[i]["Serial"] + ")\" value=\"" + json[i]["Serial"] + "\" /></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["orderid"] + "</td><td>" + json[i]["Qty"] + "</td><td>" + json[i]["OClass"] + "</td><td>" + json[i]["BatchNo"] + "</td><td>" + json[i]["ProdDate"] + "</td></tr>";
+
+                $("#gridDetail tbody").append(trHtml);
+            }
+        }
 
         function SaveSales()
         {
+            if (validateRow('girdSales', 0) == false)
+            {
+                return false;
+            }
+            if (json.length == 0)
+            {
+                layer.msg("订单销售明细不能为空！");
+                return false;
+            }
             $.ajax({
                 type: "post",
                 url: "ProductSales.aspx",
                 cache: false,
                 async: false,
-                data: {actiontype: "SaveSales", SaleDate: $("#SaleDate").val(), Seller: $("#Seller").val(), Salesperson: $("#Salesperson").val()
-                , BillDate: $("#BillDate").val(), BillNo: $("#BillNo").val(), BillClass: $("#BillClass").val()},
+                data: {
+                    actiontype: "SaveSales", Id: $("#Id").val(), SaleDate: $("#SaleDate").val(), Seller: $("#Seller").val(), Salesperson: $("#Salesperson").val()
+                , BillDate: $("#BillDate").val(), BillNo: $("#BillNo").val(), BillClass: $("#BillClass").val(), SalesDetail: JSON.stringify(json)
+                },
                 dataType: "text",
                 success: function (data) {
                     //用到这个方法的地方需要重写这个success方法
@@ -61,105 +153,218 @@
                     }
                     else
                     {
+                        $("#Id").val(data);
                         layer.msg("保存成功！");
                     }
-
                 }
             });
+            
         }
+
+        function validateRow(tableID, sliceIndex) {
+            var ispass = $.fn.tables.validateRow(tableID, sliceIndex);
+
+            if (!ispass) {
+                layer.alert("还有必填项未填写！请继续完善后再保存!");
+            }
+
+            return ispass;
+
+        }
+
+        $(function ()
+        {
+
+            //打开窗口
+            $('.cd-popup-addbtn').on('click', function (event) {
+                $("#Serial").val(-1);
+                event.preventDefault();
+                $('.cd-popup-add').addClass('is-visible');
+            });
+            
+            //关闭窗口
+            $('.cd-popup-add').on('click', function (event) {
+                if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup-add')) {
+                    event.preventDefault();
+                    $(this).removeClass('is-visible');
+                }
+            });
+            //ESC关闭
+            $(document).keyup(function (event) {
+                if (event.which == '27') {
+                    $('.cd-popup-add').removeClass('is-visible');
+                }
+            });
+
+            //打开窗口
+            $('.cd-popup-editbtn').on('click', function (event) {
+                if (arrayCheck.length == 0)
+                {
+                    layer.msg("请选择订单进行编辑！");
+                    return false;
+                }
+                else if (arrayCheck.length > 1)
+                {
+                    layer.msg("只能选择一条订单进行编辑！");
+                    return false;
+                }
+                event.preventDefault();
+                $('.cd-popup-add').addClass('is-visible');
+            });
+            //关闭窗口
+            $('.cd-popup-add').on('click', function (event) {
+                if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup-edit')) {
+                    event.preventDefault();
+                    $(this).removeClass('is-visible');
+                }
+            });
+            //ESC关闭
+            $(document).keyup(function (event) {
+                if (event.which == '27') {
+                    $('.cd-popup-add').removeClass('is-visible');
+                }
+            });
+        })
         
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div  >
-    <div class="box" >
-      <div class="title" >销售信息</div>
-      <div class="divWidth" >
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
-          <tr>
-            <td class="pro_tableTd">经销商<span class="red" >*</span></td>
-            <td><input type="text" id="Seller" class="pro_input" /></td>
-            <td class="pro_tableTd">业务员</td>
-            <td><input type="text" id="Salesperson" class="pro_input" /></td>
-            <td class="pro_tableTd">发货日期<span class="red" >*</span></td>
-            <td><input type="text" id="SaleDate"  class="detepickers pro_input" /></td>
-          </tr>
-          <tr>
-            <td class="pro_tableTd">发票号</td>
-            <td><input type="text" id="BillNo" class="pro_input" /></td>
-            <td class="pro_tableTd">发票类型</td>
-            <td><select class="pro_select" id="BillClass" ><option >类型1</option><option >类型2</option></select></td>
-            <td class="pro_tableTd">开票日期</td>
-            <td><input type="text" id="BillDate" class="detepickers pro_input" /></td>
-          </tr>
-          <tr>
-            <td colspan="6" style="text-align:right;">
-              <button class="ui-button" type="button" onclick="SaveSales()">保存</button>
-              <button class="ui-button">新增订单</button>
-              <button class="ui-button">编辑订单</button>
-              <button class="ui-button">删除订单</button>
-            </td>
-          </tr>
-        </table>   
-      </div>
-      <!--divWidth  end-->
-      <div class="clear" ></div>
-    </div>
-    <!--box  end-->
-    <%--<div class="save" ><button class="ui-button">保存</button></div>--%>
-    <div class="divWidth1" >
-      <div class="divTable" >
-        <table style="width:100%;" border="0"  class="pro_table1">
-          <tr>
-            <th><input type="checkbox" class="pro_checkbox" ></th>
-            <th>存货编码</th>
-            <th>订货号</th>
-            <th>销售数量</th>
-            <th>材料类型</th>
-            <th>生产批号</th>
-            <th>生产日期</th>
-          </tr>
-          <tr>
-            <td><input type="checkbox" class="pro_checkbox" ></td>
-            <td>BM001</td>
-            <td>DD001</td>
-            <td>5</td>
-            <td>类型1</td>
-            <td>SCPH0001</td>
-            <td>2016/12/30</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" class="pro_checkbox" ></td>
-            <td>BM001</td>
-            <td>DD001</td>
-            <td>5</td>
-            <td>类型1</td>
-            <td>SCPH0001</td>
-            <td>2016/12/30</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" class="pro_checkbox" ></td>
-            <td>BM001</td>
-            <td>DD001</td>
-            <td>5</td>
-            <td>类型1</td>
-            <td>SCPH0001</td>
-            <td>2016/12/30</td>
-          </tr>
-            <tr>
-            <td><input type="checkbox" class="pro_checkbox" ></td>
-            <td>BM001</td>
-            <td>DD001</td>
-            <td>5</td>
-            <td>类型1</td>
-            <td>SCPH0001</td>
-            <td>2016/12/30</td>
-          </tr>
-          
-        </table>
-      </div>      
+        <input type="hidden" id="Id" />
+        <input type="hidden" id="Serial" value="-1" />
+        <div class="box" >
+          <div class="title" >销售信息</div>
+          <div class="divWidth" >
+            <table width="100%" id="girdSales"  border="0" cellspacing="0" cellpadding="0" class="pro_table">
+              <tr>
+                <td class="pro_tableTd">经销商<span class="red" >*</span></td>
+                <td><input type="text" id="Seller" class="pro_input required" /></td>
+                <td class="pro_tableTd">业务员</td>
+                <td><input type="text" id="Salesperson" class="pro_input" /></td>
+                <td class="pro_tableTd">发货日期<span class="red" >*</span></td>
+                <td><input type="text" id="SaleDate"  class="detepickers pro_input required" /></td>
+              </tr>
+              <tr>
+                <td class="pro_tableTd">发票号</td>
+                <td><input type="text" id="BillNo" class="pro_input" /></td>
+                <td class="pro_tableTd">发票类型</td>
+                <td><select class="pro_select" id="BillClass" ><option >类型1</option><option >类型2</option></select></td>
+                <td class="pro_tableTd">开票日期</td>
+                <td><input type="text" id="BillDate" class="detepickers pro_input" /></td>
+              </tr>
+              <tr>
+                <td colspan="6" style="text-align:right;">
+                    <button class="ui-button" type="button" onclick="SaveSales()">保存</button>
+                    <button type="button" class="ui-button cd-popup-addbtn">新增订单</button>
+                    <button type="button" class="ui-button cd-popup-editbtn">编辑订单</button>
+                    <button type="button" class="ui-button" onclick="DeleteDetail()">删除订单</button>
+                </td>
+              </tr>
+            </table>   
+          </div>
+          <!--divWidth  end-->
+          <div class="clear" ></div>
+        </div>
+        <!--box  end-->
+        <%--<div class="save" ><button class="ui-button">保存</button></div>--%>
+        <div class="divWidth1" >
+          <div class="divTable" >
+            <table style="width:100%;" border="0" id="gridDetail"  class="pro_table1">
+              <thead>
+                    <tr>
+                        <th><input type="checkbox"  class="pro_checkbox" onclick="SelectAll(this)" /></th>
+                        <th>存货编码</th>
+                        <th>订货号</th>
+                        <th>销售数量</th>
+                        <th>材料类型</th>
+                        <th>生产批号</th>
+                        <th>生产日期</th>
+                    </tr>
+                </thead>
+              
+              <tbody>
+
+              </tbody>
+                    
+            </table>
+          </div>      
       <!--pager  end-->
     </div>
     <div class="clear" ></div>
   </div>
+    <div class="cd-popup-add">
+    <div class="cd-popup-container">
+        <div class="box" >
+          <div class="title" >订单详细</div>
+          <div class="divWidth" >
+            <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
+              <tr>
+                <td class="pro_tableTd">订货号<span class="red" >*</span></td>
+                <td><input type="text" id="orderid"  class="pro_input required" /></td>
+                <td class="pro_tableTd">存货编码</td>
+                <td><input type="text" id="Bh" value="BM00069"  class="pro_input required" /></td>
+                <td class="pro_tableTd">销售数量<span class="red" >*</span></td>
+                <td><input type="text" id="Qty" class="pro_input required number" /></td>
+              </tr>
+              <tr>
+                <td class="pro_tableTd">防伪卡数量<span class="red" >*</span></td>
+                <td><input type="text" id="NoQty" class="pro_input required number" /></td>
+                <td class="pro_tableTd">防伪卡开始号<span class="red" >*</span></td>
+                <td><input type="text" id="NoStart" class="pro_input required" /></td>
+                  <td class="pro_tableTd">防伪卡结束号<span class="red" >*</span></td>
+                <td><input type="text" id="NoEnd" class="pro_input required" /></td>
+                
+              </tr>
+              <tr>
+                <td class="pro_tableTd">粉料类型</td>
+                <td><input type="text" id="OClass" class="pro_input" /></td>
+                <td class="pro_tableTd">粉料批号</td>
+                <td><input type="text" id="ObatchNo" class="pro_input" /></td>
+                <td class="pro_tableTd">生产批号<span class="red" >*</span></td>
+                <td><input type="text" id="BatchNo" class="pro_input required" /></td>
+               
+              </tr>
+              <tr>
+                 <td class="pro_tableTd">生产日期<span class="red" >*</span></td>
+                <td><input type="text" id="ProdDate" class="detepickers pro_input required" /></td>
+                <td class="pro_tableTd">检验日期</td>
+                <td><input type="text" id="TestDate" class="detepickers pro_input" /></td>
+                <td class="pro_tableTd">批次数量</td>
+                <td><input type="text" id="BtQty" class="pro_input number" /></td>
+               
+              </tr>
+              <tr>
+                <td class="pro_tableTd">收缩比</td>
+                <td><input type="text" id="SRate" class="pro_input" /></td>
+                <td class="pro_tableTd">有效期</td>
+                <td><input type="text" id="Valid" class="pro_input" /></td>
+                 <td class="pro_tableTd">货运单号</td>
+                <td><input type="text" id="DistriNo" class="pro_input" /></td>
+              </tr>
+              <tr>
+                <td class="pro_tableTd">收货单位地址</td>
+                <td colspan="5"><input id="Addr" type="text" class="pro_input" /></td>
+              </tr>
+              <tr>
+                <td class="pro_tableTd">联系人</td>
+                <td><input type="text" id="Receiver" class="pro_input" /></td>
+                <td class="pro_tableTd">联系电话</td>
+                <td><input type="text" id="Tel" class="pro_input" /></td>
+                <td class="pro_tableTd">货运公司</td>
+                <td><input type="text" id="Distri" class="pro_input" /></td>
+              </tr>
+              <tr>
+                <td colspan="6" style="text-align:right;">
+                  <button type="button" onclick="SaveOrderDetail()" class="ui-button">保存</button>
+                </td>
+              </tr>
+            </table>   
+          </div>
+          <!--divWidth  end-->
+          <div class="clear" ></div>
+        </div>
+        <!--box  end-->
+        <a href="#0" class="cd-popup-close">关闭</a>
+    </div>
+</div>
 </asp:Content>

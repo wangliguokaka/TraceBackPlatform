@@ -56,25 +56,25 @@
             return;
         }
 
-        var errorMsg = "此字段为必填项";
-        switch ($(this).attr("type")) {
-            case "text":
-                if ($(this).attr("errormsg") != undefined) {
-                    errorMsg = $(this).attr("errormsg");
-                }
-                break;
-            case "select":
-                var sval = $(this).find("option:selected").val();
-                if (sval === "-1") {
-                    if ($(this).attr("errormsg") != undefined) {
-                        errorMsg = $(this).attr("errormsg");
-                    }
-                }
-                break;
-            default:
-        }
+        //var errorMsg = "此字段为必填项";
+        //switch ($(this).attr("type")) {
+        //    case "text":
+        //        if ($(this).attr("errormsg") != undefined) {
+        //            errorMsg = $(this).attr("errormsg");
+        //        }
+        //        break;
+        //    case "select":
+        //        var sval = $(this).find("option:selected").val();
+        //        if (sval === "-1") {
+        //            if ($(this).attr("errormsg") != undefined) {
+        //                errorMsg = $(this).attr("errormsg");
+        //            }
+        //        }
+        //        break;
+        //    default:
+        //}
 
-        $(this).addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
+        //$(this).addClass('error').after("<span class='help-block text-error'>" + errorMsg + "</span>");
 
     });
 
@@ -190,7 +190,7 @@ function addTableRow(objId) {
 }
 
 //控制只能输入数字
-function onlyNumber(obj) {
+function onlyDecimal(obj) {
     if (obj.value.length > 20) {
         obj.value = obj.value.substring(0, 20);
     }
@@ -198,6 +198,14 @@ function onlyNumber(obj) {
     obj.value = obj.value.replace(/^\./g, "");
     obj.value = obj.value.replace(/\.{2,}/g, ".");
     obj.value = obj.value.replace(".", "$#$").replace(/\.replace/g, "").replace("$#$", ".");
+}
+
+function onlyNumber(obj) {
+    if (obj.value.length > 20) {
+        obj.value = obj.value.substring(0, 20);
+    }
+ 
+    obj.value = obj.value.replace(/[^\d]/g, '');
 }
 
 //验证是否为数字

@@ -24,7 +24,7 @@ namespace D2012.Domain.Entities
             /// <summary>
             /// 
             /// </summary>
-            [Column("Id", DataType.Int, true, true)]
+            [Column("Id", DataType.Int, false, false)]
             public int Id { set; get; }
 
 
@@ -53,7 +53,7 @@ namespace D2012.Domain.Entities
             /// 
             /// </summary>
             [Column("Qty", DataType.Int, false, false)]
-            public int Qty { set; get; }
+            public int? Qty { set; get; }
 
 
             /// <summary>
@@ -81,28 +81,28 @@ namespace D2012.Domain.Entities
             /// 
             /// </summary>
             [Column("ProdDate", DataType.Datetime, false, false)]
-            public DateTime ProdDate { set; get; }
+            public DateTime? ProdDate { set; get; }
 
 
             /// <summary>
             /// 
             /// </summary>
             [Column("TestDate", DataType.Datetime, false, false)]
-            public DateTime TestDate { set; get; }
+            public DateTime? TestDate { set; get; }
 
 
             /// <summary>
             /// 
             /// </summary>
             [Column("BtQty", DataType.Int, false, false)]
-            public int BtQty { set; get; }
+            public int? BtQty { set; get; }
 
 
             /// <summary>
             /// 
             /// </summary>
             [Column("SRate", DataType.Decimal, false, false)]
-            public decimal SRate { set; get; }
+            public decimal? SRate { set; get; }
 
             /// <summary>
             /// 
@@ -167,7 +167,7 @@ namespace D2012.Domain.Entities
             /// 
             /// </summary>
             [Column("NoQty", DataType.Int, false, false)]
-            public int NoQty { set; get; }
+            public int? NoQty { set; get; }
 
             #endregion SaleDetail
 
