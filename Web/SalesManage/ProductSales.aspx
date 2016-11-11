@@ -174,7 +174,7 @@
 
         $(function ()
         {
-
+            $(".detepickers").attr("readonly", "readonly");
             //打开窗口
             $('.cd-popup-addbtn').on('click', function (event) {
                 $("#Serial").val(-1);
@@ -248,7 +248,11 @@
                 <td class="pro_tableTd">发票号</td>
                 <td><input type="text" id="BillNo" class="pro_input" /></td>
                 <td class="pro_tableTd">发票类型</td>
-                <td><select class="pro_select" id="BillClass" ><option >类型1</option><option >类型2</option></select></td>
+                <td><select class="pro_select" id="BillClass" >
+                    <%foreach(ModelDict model in listDictType){ %>
+                        <option value="<%=model.ClassID %>" ><%=model.ClassName %></option>
+                    <%} %>
+                    </select></td>
                 <td class="pro_tableTd">开票日期</td>
                 <td><input type="text" id="BillDate" class="detepickers pro_input" /></td>
               </tr>
@@ -301,7 +305,7 @@
               <tr>
                 <td class="pro_tableTd">订货号<span class="red" >*</span></td>
                 <td><input type="text" id="orderid" maxlength="50"  class="pro_input required" /></td>
-                <td class="pro_tableTd">存货编码</td>
+                <td class="pro_tableTd">存货编码<span class="red" >*</span></td>
                 <td><input type="text" id="Bh" value="" maxlength="50"   class="pro_input required" /></td>
                 <td class="pro_tableTd">销售数量<span class="red" >*</span></td>
                 <td><input type="text" id="Qty" maxlength="10" class="pro_input required number" /></td>

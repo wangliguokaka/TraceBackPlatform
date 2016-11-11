@@ -41,50 +41,6 @@ public class PageBase : System.Web.UI.Page
     }
 
 
-    //获取微信凭证access_token的接口
-    public static string getAccessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
-    #region 获取微信凭证
-    public string GetAccessToken(string appid,string APPSECRET)
-    {
-        string accessToken = "";
-        //获取配置信息Datatable
-
-
-
-        string respText = "";
-        //获取appid和appsercret
-
-        //获取josn数据
-        string url = string.Format(getAccessTokenUrl, appid, APPSECRET);
-
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-        using (Stream resStream = response.GetResponseStream())
-        {
-            StreamReader reader = new StreamReader(resStream, Encoding.Default);
-            respText = reader.ReadToEnd();
-            resStream.Close();
-        }
-        JavaScriptSerializer Jss = new JavaScriptSerializer();
-        Dictionary<string, object> respDic = (Dictionary<string, object>)Jss.DeserializeObject(respText);
-        //通过键access_token获取值
-        try
-        {
-            accessToken = respDic["access_token"].ToString();
-        }
-        catch (Exception ex)
-        {
-        }
-
-
-        return accessToken;
-    }
-
-    #endregion 获取微信凭证
-
-   
-
     public int CurrentUserID
     {
        
@@ -198,26 +154,26 @@ public class PageBase : System.Web.UI.Page
     /// <param name="e"></param>
     protected void Page_PreLoad(object sender, EventArgs e)
     {
-        if (Request.RawUrl.Contains("Weixinclient"))
-        {
-            Session["FromWeixin"] = "1";
-        }
-        if (Session["UserName"] == null && !Request.RawUrl.Contains("WXLogin.aspx") && Request.RawUrl.Contains("GeestarWeixinclient"))
-        {
-            Response.Write("<script>top.location='/Weixinclient/WXLogin.aspx'</script>");
-            Response.End();
-        }
-        else if (Session["UserName"] == null && !Request.RawUrl.Contains("WXLogin.aspx") && Request.RawUrl.Contains("Weixinclient"))
-        {           
-            Response.Write("<script>top.location='/Weixinclient/WXLogin.aspx'</script>");
-            Response.End();           
-        }
+    //    if (Request.RawUrl.Contains("Weixinclient"))
+    //    {
+    //        Session["FromWeixin"] = "1";
+    //    }
+    //    if (Session["UserName"] == null && !Request.RawUrl.Contains("WXLogin.aspx") && Request.RawUrl.Contains("GeestarWeixinclient"))
+    //    {
+    //        Response.Write("<script>top.location='/Weixinclient/WXLogin.aspx'</script>");
+    //        Response.End();
+    //    }
+    //    else if (Session["UserName"] == null && !Request.RawUrl.Contains("WXLogin.aspx") && Request.RawUrl.Contains("Weixinclient"))
+    //    {           
+    //        Response.Write("<script>top.location='/Weixinclient/WXLogin.aspx'</script>");
+    //        Response.End();           
+    //    }
 
-        if (Session["UserName"] == null && !Request.RawUrl.Contains("login.aspx") && Session["FromWeixin"] == null && !Request.RawUrl.Contains("Weixinclient"))
+        if (Session["UserName"] == null && !Request.RawUrl.Contains("login.aspx") )
         {
             //HttpContext.Current.Response.Redirect("/login.aspx");
-            Response.Write("<script>top.location='/login.aspx'</script>");
-            Response.End();
+            //Response.Write("<script>top.location='/login.aspx'</script>");
+            //Response.End();
         }
         else
         {
@@ -250,42 +206,7 @@ public class PageBase : System.Web.UI.Page
         }
     }
 
-    protected void GetFilterByKind(ref ConditionComponent paraWhere,string inDataBase = "")
-    {
-        if (paraWhere != null)
-        {
-            string dataFilterByKind = inDataBase==""?" BelongFactory = '"+LoginUser.BelongFactory+"'":" 1=1 ";
-            if (LoginUser.Kind == "B")
-            {
-                dataFilterByKind += " and sellerid =" + LoginUser.AssocNo;
-            }
-            else if (LoginUser.Kind == "C")
-            {
-                dataFilterByKind += " and HospitalID =" + LoginUser.AssocNo;
-            }
-            else if (LoginUser.Kind == "D" && inDataBase =="")
-            {
-                dataFilterByKind += " and DoctorID =" + LoginUser.AssocNo;
-            }
-            else if (LoginUser.Kind == "D" && inDataBase != "")
-            {
-                dataFilterByKind += " and doctor = (select top 1 doctor from doctor where id = " + LoginUser.AssocNo + ")";
-            }
-
-            if (dataFilterByKind != "")
-            {
-                if (paraWhere.sbComponent.Length == 0)
-                {
-                    paraWhere.sbComponent.Append(dataFilterByKind);
-                }
-                else
-                {
-                    paraWhere.sbComponent.Append(" and " + dataFilterByKind);
-                }
-            }
-           
-        }
-    }
+    
 
     /// <summary>
     /// 绑定分类
