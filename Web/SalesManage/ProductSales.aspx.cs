@@ -8,13 +8,17 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TraceBackPlatform.AppCode;
 
-public partial class SalesManage_ProductSales : System.Web.UI.Page
+public partial class SalesManage_ProductSales :PageBase
 {
     ServiceCommon servComm = new ServiceCommon();
+    protected List<ModelDict> listDictType = new List<ModelDict>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            listDictType = DataCache.findAllDict().Where(model => model.MainClass == "A").ToList();
+        }
         if (Request["actiontype"] == "SaveSales")
         {
             int identityID = 0;

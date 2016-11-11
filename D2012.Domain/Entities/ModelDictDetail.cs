@@ -18,7 +18,11 @@ namespace D2012.Domain.Entities
             public static string STRTABLENAME = "Dict";
             public static string STRKEYNAME = "ClassID";
 
-
+            /// <summary>
+            /// 
+            /// </summary>
+            [Column("MainClass", DataType.Varchar, true, false)]
+            public string MainClass { set; get; }
             /// <summary>
             /// 
             /// </summary>
