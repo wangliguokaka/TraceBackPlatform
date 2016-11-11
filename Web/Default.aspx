@@ -10,6 +10,7 @@
             left: 0;
             position: relative;
         }
+
         #auto_div
         {
             display: none;

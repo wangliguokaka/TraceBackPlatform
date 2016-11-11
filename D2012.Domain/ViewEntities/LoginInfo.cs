@@ -51,13 +51,15 @@ namespace D2012.Domain.ViewEntities
         public string PHOTOPATH { set; get; }
 
         /// <summary>
-        /// 登录状态
+        /// 登录状态
+
         /// </summary>
         [Column("ISLOGIN", DataType.Int, false, false)]
         public int? ISLOGIN { set; get; }
 
         /// <summary>
-        /// 短消息
+        /// 短消息
+
         /// </summary>
         [Column("MSGCOUNT", DataType.Int, false, false)]
         public int? MSGCOUNT { set; get; }

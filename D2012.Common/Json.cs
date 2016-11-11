@@ -105,6 +105,67 @@ namespace D2012.Common
 
         }
 
+        public static string ListToJson<T>( IList<T> entity)
+        {
 
+            StringBuilder Json = new StringBuilder();
+
+            Json.Append("{");
+
+            if (entity.Count > 0)
+            {
+
+                for (int i = 0; i < entity.Count; i++)
+                {
+
+                    // T obj = Activator.CreateInstance<T>();
+
+                    //Type type = obj.GetType();
+
+                    //PropertyInfo[] pis = type.GetProperties();
+
+                    TableInfo tfInfo = EntityTypeCache.GetTableInfo(typeof(T));
+                    IDictionary<string, ColumnAttribute> dicColumn = tfInfo.DicColumns;
+
+                    Json.Append("{");
+                    int j = 0;
+
+                    foreach (string key in dicColumn.Keys)
+                    {
+
+                        Json.Append("\"" + dicColumn[key].Name + "\":\"" + (EntityFactory.GetPropertyValue(entity[i], key) == null ?
+                            System.DBNull.Value : (object)System.Web.HttpUtility.HtmlEncode(EntityFactory.GetPropertyValue(entity[i], key).ToString())) + "\"");
+
+                        if (j++ < dicColumn.Keys.Count - 1)
+                        {
+
+                            Json.Append(",");
+
+                        }
+
+                        else
+                        {
+
+                            Json.Append("}");
+
+                        }
+
+                    }
+
+                    if (i < entity.Count - 1)
+                    {
+
+                        Json.Append(",");
+
+                    }
+                }
+
+            }
+
+            Json.Append("]}");
+
+            return Json.ToString();
+
+        }
     }
 }

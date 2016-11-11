@@ -1,0 +1,34 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="App_Master_MasterPage" %>
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../Css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../Css/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
+     <link href="../Css/layer.css" rel="stylesheet" />
+    <link href="../Css/style.css" rel="stylesheet" />  
+
+
+    <script type="text/javascript" src="../Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript"  src="../Scripts/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript"  src="../Scripts/jBootstrapPage.js"></script>
+    <script type="text/javascript"  src="../Scripts/jquery-ui-tables.js"></script>
+    <script type="text/javascript" src="../Scripts/common.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../Scripts/layer.js"></script>
+     <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

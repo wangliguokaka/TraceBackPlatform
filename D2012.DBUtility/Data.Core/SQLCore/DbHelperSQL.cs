@@ -13,7 +13,8 @@ using System.Data.Common;
 namespace D2012.DBUtility.Data.Core.SQLCore
 {
     /// <summary>
-    /// 数据访问抽象基础类
+    /// 数据访问抽象基础类
+
     /// 
     /// </summary>
     public abstract class DbHelperSQL
@@ -22,7 +23,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         public static string connectionString = System.Configuration.ConfigurationSettings.AppSettings["ConnectString"];
 
         /// <summary>
-        /// 构造函数
+        /// 构造函数
+
         /// </summary>
         public DbHelperSQL()
         {
@@ -30,7 +32,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
 
         #region 公用方法
         /// <summary>
-        /// 判断是否存在某表的某个字段
+        /// 判断是否存在某表的某个字段
+
         /// </summary>
         /// <param name="tableName">表名称</param>
         /// <param name="columnName">列名称</param>
@@ -95,7 +98,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 表是否存在
+        /// 表是否存在
+
         /// </summary>
         /// <param name="TableName">表</param>
         /// <returns></returns>
@@ -156,7 +160,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         #region  执行简单SQL语句
 
         /// <summary>
-        /// 执行SQL语句，返回影响的记录数
+        /// 执行SQL语句，返回影响的记录数
+
         /// </summary>
         /// <param name="strSQLString">SQL语句</param>
         /// <returns>影响的记录数</returns>
@@ -182,7 +187,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行SQL语句，返回影响的记录数
+        /// 执行SQL语句，返回影响的记录数
+
         /// </summary>
         /// <param name="strSQLString">SQL语句</param>
         /// <param name="intTimes">时间</param>
@@ -210,7 +216,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行Sql和Oracle滴混合事务
+        /// 执行Sql和Oracle滴混合事务
+
         /// </summary>
         /// <param name="list">SQL命令行列表</param>
         /// <param name="oracleCmdSqlList">Oracle命令行列表</param>
@@ -319,7 +326,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行多条SQL语句，实现数据库事务。
+        /// 执行多条SQL语句，实现数据库事务。
+
         /// </summary>
         /// <param name="SQLStringList">多条SQL语句</param>        
         public static int ExecuteSqlTran(List<String> strSQLStringList)
@@ -355,7 +363,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行带一个存储过程参数的的SQL语句。
+        /// 执行带一个存储过程参数的的SQL语句。
+
         /// </summary>
         /// <param name="strSQLString">SQL语句</param>
         /// <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
@@ -388,7 +397,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行带一个存储过程参数的的SQL语句。
+        /// 执行带一个存储过程参数的的SQL语句。
+
         /// </summary>
         /// <param name="strSQLString">SQL语句</param>
         /// <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
@@ -460,7 +470,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行一条计算查询结果语句，返回查询结果（object）。
+        /// 执行一条计算查询结果语句，返回查询结果（object）。
+
         /// </summary>
         /// <param name="strSQLString">计算查询结果语句</param>
         /// <returns>查询结果（object）</returns>
@@ -493,7 +504,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行一条计算查询结果语句
+        /// 执行一条计算查询结果语句
+
         /// </summary>
         /// <param name="strSQLString">计算查询结果语句</param>
         /// <param name="intTimes">时间</param>
@@ -606,7 +618,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         #region 执行带参数的SQL语句
 
         /// <summary>
-        /// 执行SQL语句，返回影响的记录数
+        /// 执行SQL语句，返回影响的记录数
+
         /// </summary>
         /// <param name="strSQLString">SQL语句</param>
         /// <param name="cmdParms">SQL语句</param>
@@ -634,7 +647,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
 
 
         /// <summary>
-        /// 执行多条SQL语句，实现数据库事务。
+        /// 执行多条SQL语句，实现数据库事务。
+
         /// </summary>
         /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
         public static void ExecuteSqlTran(Hashtable strSQLStringList)
@@ -668,7 +682,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行多条SQL语句，实现数据库事务。
+        /// 执行多条SQL语句，实现数据库事务。
+
         /// </summary>
         /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
         public static int ExecuteSqlTran(System.Collections.Generic.List<CommandInfo> cmdList)
@@ -740,7 +755,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行多条SQL语句，实现数据库事务。
+        /// 执行多条SQL语句，实现数据库事务。
+
         /// </summary>
         /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
         public static void ExecuteSqlTranWithIndentity(System.Collections.Generic.List<CommandInfo> strSQLStringList)
@@ -789,7 +805,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行多条SQL语句，实现数据库事务。
+        /// 执行多条SQL语句，实现数据库事务。
+
         /// </summary>
         /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
         public static void ExecuteSqlTranWithIndentity(Hashtable strSQLStringList)
@@ -838,7 +855,8 @@ namespace D2012.DBUtility.Data.Core.SQLCore
         }
 
         /// <summary>
-        /// 执行一条计算查询结果语句，返回查询结果（object）。
+        /// 执行一条计算查询结果语句，返回查询结果（object）。
+
         /// </summary>
         /// <param name="strSQLString">计算查询结果语句</param>
         /// <param name="cmdParms">参数</param>
