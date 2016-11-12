@@ -249,8 +249,8 @@
                 <td><input type="text" id="BillNo" class="pro_input" /></td>
                 <td class="pro_tableTd">发票类型</td>
                 <td><select class="pro_select" id="BillClass" >
-                    <%foreach(ModelDict model in listDictType){ %>
-                        <option value="<%=model.ClassID %>" ><%=model.ClassName %></option>
+                    <%foreach(ModelDictDetail model in listDictType){ %>
+                        <option value="<%=model.Code %>" ><%=model.DictName %></option>
                     <%} %>
                     </select></td>
                 <td class="pro_tableTd">开票日期</td>

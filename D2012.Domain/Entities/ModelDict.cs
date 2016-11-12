@@ -5,60 +5,60 @@ using System.Collections.Generic;
 
 namespace D2012.Domain.Entities
 {
-      /// <summary>
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
+    [Table("Dict", "ClassID", false, false)]
+    public partial class ModelDict : BaseEntity
+    {
+        public ModelDict()
+        { }
+
+        public static string STRTABLENAME = "Dict";
+        public static string STRKEYNAME = "ClassID";
+
+        /// <summary>
         /// 
         /// </summary>
-        [Serializable]
-        [Table("DictDetail", "ClassID", false, false)]
-        public partial class ModelDictDetail : BaseEntity
-        {
-            public ModelDictDetail()
-            { }
+        [Column("MainClass", DataType.Varchar, true, false)]
+        public string MainClass { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("ClassID", DataType.Varchar, true, false)]
+        public string ClassID { set; get; }
 
-            public static string STRTABLENAME = "DictDetail";
-            public static string STRKEYNAME = "ClassID";
-
-
-            /// <summary>
-            /// 
-            /// </summary>
-            [Column("ClassID", DataType.Varchar, true, false)]
-            public string ClassID { set; get; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            [Column("Code", DataType.Varchar, true, false)]
-            public string Code { set; get; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            [Column("DictName", DataType.Varchar, true, false)]
-            public string DictName { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("ClassName", DataType.Varchar, false, false)]
+        public string ClassName { set; get; }
 
 
         /// <summary>
         /// 
         /// </summary>
         [Column("Sortno", DataType.Int, false, false)]
-            public int? SortNo { set; get; }
+        public int? Sortno { set; get; }
 
 
-            /// <summary>
-            /// 
-            /// </summary>
-            [Column("OperTime", DataType.Datetime, false, false)]
-            public DateTime OperTime { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("UpdateTime", DataType.Datetime, false, false)]
+        public DateTime UpdateTime { set; get; }
 
-            /// <summary>
-            /// 
-            /// </summary>
-            [Column("oper", DataType.Varchar, false, false)]
-            public string oper { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("UpdateUser", DataType.Varchar, false, false)]
+        public string UpdateUser { set; get; }
 
 
 
     }
+   
 
 }

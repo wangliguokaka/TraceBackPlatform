@@ -11,13 +11,13 @@ using TraceBackPlatform.AppCode;
 public partial class SalesManage_ProductSales :PageBase
 {
     ServiceCommon servComm = new ServiceCommon();
-    protected List<ModelDict> listDictType = new List<ModelDict>();
+    protected List<ModelDictDetail> listDictType = new List<ModelDictDetail>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            listDictType = DataCache.findAllDict().Where(model => model.MainClass == "A").ToList();
+            listDictType = DataCache.findAllDict().Where(model => model.ClassID == "MaterialType").ToList();
         }
         if (Request["actiontype"] == "SaveSales")
         {

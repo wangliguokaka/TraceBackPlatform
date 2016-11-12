@@ -32,8 +32,21 @@ namespace D2012.Domain.Entities
         /// </summary>
         [Column("Class", DataType.Varchar, false, false)]
         public string Class { set; get; }
-        
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("Bh", DataType.Varchar, false, false)]
+        public string Bh{ set; get; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("ProductName", DataType.Varchar, false, false)]
+        public string ProductName { set; get; }
+
+        
         /// <summary>
         /// 
         /// </summary>
