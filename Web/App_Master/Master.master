@@ -49,14 +49,11 @@
            
             $(".nav-header").each(function () {
 
-                $(this).bind("click", function () {
-                 $("ul").removeClass("in");
-                 //$(this).parent().find("ul").eq(0).("in");
-                   
-                  
-                })
-            }
-
+                $(this).bind("click", function ()
+                    {
+                         $("ul").removeClass("in");
+                        })
+                    }
                 );
         })
         

@@ -172,8 +172,26 @@
 
         }
 
+        function MakeContact()
+        {
+           
+                $('.cd-popup-contact').addClass('is-visible');
+
+        }
+
+        
+
         $(function ()
         {
+
+            //关闭窗口
+            $('.cd-popup-contact').on('click', function (event) {
+                if ($(event.target).is('.cd-popup-close')) {
+                    event.preventDefault();
+                    $(this).removeClass('is-visible');
+                }
+            });
+
             $(".detepickers").attr("readonly", "readonly");
             //打开窗口
             $('.cd-popup-addbtn').on('click', function (event) {
@@ -262,6 +280,7 @@
                     <button type="button" class="ui-button cd-popup-addbtn">新增订单</button>
                     <button type="button" class="ui-button cd-popup-editbtn">编辑订单</button>
                     <button type="button" class="ui-button" onclick="DeleteDetail()">删除订单</button>
+                    <button type="button" class="ui-button" onclick="MakeContact()">生成合同</button>
                 </td>
               </tr>
             </table>   
@@ -296,7 +315,20 @@
     </div>
     <div class="clear" ></div>
   </div>
-    <div class="cd-popup-add">
+  <div class="cd-popup-contact" >
+      <div class="cd-popup-container-contact">
+          
+          <div class="box" >
+              <div class="title" >合同管理</div>
+              <div style="width:950px; height:500px;">
+                    <iframe src="GenerateContract.aspx?orderid=<%="42" %>" width="950"  style="width:90%; height:90%; border:none;"></iframe>
+
+              </div>
+          </div>
+            <a href="#0" class="cd-popup-close">关闭</a>
+      </div>
+ </div>
+  <div class="cd-popup-add">
     <div class="cd-popup-container">
         <div class="box" >
           <div class="title" >订单详细</div>

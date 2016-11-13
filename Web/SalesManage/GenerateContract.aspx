@@ -227,8 +227,8 @@
               <td colspan="4">
                   <table style="width:100%;">
                       <tr>
-                          <td style="width:20%;">&nbsp;</td>
-                          <td><asp:TextBox ID="AppointedItem1" CssClass="ContactInput" Text="0533-3588673  。" Width="500"  runat="server"></asp:TextBox>发票类型不选视为开普票 。</td>
+                          <td style="width:200px;">&nbsp;</td>
+                          <td><asp:TextBox ID="AppointedItem1" CssClass="ContactInput" Text="0533-3588673  。" Width="400"  runat="server"></asp:TextBox>发票类型不选视为开普票 。</td>
                       </tr> 
                     </table>
                 </td>                
@@ -305,6 +305,7 @@
                           <td >邮政编码：</td><td class="Split"><asp:TextBox ID="SellerPostcodes" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox> </td>
                           <td>邮政编码：</td><td><asp:TextBox ID="BuyerPostcodes" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                       </tr>
+                     
                   </table>
               </td>
           </tr>

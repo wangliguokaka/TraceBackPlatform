@@ -3,7 +3,36 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script type="text/javascript">
         $(function () {
-            createPage(10, 13, 150);
+
+            $.ajax({
+                type: "post",
+                url: "ProductSalesList.aspx",
+                cache: false,
+                async: false,
+                data: {
+                    actiontype: "GetSaleList"
+                },
+                dataType: "text",
+                success: function (data) {
+                    //用到这个方法的地方需要重写这个success方法
+                    var json = $.parseJSON(data);
+                    $("#SalesGrid tbody").empty();
+                    //遍历行结果
+                    for (var i = 0; i < json.length; i++) {
+                        //var trnum = $("#" + gridId + " tbody").find("tr").slice(0).length - 1;
+                        //if (i > trnum) {
+
+
+                        //遍历行中每一列的key 
+
+                        var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"EditDetail(this," + json[i]["Id"] + ")\" value=\"" + json[i]["Id"] + "\" /></td><td>" + json[i]["Id"] + "</td><td>" + json[i]["Seller"] + "</td><td>" + json[i]["Salesperson"] + "</td><td>" + json[i]["BillNo"] + "</td><td>" + json[i]["BillClass"] + "</td><td>" + json[i]["SaleDate"] + "</td><td>" + json[i]["BillDate"] + "</td></tr>";
+
+                        $("#SalesGrid tbody").append(trHtml);
+                    }
+                }
+            });
+
+            createPage(10, 10, 150);
 
             function createPage(pageSize, buttons, total) {
                 $(".pagination").jBootstrapPage({
@@ -11,6 +40,7 @@
                     total: total,
                     maxPageButton: buttons,
                     onPageClicked: function (obj, pageIndex) {
+                        alert(pageIndex)
                         $('#pageIndex').html('您选择了第<font color=red>' + (pageIndex + 1) + '</font>页');
                     }
                 });
@@ -47,6 +77,7 @@
           </tr>
           <tr>
             <td colspan="6" style="text-align:right;">
+              <button class="ui-button">查询</button>
               <button class="ui-button">废止</button>
               <button class="ui-button">恢复</button>
               <button class="ui-button">导出</button>
@@ -59,46 +90,24 @@
       <div class="clear" ></div>
     </div>
     <!--box  end-->
-    <div class="save" ><button class="ui-button">查询</button></div>
     <div class="divWidth1" >
-      <div class="divTable" >
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table1">
-          <tr>
-            <th><input type="checkbox" class="pro_checkbox" ></th>
-            <th>存货编码</th>
-            <th>订货号</th>
-            <th>销售数量</th>
-            <th>材料类型</th>
-            <th>生产批号</th>
-            <th>生产日期</th>
-          </tr>
-          <tr>
-            <td><input type="checkbox" class="pro_checkbox" ></td>
-            <td>BM001</td>
-            <td>DD001</td>
-            <td>5</td>
-            <td>类型1</td>
-            <td>SCPH0001</td>
-            <td>2016/12/30</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" class="pro_checkbox" ></td>
-            <td>BM001</td>
-            <td>DD001</td>
-            <td>5</td>
-            <td>类型1</td>
-            <td>SCPH0001</td>
-            <td>2016/12/30</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" class="pro_checkbox" ></td>
-            <td>BM001</td>
-            <td>DD001</td>
-            <td>5</td>
-            <td>类型1</td>
-            <td>SCPH0001</td>
-            <td>2016/12/30</td>
-          </tr>
+      <div class="divTable" style="height:300px; overflow:auto;" >
+        <table border="0" style="width:100% "  id="SalesGrid" cellspacing="0" cellpadding="0" class="pro_table1">
+          <thead>
+            <tr>
+                <th><input type="checkbox" class="pro_checkbox" /></th>
+                <th>编码</th>
+                <th>经销商</th>
+                <th>业务员</th>
+                <th>发票号</th>
+                <th>发票类型</th>
+                <th>发货日期</th>
+                <th>开票日期</th>
+              </tr>        
+          </thead>
+            <tbody>
+
+            </tbody>
         </table>
       </div>
      

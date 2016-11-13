@@ -1,4 +1,5 @@
-﻿using D2012.Common.DbCommon;
+﻿using D2012.Common;
+using D2012.Common.DbCommon;
 using D2012.Domain.Services;
 using Microsoft.Reporting.WebForms;
 using System;
@@ -17,16 +18,51 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
     ConditionComponent ccwhere = new ConditionComponent();
     protected void Page_Load(object sender, EventArgs e)
     {
-        ccwhere.AddComponent("Id", "42", SearchComponent.Equals, SearchPad.NULL);
+        string orderid = Request["orderid"];
+        ccwhere.AddComponent("Id", orderid, SearchComponent.Equals, SearchPad.NULL);
         OrderDetail = servComm.GetListTop(0, "ViewSalesDetail", ccwhere);
         if (!IsPostBack)
         {
-           
+            string file = Request.PhysicalApplicationPath + "UploadFile\\"+"KQ201677.xlsx";
+            TestExcelWrite(file);
+
         }
         else {
             strAction = "exportContact";
         }
     }
+
+    static void TestExcelWrite(string file)
+    {
+        try
+        {
+            using (NPOIHelper excelHelper = new NPOIHelper(file))
+            {
+                DataTable data = new DataTable();
+                for (int i = 0; i < 5; ++i)
+                {
+                    data.Columns.Add("Columns_" + i.ToString(), typeof(string));
+                }
+
+                for (int i = 0; i < 10; ++i)
+                {
+                    DataRow row = data.NewRow();
+                    row["Columns_0"] = "item0_" + i.ToString();
+                    row["Columns_1"] = "item1_" + i.ToString();
+                    row["Columns_2"] = "item2_" + i.ToString();
+                    row["Columns_3"] = "item3_" + i.ToString();
+                    row["Columns_4"] = "item4_" + i.ToString();
+                    data.Rows.Add(row);
+                }
+                int count = excelHelper.DataTableToExcel(data, "发货单", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception: " + ex.Message);
+        }
+    }
+
 
     protected void ExportContact_Click(object sender, EventArgs e)
     {
