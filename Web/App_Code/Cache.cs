@@ -10,15 +10,17 @@ using System.Web;
 /// </summary>
 public class DataCache
 {
-    private static List<ModelDict> dict;
-    
+    private static List<ModelDictDetail> dict;
+    private static List<ModelSpec> dictSpec;
+
     static DataCache()
     {
         ServiceCommon servComm = new ServiceCommon();
-        dict = servComm.GetListTop<ModelDict>(0,null).ToList();  
+        dict = servComm.GetListTop<ModelDictDetail>(0,null).ToList();
+        dictSpec= servComm.GetListTop<ModelSpec>(0, null).ToList();
     }
 
-    public static List<ModelDict> findAllDict()
+    public static List<ModelDictDetail> findAllDict()
     {
         return dict;
     }  

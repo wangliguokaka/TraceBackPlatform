@@ -9,7 +9,7 @@
 
     <link href="../Css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../Css/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
-     <link href="../Css/layer.css" rel="stylesheet" />
+    <link href="../Css/layer.css" rel="stylesheet" />
     <link href="../Css/style.css" rel="stylesheet" />
    
 
@@ -49,14 +49,11 @@
            
             $(".nav-header").each(function () {
 
-                $(this).bind("click", function () {
-                 $("ul").removeClass("in");
-                 //$(this).parent().find("ul").eq(0).("in");
-                   
-                  
-                })
-            }
-
+                $(this).bind("click", function ()
+                    {
+                         $("ul").removeClass("in");
+                        })
+                    }
                 );
         })
         
