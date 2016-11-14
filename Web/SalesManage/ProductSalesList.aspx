@@ -4,19 +4,147 @@
     <script type="text/javascript">
         $(function () {
 
+            GetDataList(0);
+            createPage(10, 10, allRowCount);
+            ControlButton();
+        });
+
+        function SearchList()
+        {
+            GetDataList(0);
+            createPage(10, 10, allRowCount);
+            ControlButton();
+        }
+
+        function ControlButton()
+        {
+            if ($("#IsDel").attr("checked") == "checked") {
+                $("#ReuseOrder").show();
+                $("#DisableOrder").hide();
+            }
+            else {
+                $("#DisableOrder").show();
+                $("#ReuseOrder").hide();
+            }
+            $("#selectAllCheck").removeAttr("checked");
+        }
+
+        function CheckDetail(obj, SerialIndex) {
+            arrayCheck = new Array();
+            $("#SalesDetail tbody input[type='checkbox']:checked").each(function () {
+
+                arrayCheck.push($(this).val());
+            })
+
+        }
+
+        function DisableDetailOrder()
+        {
+            if (arrayCheck.length == 0) {
+                layer.msg("请选择要操作记录");
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    url: "ProductSalesList.aspx",
+                    cache: false,
+                    async: false,
+                    data: {
+                        "actiontype": "DisableOrderAction", "CheckOrder": arrayCheck.toString()
+                    },
+                    dataType: "text",
+                    success: function (data)
+                    {
+                        if (data == "0") {
+                            layer.msg("操作失败");
+                        }
+                        else {
+                            SearchList();
+                            layer.msg("操作完成");
+                        }
+                    }
+                });
+            }
+        }
+
+        function ReuseDetailOrder() {
+            if (arrayCheck.length == 0) {
+                layer.msg("请选择要操作记录");
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    url: "ProductSalesList.aspx",
+                    cache: false,
+                    async: false,
+                    data: {
+                        "actiontype": "ReuseOrderAction", "CheckOrder": arrayCheck.toString()
+                    },
+                    dataType: "text",
+                    success: function (data) {
+                        if (data == "0") {
+                            layer.msg("操作失败");
+                        }
+                        else {
+                            SearchList();
+                            layer.msg("操作完成");
+                        }
+                    }
+                });
+            }
+        }
+
+        function createPage(pageSize, buttons, total) {
+            $(".pagination").jBootstrapPage({
+                pageSize: pageSize,
+                total: total,
+                maxPageButton: buttons,
+                onPageClicked: function (obj, pageIndex) {
+                    GetDataList(pageIndex)
+                   // $('#pageIndex').html('您选择了第<font color=red>' + (pageIndex + 1) + '</font>页');
+                }
+            });
+        }
+        var arrayCheck = new Array();
+        function SelectAll(obj) {
+            $("#SalesDetail tbody input[type='checkbox']").each(function () {
+
+                $(obj).attr("checked") == "checked" ? $(this).attr("checked", "checked") : $(this).removeAttr("checked");
+            })
+
+            CheckDetail();
+        }
+
+        function CheckDetail() {
+            arrayCheck = new Array();
+            $("#SalesDetail tbody input[type='checkbox']:checked").each(function () {
+
+                arrayCheck.push($(this).val());
+            })
+        }
+
+        var allRowCount = 0;
+        function GetDataList(PageIndex)
+        {
+            
             $.ajax({
                 type: "post",
                 url: "ProductSalesList.aspx",
                 cache: false,
                 async: false,
                 data: {
-                    actiontype: "GetSaleList"
+                    "actiontype": "GetSaleList", "PageIndex": PageIndex, "BillNo": $("#BillNo").val(), "Salesperson": $("#Salesperson").val(), "IsDel": $("#IsDel").attr("checked")
                 },
                 dataType: "text",
                 success: function (data) {
                     //用到这个方法的地方需要重写这个success方法
-                    var json = $.parseJSON(data);
-                    $("#SalesGrid tbody").empty();
+                   
+                    var returnData = $.parseJSON(data);
+                    allRowCount = returnData[0].RowCount
+                    var json = returnData[0].JsonData;
+                    $("#SalesDetail tbody").empty();
                     //遍历行结果
                     for (var i = 0; i < json.length; i++) {
                         //var trnum = $("#" + gridId + " tbody").find("tr").slice(0).length - 1;
@@ -25,40 +153,15 @@
 
                         //遍历行中每一列的key 
 
-                        var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"EditDetail(this," + json[i]["Id"] + ")\" value=\"" + json[i]["Id"] + "\" /></td><td>" + json[i]["Id"] + "</td><td>" + json[i]["Seller"] + "</td><td>" + json[i]["Salesperson"] + "</td><td>" + json[i]["BillNo"] + "</td><td>" + json[i]["BillClass"] + "</td><td>" + json[i]["SaleDate"] + "</td><td>" + json[i]["BillDate"] + "</td></tr>";
+                        var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail()\"  value=\"" + json[i]["Id"] + "\" /></td><td><a href=\"ProductSales.aspx?Id=" + json[i]["Id"] + "\">" + json[i]["Id"] + "</a></td><td>" + json[i]["Seller"] + "</td><td>" + json[i]["Salesperson"] + "</td><td>" + json[i]["BillNo"] + "</td><td>" + json[i]["BillClass"] + "</td><td>" + json[i]["SaleDate"] + "</td><td>" + (json[i]["BillDate"] == null ? "" : json[i]["BillDate"]) + "</td></tr>";
 
-                        $("#SalesGrid tbody").append(trHtml);
+                        $("#SalesDetail tbody").append(trHtml);
                     }
+
+                   
                 }
             });
-
-            createPage(10, 10, 150);
-
-            function createPage(pageSize, buttons, total) {
-                $(".pagination").jBootstrapPage({
-                    pageSize: pageSize,
-                    total: total,
-                    maxPageButton: buttons,
-                    onPageClicked: function (obj, pageIndex) {
-                        alert(pageIndex)
-                        $('#pageIndex').html('您选择了第<font color=red>' + (pageIndex + 1) + '</font>页');
-                    }
-                });
-            }
-
-            //$('#btn1').click(function () {
-            //    createPage(10, 10, 200);
-            //});
-
-            //$('#btn2').click(function () {
-            //    createPage(10, 15, 200);
-            //});
-
-            //$('#btn3').click(function () {
-            //    createPage(5, 12, 200);
-            //});
-
-        });
+        }
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -69,17 +172,17 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
             <td width="6%" class="pro_tableTd">发票号<span class="red" >*</span></td>
-            <td width="20%"><input type="text" class="pro_input" ></td>
+            <td width="20%"><input type="text" id="BillNo" class="pro_input" /></td>
             <td width="6%" class="pro_tableTd">业务员</td>
-            <td width="20%"><input type="text" class="pro_input" ></td>
-            <td width="6%" style="text-align:right;"><input type="checkbox" class="pro_checkbox" ></td>
+            <td width="20%"><input type="text" id="Salesperson" class="pro_input" /></td>
+            <td width="6%" style="text-align:right;"><input type="checkbox" id="IsDel" class="pro_checkbox" /></td>
             <td class="pro_tableTd">废止</td>
           </tr>
           <tr>
             <td colspan="6" style="text-align:right;">
-              <button class="ui-button">查询</button>
-              <button class="ui-button">废止</button>
-              <button class="ui-button">恢复</button>
+              <button class="ui-button" type="button" onclick="SearchList()">查询</button>
+              <button class="ui-button" id="DisableOrder" type="button" onclick="DisableDetailOrder()">废止</button>
+              <button class="ui-button"  id="ReuseOrder" type="button" onclick="ReuseDetailOrder()">恢复</button>
               <button class="ui-button">导出</button>
               <button class="ui-button">打印</button>
             </td>
@@ -92,10 +195,10 @@
     <!--box  end-->
     <div class="divWidth1" >
       <div class="divTable" style="height:300px; overflow:auto;" >
-        <table border="0" style="width:100% "  id="SalesGrid" cellspacing="0" cellpadding="0" class="pro_table1">
+        <table border="0" style="width:100% "  id="SalesDetail" cellspacing="0" cellpadding="0" class="pro_table1">
           <thead>
             <tr>
-                <th><input type="checkbox" class="pro_checkbox" /></th>
+                <th><input type="checkbox" id="selectAllCheck" class="pro_checkbox" onclick="SelectAll(this)" /></th>
                 <th>编码</th>
                 <th>经销商</th>
                 <th>业务员</th>

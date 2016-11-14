@@ -31,7 +31,7 @@
 
         var arrayCheck = new Array();
 
-        function EditDetail(obj,SerialIndex)
+        function CheckDetail(obj,SerialIndex)
         {
             arrayCheck = new Array();
             $("#gridDetail tbody input[type='checkbox']:checked").each(function ()
@@ -59,6 +59,12 @@
             $("#gridDetail tbody input[type='checkbox']").each(function () {
 
                 $(obj).attr("checked") == "checked"?$(this).attr("checked", "checked"):$(this).removeAttr("checked");
+            })
+
+            arrayCheck = new Array();
+            $("#gridDetail tbody input[type='checkbox']:checked").each(function () {
+
+                arrayCheck.push($(this).val());
             })
         }
 
@@ -118,7 +124,7 @@
 
                 //遍历行中每一列的key 
 
-                var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"EditDetail(this," + json[i]["Serial"] + ")\" value=\"" + json[i]["Serial"] + "\" /></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["orderid"] + "</td><td>" + json[i]["Qty"] + "</td><td>" + json[i]["OClass"] + "</td><td>" + json[i]["BatchNo"] + "</td><td>" + json[i]["ProdDate"] + "</td></tr>";
+                var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail(this," + json[i]["Serial"] + ")\" value=\"" + json[i]["Serial"] + "\" /></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["orderid"] + "</td><td>" + json[i]["Qty"] + "</td><td>" + json[i]["OClass"] + "</td><td>" + json[i]["BatchNo"] + "</td><td>" + json[i]["ProdDate"] + "</td></tr>";
 
                 $("#gridDetail tbody").append(trHtml);
             }
@@ -183,7 +189,20 @@
 
         $(function ()
         {
-
+            if ('<%=Request["Id"]%>' == '') {
+            }
+            else {
+                var EditJson = $.parseJSON('<%=EditJson%>');
+                $("#Id").val(EditJson["Id"]);
+                $("#Seller").val(EditJson["Seller"]);
+                $("#Salesperson").val(EditJson["Salesperson"]);
+                $("#SaleDate").val(EditJson["SaleDate"]);
+                $("#BillNo").val(EditJson["BillNo"]);
+                $("#BillDate").val(EditJson["BillDate"]);
+                $("#BillClass").val(EditJson["BillClass"]);
+                json = EditJson.DetailJson;
+                BindGrid();
+            }
             //关闭窗口
             $('.cd-popup-contact').on('click', function (event) {
                 if ($(event.target).is('.cd-popup-close')) {

@@ -133,3 +133,12 @@
    logtoconsole = 
    logfile = D:\TraceBackPlatform\Service\bin\Debug\DataTransferWindowsService.InstallLog
    assemblypath = D:\TraceBackPlatform\Service\bin\Debug\DataTransferWindowsService.exe
+正在卸载程序集“D:\TraceBackPlatform\Service\bin\Debug\DataTransferWindowsService.exe”。
+受影响的参数是:
+   logtoconsole = 
+   logfile = D:\TraceBackPlatform\Service\bin\Debug\DataTransferWindowsService.InstallLog
+   assemblypath = D:\TraceBackPlatform\Service\bin\Debug\DataTransferWindowsService.exe
+正在移除 EventLog 源 TransferDataService。
+正在从系统中移除服务 TransferDataService...
+已成功地从系统中移除服务 TransferDataService。
+尝试停止服务 TransferDataService。
