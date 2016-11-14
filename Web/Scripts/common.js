@@ -268,8 +268,8 @@ function AutoComplete(auto, search, mylist) {
         //        carlist[n++] = mylist[i];
         //    }
         //}
-        $(test_list).each(function (index, item) {
-            if (item.name.indexOf(old_value) >= 0 || item.pinyin.indexOf(old_value) >= 0) {
+        $(mylist).each(function (index, item) {
+            if (item.name.indexOf(old_value) >= 0  ) {
                 carlist[n++] = item.name;
             }
         }
@@ -307,6 +307,17 @@ function AutoComplete(auto, search, mylist) {
                 highlightindex = -1;
                 //文本框中的内容变成高亮节点的内容
                 $("#" + search).val(comText);
+
+                var arrSelect = $.map(mylist, function (value) {
+                    return value.name == comText ? value : null;//isNaN:is Not a Number的缩写 
+                }
+               );
+                if (arrSelect.length > 0)
+                {
+                    $("#Bh").val(arrSelect[0].Bh);
+                }
+                
+               
             })
             if (carlist.length > 0) {    //如果返回值有内容就显示出来
                 autoNode.show();

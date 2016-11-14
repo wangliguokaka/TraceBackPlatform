@@ -181,8 +181,8 @@
         function MakeContact()
         {
            
-                $('.cd-popup-contact').addClass('is-visible');
-
+            //    $('.cd-popup-contact').addClass('is-visible');
+            window.open("GenerateContract.aspx?orderid=<%="42" %>");
         }
 
         
@@ -261,9 +261,61 @@
                     $('.cd-popup-add').removeClass('is-visible');
                 }
             });
+            old_value = $("#orderid").val();
+            $("#orderid").focus(function () {
+                if ($("#orderid").val() == "") {
+                    AutoComplete("auto_div", "orderid", test_list);
+                }
+            });
+
+            var test_list = [{ name: "小张", Bh: "xiaozhang" }, { name: "小王", Bh: "xiaowang" }, { name: "大王", Bh: "dawang" }];
+
+            $("#orderid").keyup(function () {
+
+                AutoComplete("auto_div", "orderid", test_list);
+            });
+
+            $("#orderid").blur(function ()
+            {
+                var arrSelect = $.map(test_list, function (value) {
+                    return value.name == $("#orderid").val() ? value : null;//isNaN:is Not a Number的缩写 
+                }
+              );
+                if (arrSelect.length > 0) {
+                    $("#Bh").val(arrSelect[0].Bh);
+                }
+                else {
+                    $("#Bh").val("");
+                }
+            })
+
+            var search_text = document.getElementById("orderid");
+
+            search_text.addEventListener("input", function () {
+                AutoComplete("auto_div", "orderid", test_list);
+            }, false);
         })
         
 </script>
+    <style type="text/css">
+        .search
+        {
+            left: 0;
+            position: relative;
+        }
+
+        #auto_div
+        {
+            display: none;
+            width: 200px;
+            border: 1px #EDEDED solid;
+            background: #FFF;
+            position: absolute;
+            top: 22px;
+            left: 0;
+            color: #323232;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div  >
@@ -355,7 +407,7 @@
             <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">订货号<span class="red" >*</span></td>
-                <td><input type="text" id="orderid" maxlength="50"  class="pro_input required" /></td>
+                <td><div class="search"><input type="text" id="orderid" maxlength="50"  class="pro_input required" /><div id="auto_div"></div></div></td>
                 <td class="pro_tableTd">存货编码<span class="red" >*</span></td>
                 <td><input type="text" id="Bh" value="" maxlength="50"   class="pro_input required" /></td>
                 <td class="pro_tableTd">销售数量<span class="red" >*</span></td>
