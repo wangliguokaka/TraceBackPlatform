@@ -46,3 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /.vs/TraceBackPlatform/v14/.suo
+/D2012.Common.DbCommon/obj/Debug/D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
+/Service/bin/Debug
+/Service/obj/Debug/DataTransferWindowsService.csproj.FileListAbsolute.txt
