@@ -331,7 +331,7 @@
           </tr>
       </table>
       <!--divWidth  end-->
-      <div class="clear" >
+      <div class="clear" style="display:none;" >
            <rsweb:ReportViewer ID="SalesContactViewer"  runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1200"  CssClass="reportView"  Height="75%"  WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
                 <LocalReport ReportPath="SalesManage\Rdlc\GenerateContract.rdlc"></LocalReport>
             </rsweb:ReportViewer>

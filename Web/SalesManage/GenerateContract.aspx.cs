@@ -132,8 +132,16 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
             //dtSetail.Rows[i]["Price"] = OrderDetail.Rows[i]["Price"];
             //dtSetail.Rows[i]["Amount"] = OrderDetail.Rows[i]["Amount"];
         }
+
+        
+        //dtGoodsTicket.Rows[1][2] = "部门：";
+        //dtGoodsTicket.Rows[1][3] = "口腔技术分厂";
+        //dtGoodsTicket.Rows[1][4] = "打印日期：";
+        //dtGoodsTicket.Rows[1][5] = DateTime.Now.ToString("yyyy/MM/dd");
+
         this.SalesContactViewer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtContact));
         this.SalesContactViewer.LocalReport.DataSources.Add(new ReportDataSource("DataSet2", dtSetail));
+   
         this.SalesContactViewer.DataBind();
         this.SalesContactViewer.LocalReport.Refresh();
 
@@ -142,5 +150,26 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
     protected void ExportGoods_Click(object sender, EventArgs e)
     {
         strAction = "exportGoodsTicket";
+        this.SalesContactViewer.LocalReport.DataSources.Clear();
+        DataTable dtGoodsTicket = (new SalesDataSet()).Tables["GoodsTicketDataTable"];
+        dtGoodsTicket.Rows.Add(dtGoodsTicket.NewRow());
+        dtGoodsTicket.Rows[0][0] = "单据号：";
+        dtGoodsTicket.Rows[0][1] = this.ContactBH.Text;
+        dtGoodsTicket.Rows[0][2] = "部门：";
+        dtGoodsTicket.Rows[0][3] = "口腔技术分厂";
+        dtGoodsTicket.Rows[0][4] = "打印日期：";
+        dtGoodsTicket.Rows[0][5] = DateTime.Now.ToString("yyyy/MM/dd");
+
+        dtGoodsTicket.Rows.Add(dtGoodsTicket.NewRow());
+        dtGoodsTicket.Rows[1][0] = "客户名称：";
+        dtGoodsTicket.Rows[1][1] = "吉星";
+
+        dtGoodsTicket.Rows.Add(dtGoodsTicket.NewRow());
+        dtGoodsTicket.Rows[2][0] = "收货地址：";
+        dtGoodsTicket.Rows[2][1] = "淄博高新区北辛路99号";
+
+        this.ReportViewerExcel.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtGoodsTicket));
+        this.ReportViewerExcel.DataBind();
+        this.ReportViewerExcel.LocalReport.Refresh();
     }
 }
