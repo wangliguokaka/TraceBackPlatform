@@ -149,6 +149,24 @@
                           <td></td>
                       </tr>
                       <%} %>
+                      <tr style="height:30px; vertical-align:bottom;">
+                          <td>合计：</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                       <tr style="height:30px; vertical-align:bottom;">
+                          <td>合计大写：</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                      </tr>
                   </table>
               </td>
           </tr>
@@ -331,7 +349,7 @@
           </tr>
       </table>
       <!--divWidth  end-->
-      <div class="clear" style="display:none;" >
+      <div class="clear" style="display:none;">
            <rsweb:ReportViewer ID="SalesContactViewer"  runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1200"  CssClass="reportView"  Height="75%"  WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
                 <LocalReport ReportPath="SalesManage\Rdlc\GenerateContract.rdlc"></LocalReport>
             </rsweb:ReportViewer>

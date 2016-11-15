@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TraceBackPlatform.AppCode;
 
 public partial class SalesManage_GenerateContract : System.Web.UI.Page
 {
@@ -23,11 +24,12 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
         OrderDetail = servComm.GetListTop(0, "ViewSalesDetail", ccwhere);
         if (!IsPostBack)
         {
-            string file = Request.PhysicalApplicationPath + "UploadFile\\"+"KQ201677.xlsx";
-            TestExcelWrite(file);
+            //string file = Request.PhysicalApplicationPath + "UploadFile\\"+"KQ201677.xlsx";
+            //TestExcelWrite(file);
 
         }
-        else {
+        else
+        {
             strAction = "exportContact";
         }
     }
@@ -67,7 +69,7 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
     protected void ExportContact_Click(object sender, EventArgs e)
     {
         this.SalesContactViewer.LocalReport.DataSources.Clear();
-        DataTable dtContact  = (new SalesDataSet()).Tables["ContactDataTable"];
+        DataTable dtContact = (new SalesDataSet()).Tables["ContactDataTable"];
         //dtContact.Columns.Add("Seller");
         //dtContact.Columns.Add("ContactBH");
         //dtContact.Columns.Add("SignAddr");
@@ -121,7 +123,7 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
         dtSetail.Columns.Add("Qty");
         dtSetail.Columns.Add("Price");
         dtSetail.Columns.Add("Amount");
-        for (int i = 0;i< OrderDetail.Rows.Count;i++)
+        for (int i = 0; i < OrderDetail.Rows.Count; i++)
         {
             dtSetail.Rows.Add(dtSetail.NewRow());
             dtSetail.Rows[i]["ProductName"] = OrderDetail.Rows[i]["ProductName"];
@@ -132,25 +134,26 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
             //dtSetail.Rows[i]["Price"] = OrderDetail.Rows[i]["Price"];
             //dtSetail.Rows[i]["Amount"] = OrderDetail.Rows[i]["Amount"];
         }
-
+        dtSetail.Rows.Add(dtSetail.NewRow());
+        dtSetail.Rows[OrderDetail.Rows.Count]["ProductName"] = "合计";
+        dtSetail.Rows.Add(dtSetail.NewRow());
+        dtSetail.Rows[OrderDetail.Rows.Count+1]["ProductName"] = "合计大写：";
         
-        //dtGoodsTicket.Rows[1][2] = "部门：";
-        //dtGoodsTicket.Rows[1][3] = "口腔技术分厂";
-        //dtGoodsTicket.Rows[1][4] = "打印日期：";
-        //dtGoodsTicket.Rows[1][5] = DateTime.Now.ToString("yyyy/MM/dd");
+
 
         this.SalesContactViewer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtContact));
         this.SalesContactViewer.LocalReport.DataSources.Add(new ReportDataSource("DataSet2", dtSetail));
-   
+
         this.SalesContactViewer.DataBind();
         this.SalesContactViewer.LocalReport.Refresh();
+
 
     }
 
     protected void ExportGoods_Click(object sender, EventArgs e)
     {
         strAction = "exportGoodsTicket";
-        this.SalesContactViewer.LocalReport.DataSources.Clear();
+        this.ReportViewerExcel.LocalReport.DataSources.Clear();
         DataTable dtGoodsTicket = (new SalesDataSet()).Tables["GoodsTicketDataTable"];
         dtGoodsTicket.Rows.Add(dtGoodsTicket.NewRow());
         dtGoodsTicket.Rows[0][0] = "单据号：";
@@ -172,4 +175,6 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
         this.ReportViewerExcel.DataBind();
         this.ReportViewerExcel.LocalReport.Refresh();
     }
+
+
 }

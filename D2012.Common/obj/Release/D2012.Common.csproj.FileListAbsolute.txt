@@ -66,3 +66,13 @@ D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\D2012.Domain.pdb
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Release\D2012.Common.csprojResolveAssemblyReference.cache
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Release\D2012.Common.dll
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Release\D2012.Common.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\NPOI.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\NPOI.OOXML.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\NPOI.OpenXml4Net.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\NPOI.OpenXmlFormats.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\Microsoft.Practices.Unity.Interception.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\Microsoft.Practices.ServiceLocation.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Release\Microsoft.Practices.Unity.dll

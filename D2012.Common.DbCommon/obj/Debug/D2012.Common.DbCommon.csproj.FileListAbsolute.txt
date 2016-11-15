@@ -47,11 +47,6 @@ E:\Code\GeeStarPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.dl
 E:\Code\GeeStarPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.pdb
 E:\Code\GeeStarPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.dll
 E:\Code\GeeStarPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.pdb
-D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.dll
-D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.pdb
-D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
-D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.dll
-D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.pdb
 C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.dll
 C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.pdb
 C:\Users\Administrator\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
@@ -66,3 +61,7 @@ D:\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.pdb
 D:\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.dll
 D:\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.pdb
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.pdb
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.dll
+D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.pdb

@@ -15,6 +15,7 @@ using TraceBackPlatform.AppCode;
 public partial class SystemConfig_DictManagement : System.Web.UI.Page
 {
     ServiceCommon servComm = new ServiceCommon();
+    ConditionComponent ccWhere = new ConditionComponent();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -31,27 +32,40 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
                 }
                 else
                 {
+                    string MainClass = Request["MainClass"];
                     string ClassID = Request["ClassID"];
                     string ClassName = Request["ClassName"];
                     string Sortno = Request["Sortno"];
-                    if (!String.IsNullOrEmpty(ClassID))
+                    try
                     {
-                        ModelDict modelDict = new ModelDict();
-                        modelDict.ClassID = ClassID;
-                        modelDict.ClassName = ClassName;
-                        modelDict.Sortno = int.Parse(Sortno);
-                        modelDict.UpdateTime = DateTime.Now;
-                        modelDict.UpdateUser = "User1";
-                        if (servComm.ExecuteSqlDatatable("select ClassID from Dict where ClassID = '" + ClassID + "'").Rows.Count > 0)
+                        if (!String.IsNullOrEmpty(ClassID))
                         {
-                            servComm.Update(modelDict);
+                            ModelDict modelDict = new ModelDict();
+                            modelDict.MainClass = MainClass;
+                            modelDict.ClassID = ClassID;
+                            modelDict.ClassName = ClassName;
+                            modelDict.Sortno = int.Parse(Sortno);
+                            modelDict.UpdateTime = DateTime.Now;
+                            modelDict.UpdateUser = "User1";
+                            if (servComm.ExecuteSqlDatatable("select ClassID from Dict where MainClass = '" + MainClass + "' and ClassID = '" + ClassID + "'").Rows.Count > 0)
+                            {
+                                ccWhere.AddComponent("MainClass", MainClass, SearchComponent.Equals, SearchPad.NULL);
+                                ccWhere.AddComponent("ClassID", ClassID, SearchComponent.Equals, SearchPad.And);
+                                servComm.Update(modelDict, ccWhere);
+                            }
+                            else
+                            {
+                                servComm.Add(modelDict);
+                            }
+
                         }
-                        else
-                        {
-                            servComm.Add(modelDict);
-                        }
-                        
                     }
+                    catch (Exception ex)
+                    {
+                        Response.Write("-1");
+                        Response.End();
+                    }
+                   
                 }
                 servComm.strOrderString = "Sortno";
                 List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0, "*", "Dict", null).ToList<ModelDict>();

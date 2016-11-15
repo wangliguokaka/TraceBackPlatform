@@ -23,9 +23,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>0.44083cm</Top>
-        <Left>7.65355cm</Left>
+        <Left>8.26209cm</Left>
         <Height>0.75875cm</Height>
-        <Width>6.65333cm</Width>
+        <Width>3.34604cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -40,27 +40,27 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.91792cm</Width>
+              <Width>2.36771cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>5.38396cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.52104cm</Width>
+              <Width>2.60583cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.06986cm</Width>
+              <Width>3.56715cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.06986cm</Width>
+              <Width>3.32903cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.06986cm</Width>
+              <Width>3.30257cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.73229cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -95,7 +95,6 @@
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="Value1">
-                      <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -268,9 +267,9 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Top>1.87537cm</Top>
-        <Left>1.0287cm</Left>
-        <Height>0.6cm</Height>
-        <Width>18.14854cm</Width>
+        <Left>0.42016cm</Left>
+        <Height>0.73229cm</Height>
+        <Width>20.55625cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -282,7 +281,7 @@
     <Height>2in</Height>
     <Style />
   </Body>
-  <Width>8.24801in</Width>
+  <Width>8.38343in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>

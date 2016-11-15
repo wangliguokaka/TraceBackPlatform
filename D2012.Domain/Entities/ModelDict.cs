@@ -22,12 +22,12 @@ namespace D2012.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        [Column("MainClass", DataType.Varchar, true, false)]
+        [Column("MainClass", DataType.Varchar, false, false)]
         public string MainClass { set; get; }
         /// <summary>
         /// 
         /// </summary>
-        [Column("ClassID", DataType.Varchar, true, false)]
+        [Column("ClassID", DataType.Varchar, false, false)]
         public string ClassID { set; get; }
 
         /// <summary>

@@ -30,10 +30,12 @@
     //参数obj  当前对象
     $.fn.tables.deleteRow = function (obj) {
         var $this = $(obj);
-        if ($this.parents("table").find("tr").length <= 2) {
-            return false;
-        }
-        $this.parents("tr").remove();
+        //if ($this.parent("table").find("tr").length <= 2) {
+        //    return false;
+
+        //}
+  
+        $this.parent().parent().remove();
     };
 
     //取表格所有数据

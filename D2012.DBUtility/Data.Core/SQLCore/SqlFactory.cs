@@ -402,7 +402,14 @@ namespace D2012.DBUtility.Data.Core.SQLCore
 
                 if (component.sbComponent != null && !string.IsNullOrEmpty(component.sbComponent.ToString()))
                 {
-                    sbValues.Append(" and ");
+                    if (sbValues.ToString() == " where ")
+                    {
+                    }
+                    else
+                    {
+                        sbValues.Append(" and ");
+                    }
+                   
                     sbValues.Append(component.sbComponent.ToString());
                 }
 
