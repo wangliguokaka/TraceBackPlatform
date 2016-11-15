@@ -64,8 +64,13 @@
         {
             if (isIe())
             {
-               
-                document.all.WebBrowser.ExecWB(7, 1);
+                try{
+                    document.all.WebBrowser.ExecWB(7, 1);
+                }               
+                catch(Err)
+                {
+                    window.print();
+                }
             }
             else
             { 
@@ -79,7 +84,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div class="box" style="margin:10px auto; " >
+    <div class="box" style="margin:10px auto; border:none; " >
         <div style="margin-left:80px;" class="Noprint">
             <asp:Button ID="ExportContact" runat="server"  Width="80" CssClass="ui-button" Text="导出" OnClick="ExportContact_Click" />
             <button type="button" class="ui-button" onclick="printDirent()">打印</button>

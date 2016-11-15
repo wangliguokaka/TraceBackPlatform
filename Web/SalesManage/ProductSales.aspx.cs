@@ -17,11 +17,20 @@ public partial class SalesManage_ProductSales :PageBase
     ConditionComponent ccWhere = new ConditionComponent();
     protected List<ModelDictDetail> listDictType = new List<ModelDictDetail>();
     protected string EditJson;
+    protected string OrderJson="[]";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             listDictType = DataCache.findAllDict().Where(model => model.ClassID == "MaterialType").ToList();
+            servComm.strOrderString = "OrderNo";
+            ccWhere.Clear();
+            ccWhere.AddComponent("OrderNo", null, SearchComponent.ISNOT, SearchPad.NULL);
+            ccWhere.AddComponent("Bh", null, SearchComponent.ISNOT, SearchPad.And);
+            IList<ModelSpec> listSaleDetail = servComm.GetListTop<ModelSpec>(0, "OrderNo,Bh", "Spec", ccWhere);
+            string SpecJson = JsonConvert.SerializeObject(listSaleDetail, Formatting.Indented, new IsoDateTimeConverter());
+
+            OrderJson = SpecJson.Replace("\r\n", "");
         }
 
         string Id = Request["Id"];
@@ -32,7 +41,7 @@ public partial class SalesManage_ProductSales :PageBase
             var timeConvert = new IsoDateTimeConverter();
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
             string modelJson = JsonConvert.SerializeObject(modelSale, Formatting.Indented, timeConvert);
-
+            ccWhere.Clear();
             ccWhere.AddComponent("Id",Id, SearchComponent.Equals, SearchPad.NULL);
             IList<ModelSaleDetail> listSaleDetail = servComm.GetListTop<ModelSaleDetail>(0,"*","SaleDetail", ccWhere);
 

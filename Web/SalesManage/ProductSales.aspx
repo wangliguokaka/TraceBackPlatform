@@ -268,17 +268,19 @@
                 }
             });
 
-            var test_list = [{ name: "小张", Bh: "xiaozhang" }, { name: "小王", Bh: "xiaowang" }, { name: "大王", Bh: "dawang" }];
+            var test_list = $.parseJSON('<%=OrderJson%>');
 
             $("#orderid").keyup(function () {
 
                 AutoComplete("auto_div", "orderid", test_list);
             });
 
+            $("#auto_div").css("width", $("#orderid").width());
+
             $("#orderid").blur(function ()
             {
                 var arrSelect = $.map(test_list, function (value) {
-                    return value.name == $("#orderid").val() ? value : null;//isNaN:is Not a Number的缩写 
+                    return value.OrderNo == $("#orderid").val() ? value : null;//isNaN:is Not a Number的缩写 
                 }
               );
                 if (arrSelect.length > 0) {
@@ -294,6 +296,25 @@
             search_text.addEventListener("input", function () {
                 AutoComplete("auto_div", "orderid", test_list);
             }, false);
+
+            $("#NoStart,#NoEnd").blur(function () {
+                
+                if ($("#NoStart").val() != '' && $("#NoEnd").val() != '')
+                {
+                    var startNo = parseInt($("#NoStart").val());
+                    var endNo = parseInt($("#NoEnd").val());
+                    if (startNo > endNo) {
+                        layer.msg("防伪卡起始号不能大于防伪卡结束号");
+                        return false;
+                    }
+                    else {
+                        $("#NoQty").val(endNo - startNo + 1);
+                    }
+                   
+                   
+                }
+               
+            })
         })
         
 </script>
@@ -308,12 +329,14 @@
         {
             display: none;
             width: 200px;
+            height:200px;
             border: 1px #EDEDED solid;
             background: #FFF;
             position: absolute;
             top: 22px;
             left: 0;
             color: #323232;
+            overflow:auto;
         }
     </style>
 </asp:Content>
@@ -417,9 +440,9 @@
                 <td class="pro_tableTd">防伪卡数量<span class="red" >*</span></td>
                 <td><input type="text" id="NoQty" maxlength="10"  class="pro_input required number" /></td>
                 <td class="pro_tableTd">防伪卡开始号<span class="red" >*</span></td>
-                <td><input type="text" id="NoStart" maxlength="50"  class="pro_input required" /></td>
+                <td><input type="text" id="NoStart" maxlength="50"  class="pro_input required number" /></td>
                   <td class="pro_tableTd">防伪卡结束号<span class="red" >*</span></td>
-                <td><input type="text" id="NoEnd" maxlength="50"  class="pro_input required" /></td>
+                <td><input type="text" id="NoEnd" maxlength="50"  class="pro_input required number" /></td>
                 
               </tr>
               <tr>

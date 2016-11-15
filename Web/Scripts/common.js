@@ -269,8 +269,8 @@ function AutoComplete(auto, search, mylist) {
         //    }
         //}
         $(mylist).each(function (index, item) {
-            if (item.name.indexOf(old_value) >= 0  ) {
-                carlist[n++] = item.name;
+            if (item.OrderNo.indexOf(old_value) >= 0  ) {
+                carlist[n++] = item.OrderNo;
             }
         }
         )
@@ -309,7 +309,7 @@ function AutoComplete(auto, search, mylist) {
                 $("#" + search).val(comText);
 
                 var arrSelect = $.map(mylist, function (value) {
-                    return value.name == comText ? value : null;//isNaN:is Not a Number的缩写 
+                    return value.OrderNo == comText ? value : null;//isNaN:is Not a Number的缩写 
                 }
                );
                 if (arrSelect.length > 0)
