@@ -40,6 +40,12 @@
                 $("#ProductSalesList").parent().parent().find("a span").eq(0).css("color","white");
                 $("#ProductSalesList").parent().parent().attr("class", "active");
             }
+            else if (location.href.indexOf("DictManagement.aspx") > -1) {
+                $("#DictManagement").attr("class", "active");
+                $("#DictManagement").parent().parent().find("a").eq(0).click();
+                $("#DictManagement").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#DictManagement").parent().parent().attr("class", "active");
+            }
             else {
                 $("#ProductSalesList").attr("class", "active");
                 $("#ProductSalesList").parent().parent().find("a").eq(0).click();
@@ -246,15 +252,15 @@
                         </a>
                     </li>--%>
                     <li >
-                        <a href="#systemSetting" class="nav-header collapsed  " data-toggle="collapse">
+                        <a href="#SalesManage" class="nav-header collapsed  " data-toggle="collapse">
                             <i class="glyphicon glyphicon-cog"></i>
-                            系统管理
+                            订单管理
                             
                             <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                         </a>
-                        <ul id="systemSetting" class="nav nav-list secondmenu collapse" style="height: 0px;">
+                        <ul id="SalesManage" class="nav nav-list secondmenu collapse" style="height: 0px;">
                             <li id="ProductSales"><a href="../SalesManage/ProductSales.aspx"><i class="glyphicon glyphicon-user"></i>&nbsp;产品销售</a></li>
-                            <li id="ProductSalesList1"><a href="../SalesManage/ProductSalesList.aspx"><i class="glyphicon glyphicon-th-list"></i>&nbsp;产品销售查询</a></li>
+                            <li id="ProductSalesList"><a href="../SalesManage/ProductSalesList.aspx"><i class="glyphicon glyphicon-th-list"></i>&nbsp;产品销售查询</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>&nbsp;角色管理</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>
@@ -267,35 +273,12 @@
                                    <span class="pull-right glyphicon  glyphicon-chevron-toggle"></span>
                         </a>
                         <ul id="configSetting" class="nav nav-list secondmenu collapse ">
-                            <li><a href="#"><i class="glyphicon glyphicon-globe"></i>&nbsp;全局缺省配置</a></li>
-                            <li id="ProductSalesList"><a href="../SalesManage/ProductSalesList.aspx"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;未开通用户配置</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-star"></i>&nbsp;退订用户配置</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-text-width"></i>&nbsp;试用用户配置</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;开通用户配置</a></li>
+                            <li id="DictManagement"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-bold"></i>&nbsp;数据字典</a></li>
+                            <li id="SpecManage"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-th-large"></i>&nbsp;规格型号配置</a></li>
+                             <li id="CustomManage"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;客户管理</a></li>
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="#disSetting" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-globe"></i>
-                            分发配置
-							 <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
-                        </a>
-                        <ul id="disSetting" class="nav nav-list secondmenu collapse">
-                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>&nbsp;分发包配置</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="#dicSetting" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-bold"></i>
-                            字典配置
-                            <span class="pull-right glyphicon glyphicon-chevron-toggle" ></span>
-                        </a>
-                        <ul id="dicSetting" class="nav nav-list secondmenu collapse">
-                            <li><a href="#"><i class="glyphicon glyphicon-text-width"></i>&nbsp;关键字配置</a></li>
-                        </ul>
-                    </li>
                     <li>
                         <a href="#">
                             <i class="glyphicon glyphicon-fire"></i>

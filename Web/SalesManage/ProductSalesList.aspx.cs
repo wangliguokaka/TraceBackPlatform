@@ -43,6 +43,7 @@ public partial class SalesManage_ProductSalesList : System.Web.UI.Page
             servComm.strOrderString = "Id";
             IList<ModelSale> listObj = servComm.GetList<ModelSale>("Sale", "*", "Id", 10, iPageIndex, iPageCount, ccwhere);
             var timeConvert = new IsoDateTimeConverter();
+            //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
             string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
             Response.Write("[{\"RowCount\":"+servComm.RowCount + ",\"JsonData\":"+ responseJson+"}]");

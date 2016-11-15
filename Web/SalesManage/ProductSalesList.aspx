@@ -153,7 +153,7 @@
 
                         //遍历行中每一列的key 
 
-                        var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail()\"  value=\"" + json[i]["Id"] + "\" /></td><td><a href=\"ProductSales.aspx?Id=" + json[i]["Id"] + "\">" + json[i]["Id"] + "</a></td><td>" + json[i]["Seller"] + "</td><td>" + json[i]["Salesperson"] + "</td><td>" + json[i]["BillNo"] + "</td><td>" + json[i]["BillClass"] + "</td><td>" + json[i]["SaleDate"] + "</td><td>" + (json[i]["BillDate"] == null ? "" : json[i]["BillDate"]) + "</td></tr>";
+                        var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail()\"  value=\"" + json[i]["Id"] + "\" /></td><td><a href=\"ProductSales.aspx?Id=" + json[i]["Id"] + "\">" + json[i]["Id"] + "</a></td><td>" + json[i]["Seller"] + "</td><td>" + json[i]["Salesperson"] + "</td><td>" + json[i]["BillNo"] + "</td><td>" + json[i]["SaleDate"] + "</td><td>" + (json[i]["BillDate"] == null ? "" : json[i]["BillDate"]) + "</td><td>" + json[i]["RegTime"] + "</td></tr>";
 
                         $("#SalesDetail tbody").append(trHtml);
                     }
@@ -203,9 +203,10 @@
                 <th>经销商</th>
                 <th>业务员</th>
                 <th>发票号</th>
-                <th>发票类型</th>
+                <th style="display:none;">发票类型</th>
                 <th>发货日期</th>
                 <th>开票日期</th>
+                <th>订单日期</th>
               </tr>        
           </thead>
             <tbody>

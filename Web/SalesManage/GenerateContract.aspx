@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/App_Master/MasterPage.master" CodeFile="GenerateContract.aspx.cs" Inherits="SalesManage_GenerateContract" %>
-<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
          input ,.ContactInput {
@@ -38,11 +38,25 @@
                 j=  setInterval(function clicks() {
                     try {
                         console.log(1)
-                        $("a[title='Word']").click();
+                        $(".reportView a[title='Word']").click();
                         clearInterval(j);
                     }
                     catch (Err) {
-                        console.log(-1)
+                        //console.log(-1)
+                    }
+                }, 2000);
+            }
+            else if ('<%=strAction%>' == "exportGoodsTicket")
+            {
+                var k;
+                k = setInterval(function clicks() {
+                    try {
+                        console.log(1)
+                        $(".reportExcelView a[title='Excel']").click();
+                        clearInterval(k);
+                    }
+                    catch (Err) {
+                        //console.log(-1)
                     }
                 }, 2000);
             }
@@ -87,6 +101,7 @@
     <div class="box" style="margin:10px auto; border:none; " >
         <div style="margin-left:80px;" class="Noprint">
             <asp:Button ID="ExportContact" runat="server"  Width="80" CssClass="ui-button" Text="导出" OnClick="ExportContact_Click" />
+             <asp:Button ID="ExportGoods" runat="server"  Width="120" CssClass="ui-button" Text="导出发货单" OnClick="ExportGoods_Click"  />
             <button type="button" class="ui-button" onclick="printDirent()">打印</button>
            <object id="WebBrowser" width="0" height="0"  classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>
         </div>
@@ -316,10 +331,13 @@
           </tr>
       </table>
       <!--divWidth  end-->
-      <div class="clear" style="display:none;" >
-           <rsweb:ReportViewer ID="SalesContactViewer"  runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1200" CssClass="reportView"  Height="75%"  WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
+      <div class="clear" >
+           <rsweb:ReportViewer ID="SalesContactViewer"  runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1200"  CssClass="reportView"  Height="75%"  WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
                 <LocalReport ReportPath="SalesManage\Rdlc\GenerateContract.rdlc"></LocalReport>
-    </rsweb:ReportViewer>
+            </rsweb:ReportViewer>
+           <rsweb:ReportViewer ID="ReportViewerExcel" ClientIDMode="Static"  runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1200" CssClass="reportExcelView"  Height="75%"  WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
+                <LocalReport ReportPath="SalesManage\Rdlc\GoodsTicket.rdlc"></LocalReport>
+            </rsweb:ReportViewer>
           <asp:ScriptManager ID="ScriptManager1"  runat="server"></asp:ScriptManager> 
         </div>
     </div>

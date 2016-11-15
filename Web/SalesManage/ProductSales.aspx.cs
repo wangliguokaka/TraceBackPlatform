@@ -22,6 +22,7 @@ public partial class SalesManage_ProductSales :PageBase
     {
         if (!IsPostBack)
         {
+            
             listDictType = DataCache.findAllDict().Where(model => model.ClassID == "MaterialType").ToList();
             servComm.strOrderString = "OrderNo";
             ccWhere.Clear();

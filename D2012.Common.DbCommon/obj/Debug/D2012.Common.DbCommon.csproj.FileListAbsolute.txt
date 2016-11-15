@@ -65,3 +65,4 @@ D:\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.dll
 D:\TraceBackPlatform\D2012.Common.DbCommon\bin\Debug\D2012.Common.DbCommon.pdb
 D:\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.dll
 D:\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.pdb
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Debug\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache

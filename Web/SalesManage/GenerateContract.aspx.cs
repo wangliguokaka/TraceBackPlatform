@@ -138,4 +138,9 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
         this.SalesContactViewer.LocalReport.Refresh();
 
     }
+
+    protected void ExportGoods_Click(object sender, EventArgs e)
+    {
+        strAction = "exportGoodsTicket";
+    }
 }
