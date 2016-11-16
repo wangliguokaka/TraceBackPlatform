@@ -11,8 +11,8 @@
               <TextRun>
                 <Value>发货单</Value>
                 <Style>
-                  <FontSize>16pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>宋体</FontFamily>
+                  <FontSize>11pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -22,7 +22,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.44083cm</Top>
+        <Top>0.14764cm</Top>
         <Left>8.62162cm</Left>
         <Height>0.75875cm</Height>
         <Width>3.34604cm</Width>
@@ -30,6 +30,7 @@
           <Border>
             <Style>None</Style>
           </Border>
+          <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -139,6 +140,7 @@
                             <TextRun>
                               <Value>部门</Value>
                               <Style>
+                                <FontFamily>宋体</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -281,7 +283,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>2cm</Top>
+        <Top>1.0475cm</Top>
         <Left>0.01563cm</Left>
         <Height>1cm</Height>
         <Width>22.14374cm</Width>
@@ -329,6 +331,7 @@
                             <TextRun>
                               <Value>客户名称</Value>
                               <Style>
+                                <FontFamily>宋体</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -361,7 +364,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Parameters!Customer.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -380,6 +386,7 @@
                       </Style>
                     </Textbox>
                     <ColSpan>5</ColSpan>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
@@ -408,7 +415,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>3cm</Top>
+        <Top>2.0475cm</Top>
         <Left>0.01563cm</Left>
         <Height>1cm</Height>
         <Width>22.14374cm</Width>
@@ -456,6 +463,7 @@
                             <TextRun>
                               <Value>收货地址</Value>
                               <Style>
+                                <FontFamily>宋体</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -488,7 +496,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Parameters!RecieveAddr.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -535,7 +546,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>4cm</Top>
+        <Top>3.0475cm</Top>
         <Left>0.01563cm</Left>
         <Height>1cm</Height>
         <Width>22.14374cm</Width>
@@ -583,6 +594,7 @@
                             <TextRun>
                               <Value>收货人：</Value>
                               <Style>
+                                <FontFamily>宋体</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -614,7 +626,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Parameters!Receiver.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -647,6 +662,7 @@
                             <TextRun>
                               <Value>联系电话</Value>
                               <Style>
+                                <FontFamily>宋体</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -678,7 +694,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Parameters!Telephone.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -722,7 +741,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>5cm</Top>
+        <Top>4.0475cm</Top>
         <Left>0.01563cm</Left>
         <Height>1cm</Height>
         <Width>22.14374cm</Width>
@@ -773,6 +792,7 @@
                             <TextRun>
                               <Value>序号</Value>
                               <Style>
+                                <FontFamily>宋体</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -805,6 +825,7 @@
                             <TextRun>
                               <Value>产品名称</Value>
                               <Style>
+                                <FontFamily>宋体</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -837,6 +858,7 @@
                             <TextRun>
                               <Value>规格型号</Value>
                               <Style>
+                                <FontFamily>宋体</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -868,7 +890,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>单位</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -898,7 +923,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>数量</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -928,7 +956,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>单价/元</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -958,7 +989,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>合计/元</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -993,7 +1027,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!No.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1023,7 +1060,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!ProductName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1053,7 +1093,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Spec.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1083,7 +1126,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Unit.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1113,7 +1159,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Qty.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1143,7 +1192,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Price.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1173,7 +1225,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Amount.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1219,7 +1274,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>6cm</Top>
+        <Top>5.0475cm</Top>
         <Left>0.01563cm</Left>
         <Height>2cm</Height>
         <Width>22.14374cm</Width>
@@ -1267,7 +1322,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>总计：</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1345,7 +1403,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>8cm</Top>
+        <Top>7.0475cm</Top>
         <Left>0.01562cm</Left>
         <Height>1cm</Height>
         <Width>22.14374cm</Width>
@@ -1392,7 +1450,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>备注：</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1423,7 +1484,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>另配送，</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1470,7 +1534,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>9cm</Top>
+        <Top>8.0475cm</Top>
         <Left>0.01563cm</Left>
         <Height>1cm</Height>
         <Width>22.14374cm</Width>
@@ -1517,7 +1581,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>经办人：</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1547,7 +1614,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Parameters!Operator.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1579,7 +1649,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>制单人：</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1609,7 +1682,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Parameters!Maker.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1681,7 +1757,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>10cm</Top>
+        <Top>9.0475cm</Top>
         <Left>0.01563cm</Left>
         <Height>1cm</Height>
         <Width>22.14374cm</Width>
@@ -1728,7 +1804,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>客户签收：</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>宋体</FontFamily>
+                                <FontSize>11pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1805,7 +1884,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>11cm</Top>
+        <Top>10.0475cm</Top>
         <Left>0.01563cm</Left>
         <Height>1cm</Height>
         <Width>22.14374cm</Width>
@@ -1823,21 +1902,24 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>q2222222222222222</Value>
-                <Style />
+                <Value />
+                <Style>
+                  <Color>White</Color>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox56</rd:DefaultName>
-        <Top>12.37042cm</Top>
-        <Left>0.51833cm</Left>
-        <Height>2.16104cm</Height>
+        <Top>11.42674cm</Top>
+        <Left>0.83583cm</Left>
+        <Height>5.41542cm</Height>
         <Width>12.5182cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
+            <Color>White</Color>
             <Style>Solid</Style>
           </Border>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1847,10 +1929,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>8.68092in</Height>
+    <Height>7.37035in</Height>
     <Style />
   </Body>
-  <Width>9.52091in</Width>
+  <Width>8.83341in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
