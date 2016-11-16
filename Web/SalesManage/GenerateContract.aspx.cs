@@ -5,10 +5,12 @@ using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 using TraceBackPlatform.AppCode;
 
 public partial class SalesManage_GenerateContract : System.Web.UI.Page
@@ -147,11 +149,33 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
         this.SalesContactViewer.DataBind();
         this.SalesContactViewer.LocalReport.Refresh();
 
+        Warning[] warnings;
+        string[] streamids;
+        string mimeType;
+        string encoding;
+        string extension;
+        string filename;
+
+        byte[] bytes = SalesContactViewer.LocalReport.Render(
+           "WORDOPENXML", null, out mimeType, out encoding,
+            out extension,
+           out streamids, out warnings);
+
+        filename = string.Format("{0}.{1}", this.ContactBH.Text, "docx");
+        Response.ClearHeaders();
+        Response.Clear();
+        Response.AddHeader("Content-Disposition", "attachment;filename=" + filename);
+        Response.ContentType = mimeType;
+        Response.BinaryWrite(bytes);
+        Response.Flush();
+        Response.End();
+
 
     }
 
     protected void ExportGoods_Click(object sender, EventArgs e)
     {
+       
         strAction = "exportGoodsTicket";
         this.ReportViewerExcel.LocalReport.DataSources.Clear();
         DataTable dtGoodsTicket = (new SalesDataSet()).Tables["GoodsTicketDataTable"];
@@ -163,17 +187,51 @@ public partial class SalesManage_GenerateContract : System.Web.UI.Page
         dtGoodsTicket.Rows[0][4] = "打印日期：";
         dtGoodsTicket.Rows[0][5] = DateTime.Now.ToString("yyyy/MM/dd");
 
-        dtGoodsTicket.Rows.Add(dtGoodsTicket.NewRow());
-        dtGoodsTicket.Rows[1][0] = "客户名称：";
-        dtGoodsTicket.Rows[1][1] = "吉星";
-
-        dtGoodsTicket.Rows.Add(dtGoodsTicket.NewRow());
-        dtGoodsTicket.Rows[2][0] = "收货地址：";
-        dtGoodsTicket.Rows[2][1] = "淄博高新区北辛路99号";
-
+        DataTable oneRowData = (new SalesDataSet()).Tables["OnerowDataTable"];
+        oneRowData.Rows.Add(oneRowData.NewRow());
         this.ReportViewerExcel.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtGoodsTicket));
+        this.ReportViewerExcel.LocalReport.DataSources.Add(new ReportDataSource("DataSet2", oneRowData));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("ContactNo", this.ContactBH.Text));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Department", "口腔技术分厂"));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("PrintDate", DateTime.Now.ToString("yyyy/MM/dd")));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Customer", "吉星"));
         this.ReportViewerExcel.DataBind();
         this.ReportViewerExcel.LocalReport.Refresh();
+
+        //XmlDocument sourceDoc = new XmlDocument();
+        //sourceDoc.Load(Request.PhysicalApplicationPath + this.ReportViewerExcel.LocalReport.ReportPath);
+      
+
+        //string path = Request.PhysicalApplicationPath + "UploadFile\\" + DateTime.Now.ToString("MM月dd号")+"发货.rdlc";
+        //sourceDoc.Save(path);
+
+        //ReportViewerExcel.LocalReport.ReportPath = path;
+        //this.ReportViewerExcel.LocalReport.Refresh();
+
+        
+
+        Warning[] warnings;
+        string[] streamids;
+        string mimeType;
+        string encoding;
+        string extension;
+        string filename;
+
+       
+
+        byte[] bytes = ReportViewerExcel.LocalReport.Render(
+           "EXCELOPENXML", null, out mimeType, out encoding,
+            out extension,
+           out streamids, out warnings);
+        //File.Delete(path);
+        filename = string.Format("{0}.{1}", this.ContactBH.Text, "xlsx");
+        Response.ClearHeaders();
+        Response.Clear();
+        Response.AddHeader("Content-Disposition", "attachment;filename=" + filename);
+        Response.ContentType = mimeType;
+        Response.BinaryWrite(bytes);
+        Response.Flush();
+        Response.End();
     }
 
 

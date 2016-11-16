@@ -34,31 +34,31 @@
         
             if ('<%=strAction%>' == "exportContact")
             {
-                var j;
-                j=  setInterval(function clicks() {
-                    try {
-                        console.log(1)
-                        $(".reportView a[title='Word']").click();
-                        clearInterval(j);
-                    }
-                    catch (Err) {
-                        //console.log(-1)
-                    }
-                }, 2000);
+                //var j;
+                //j=  setInterval(function clicks() {
+                //    try {
+                //        console.log(1)
+                //        $(".reportView a[title='Word']").click();
+                //        clearInterval(j);
+                //    }
+                //    catch (Err) {
+                //        //console.log(-1)
+                //    }
+                //}, 2000);
             }
             else if ('<%=strAction%>' == "exportGoodsTicket")
             {
-                var k;
-                k = setInterval(function clicks() {
-                    try {
-                        console.log(1)
-                        $(".reportExcelView a[title='Excel']").click();
-                        clearInterval(k);
-                    }
-                    catch (Err) {
-                        //console.log(-1)
-                    }
-                }, 2000);
+                //var k;
+                //k = setInterval(function clicks() {
+                //    try {
+                //        console.log(1)
+                //        $(".reportExcelView a[title='Excel']").click();
+                //        clearInterval(k);
+                //    }
+                //    catch (Err) {
+                //        //console.log(-1)
+                //    }
+                //}, 2000);
             }
             else
             {
@@ -354,7 +354,7 @@
                 <LocalReport ReportPath="SalesManage\Rdlc\GenerateContract.rdlc"></LocalReport>
             </rsweb:ReportViewer>
            <rsweb:ReportViewer ID="ReportViewerExcel" ClientIDMode="Static"  runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1200" CssClass="reportExcelView"  Height="75%"  WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
-                <LocalReport ReportPath="SalesManage\Rdlc\GoodsTicket.rdlc"></LocalReport>
+                <LocalReport ReportPath="SalesManage\Rdlc\GoodsTicket.rdlc"></LocalReport>               
             </rsweb:ReportViewer>
           <asp:ScriptManager ID="ScriptManager1"  runat="server"></asp:ScriptManager> 
         </div>
