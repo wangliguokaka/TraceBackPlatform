@@ -125,6 +125,35 @@
             })
         }
 
+        function ExportSale()
+        {
+            // window.open("ExportToExcel.aspx?BillNo="+ $("#BillNo").val()+"&Salesperson="+$("#Salesperson").val()+"&IsDel"+ $("#IsDel").attr("checked"))
+            
+           
+            $.ajax({
+                type: "post",
+                url: "ProductSalesList.aspx",
+                cache: false,
+                async: false,
+                data: {
+                    actiontype: "ExportExcel", "BillNo": $("#BillNo").val(), "Salesperson": $("#Salesperson").val(), "IsDel": $("#IsDel").attr("checked")
+                },
+                dataType: "text",
+                success: function (data) {
+                    window.open(data);
+                    //用到这个方法的地方需要重写这个success方法
+                    //$("#downloadpath").attr("href",data);
+                    ////$("#downloadpath").click();
+                    //$("#downloadpath").mousedown();
+                    //$("#downloadpath").mouseup();
+                    //$("#downloadpath").trigger("click");
+                }
+            });
+            //    $('.cd-popup-contact').addClass('is-visible');
+           // window.open("GenerateContract.aspx?orderid=<%="42" %>");
+
+        }
+
         var allRowCount = 0;
         function GetDataList(PageIndex)
         {
@@ -162,12 +191,31 @@
                 }
             });
         }
+
+        function printDirent() {
+            if (isIe()) {
+                try {
+                    document.all.WebBrowser.ExecWB(7, 1);
+                }
+                catch (Err) {
+                    window.print();
+                }
+            }
+            else {
+                window.print();
+            }
+        }
+
+        function isIe() {
+            return ("ActiveXObject" in window);
+        }
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <div class="box" >
       <div class="title" >查询条件</div>
+        
       <div class="divWidth" >
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
@@ -183,8 +231,9 @@
               <button class="ui-button" type="button" onclick="SearchList()">查询</button>
               <button class="ui-button" id="DisableOrder" type="button" onclick="DisableDetailOrder()">废止</button>
               <button class="ui-button"  id="ReuseOrder" type="button" onclick="ReuseDetailOrder()">恢复</button>
-              <button class="ui-button">导出</button>
-              <button class="ui-button">打印</button>
+              <button class="ui-button" type="button" onclick="ExportSale()">导出</button>
+              <button class="ui-button" type="button"  onclick="printDirent()">打印</button>
+                <object id="WebBrowser" width="0" height="0"  classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>
             </td>
           </tr>
         </table>   
@@ -220,6 +269,7 @@
      <div  >
         <ul class="pagination"></ul>
       </div>
+    <a href="#" id="downloadpath" ></a>
     <!--divWidth1  end-->
     
 </asp:Content>

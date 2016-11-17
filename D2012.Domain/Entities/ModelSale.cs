@@ -81,6 +81,12 @@ namespace D2012.Domain.Entities
         [Column("RegTime", DataType.Datetime, false, false)]
         public DateTime RegTime { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("IsDel", DataType.Varchar, false, false)]
+        public string IsDel { set; get; }
+
 
         #endregion Sale
 

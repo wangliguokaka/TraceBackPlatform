@@ -85,9 +85,37 @@
 
         function SaveOrderDetail()
         {
+           
+
             if (validateRow('gridLayer', 0) == false) {
                 return false;
             }
+
+            var CardPass = true;
+            $.ajax({
+                type: "post",
+                url: "ProductSales.aspx",
+                cache: false,
+                async: false,
+                data: {
+                    actiontype: "ValidCardNo", NoStart :$("#NoStart").val() , NoEnd: $("#NoEnd").val()
+                },
+                dataType: "text",
+                success: function (data) {
+                    //用到这个方法的地方需要重写这个success方法
+                   
+                        CardPass = data == "0";
+               
+                 
+                }
+            });
+
+            if (CardPass == false)
+            {
+                layer.msg("防伪卡范围有冲突")
+                return false;
+            }
+
             if ($("#Serial").val() == "-1") {
                 detailCount = detailCount + 1;
                 $("#Serial").val(detailCount);
@@ -160,6 +188,7 @@
                     else
                     {
                         $("#Id").val(data);
+                        $("#MakeContact").show();
                         layer.msg("保存成功！");
                     }
                 }
@@ -182,13 +211,15 @@
         {
            
             //    $('.cd-popup-contact').addClass('is-visible');
-            window.open("GenerateContract.aspx?orderid=<%="42" %>");
+            window.open("GenerateContract.aspx?orderid="+$("#Id").val());
         }
 
         
 
         $(function ()
         {
+            
+
             if ('<%=Request["Id"]%>' == '') {
             }
             else {
@@ -203,6 +234,11 @@
                 json = EditJson.DetailJson;
                 BindGrid();
             }
+
+            if ($("#Id").val() != "") {
+                $("#MakeContact").show();
+            }
+
             //关闭窗口
             $('.cd-popup-contact').on('click', function (event) {
                 if ($(event.target).is('.cd-popup-close')) {
@@ -302,9 +338,15 @@
                 if ($("#NoStart").val() != '' && $("#NoEnd").val() != '')
                 {
                     var startNo = parseInt($("#NoStart").val());
+                    var fullStartNo = "00000000" + $("#NoStart").val();
+                    var fullEndNo = "00000000" + $("#NoEnd").val();
+                    $("#NoStart").val(fullStartNo.substring(fullStartNo.length - 8, fullStartNo.length))
+                    $("#NoEnd").val(fullEndNo.substring(fullEndNo.length - 8, fullEndNo.length))
                     var endNo = parseInt($("#NoEnd").val());
                     if (startNo > endNo) {
                         layer.msg("防伪卡起始号不能大于防伪卡结束号");
+                        $("#NoQty").val("");
+                        $(this).val("");
                         return false;
                     }
                     else {
@@ -374,7 +416,7 @@
                     <button type="button" class="ui-button cd-popup-addbtn">新增订单</button>
                     <button type="button" class="ui-button cd-popup-editbtn">编辑订单</button>
                     <button type="button" class="ui-button" onclick="DeleteDetail()">删除订单</button>
-                    <button type="button" class="ui-button" onclick="MakeContact()">生成合同</button>
+                    <button type="button" id="MakeContact" style="display:none;" class="ui-button" onclick="MakeContact()">生成合同</button>
                 </td>
               </tr>
             </table>   
@@ -437,13 +479,13 @@
                 <td><input type="text" id="Qty" maxlength="10" class="pro_input required number" /></td>
               </tr>
               <tr>
-                <td class="pro_tableTd">防伪卡数量<span class="red" >*</span></td>
-                <td><input type="text" id="NoQty" maxlength="10"  class="pro_input required number" /></td>
+               
                 <td class="pro_tableTd">防伪卡开始号<span class="red" >*</span></td>
                 <td><input type="text" id="NoStart" maxlength="50"  class="pro_input required number" /></td>
                   <td class="pro_tableTd">防伪卡结束号<span class="red" >*</span></td>
                 <td><input type="text" id="NoEnd" maxlength="50"  class="pro_input required number" /></td>
-                
+                 <td class="pro_tableTd">防伪卡数量<span class="red" >*</span></td>
+                <td><input type="text" id="NoQty" maxlength="10"  class="pro_input required number" /></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">粉料类型</td>

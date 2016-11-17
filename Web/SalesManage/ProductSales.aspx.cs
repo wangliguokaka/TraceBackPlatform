@@ -1,4 +1,5 @@
-﻿using D2012.Common.DbCommon;
+﻿using D2012.Common;
+using D2012.Common.DbCommon;
 using D2012.Domain.Entities;
 using D2012.Domain.Services;
 using Newtonsoft.Json;
@@ -67,6 +68,7 @@ public partial class SalesManage_ProductSales :PageBase
                 modelSale.BillDate = String.IsNullOrEmpty(Request["BillDate"]) ? TimeNull : DateTime.Parse(Request["BillDate"].ToString()); ;
                 modelSale.BillNo = Request["BillNo"];
                 modelSale.BillClass = Request["BillClass"];
+                modelSale.IsDel = "0";
                 modelSale.Reg = "User1";
                 modelSale.RegTime = DateTime.Now;
                 if (String.IsNullOrEmpty(Request["Id"]))
@@ -78,7 +80,7 @@ public partial class SalesManage_ProductSales :PageBase
                     identityID = int.Parse(Request["Id"]);
                     modelSale.Id = identityID;
                     int result = servComm.Update(modelSale);
-                    
+
                 }
                 string jsonResult = Request["SalesDetail"];
                 jsonResult = jsonResult.Replace("[", "").Replace("]", "").Replace("},{", "}|{").Replace("\"Id\":\"\"", "\"Id\":" + identityID.ToString());
@@ -88,7 +90,7 @@ public partial class SalesManage_ProductSales :PageBase
                 int serialIndex = 0;
                 foreach (ModelSaleDetail modelDetail in listModel)
                 {
-                    serialIndex = serialIndex+1;
+                    serialIndex = serialIndex + 1;
                     modelDetail.Serial = serialIndex;
                     servComm.Add(modelDetail);
                 }
@@ -97,15 +99,28 @@ public partial class SalesManage_ProductSales :PageBase
             {
                 Response.Write(0);
                 Response.End();
-            } 
+            }
 
             Response.Write(identityID);
             Response.End();
-           
-                     
-           
+
+
+
         }
-       
+        else if (Request["actiontype"] == "ValidCardNo")
+        {
+            string NoStart = Request["NoStart"];
+            string NoEnd = Request["NoEnd"];
+
+            ccWhere.Clear();
+            ccWhere.AddComponent("Id", Id, SearchComponent.Equals, SearchPad.NULL);
+            int count = servComm.ExecuteSqlDatatable("select Id from SaleDetail where NoStart<="+ NoStart+ " and NoEnd>=" + NoStart + 
+                "or NoStart<=" + NoEnd + " and NoEnd>=" + NoEnd + 
+                "or NoStart>=" + NoStart + " and NoEnd<=" + NoEnd).Rows.Count;
+            Response.Write(count);
+            Response.End();
+
+        }
         //if (modelSale.ExecuteSqlDatatable("select ClassID from Dict where ClassID = '" + ClassID + "'").Rows.Count > 0)
         //{
         //    servComm.Update(modelDict);

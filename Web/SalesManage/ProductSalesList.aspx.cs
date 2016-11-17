@@ -1,19 +1,23 @@
-﻿using D2012.Common.DbCommon;
+﻿using D2012.Common;
+using D2012.Common.DbCommon;
 using D2012.Domain.Entities;
 using D2012.Domain.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TraceBackPlatform.AppCode;
 
 public partial class SalesManage_ProductSalesList : System.Web.UI.Page
 {
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();
+    IList<ModelSale> listObj;
     protected void Page_Load(object sender, EventArgs e)
     {
         string actiontype = Request["actiontype"];
@@ -41,7 +45,7 @@ public partial class SalesManage_ProductSalesList : System.Web.UI.Page
             int iPageCount = 0;
             int iPageIndex = int.Parse(Request["PageIndex"])+1;
             servComm.strOrderString = "Id";
-            IList<ModelSale> listObj = servComm.GetList<ModelSale>("Sale", "*", "Id", 10, iPageIndex, iPageCount, ccwhere);
+            listObj = servComm.GetList<ModelSale>("Sale", "*", "Id", 10, iPageIndex, iPageCount, ccwhere);
             var timeConvert = new IsoDateTimeConverter();
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
@@ -82,5 +86,41 @@ public partial class SalesManage_ProductSalesList : System.Web.UI.Page
             Response.Write(result);
             Response.End();
         }
+        else if (actiontype == "ExportExcel")
+        {
+            string BillNo = Request["BillNo"];
+            if (!String.IsNullOrEmpty(BillNo))
+            {
+                ccwhere.AddComponent("BillNo", "%" + BillNo + "%", SearchComponent.Like, SearchPad.And);
+            }
+            string Salesperson = Request["Salesperson"];
+            if (!String.IsNullOrEmpty(Salesperson))
+            {
+                ccwhere.AddComponent("Salesperson", "%" + Salesperson + "%", SearchComponent.Like, SearchPad.And);
+            }
+            string IsDel = Request["IsDel"];
+            if (!String.IsNullOrEmpty(IsDel))
+            {
+                ccwhere.AddComponent("IsDel", "1", SearchComponent.Equals, SearchPad.And);
+            }
+            else
+            {
+                ccwhere.AddComponent("Isnull(IsDel,0)", "1", SearchComponent.UnEquals, SearchPad.And);
+            }
+
+            servComm.strOrderString = "Id";
+            listObj = servComm.GetListTop<ModelSale>(0, "[Id],[SaleDate],[seller],[Salesperson],[BillDate],[BillNo],[BillClass],[Reg],[RegTime]", "Sale", ccwhere);
+            string shortName = DateTime.Now.ToString("yyyyMMddHHmmsshhh") + ".xlsx";
+            string fileName = Request.PhysicalApplicationPath + "UploadFile\\" + shortName;
+            using (NPOIHelper excelHelper = new NPOIHelper(fileName, Request.PhysicalApplicationPath + "UploadFile\\"))
+            {
+                DataTable dtTable = listObj.ToDataTable();
+                dtTable.Columns.Remove("IsDel");
+                int count = excelHelper.DataTableToExcel(dtTable, "订单信息", true);
+            }
+            Response.Write("http://"+ Request.Url.Authority+"//UploadFile//"+ shortName);
+            Response.End();
+        }
+        
     }
 }

@@ -13,13 +13,15 @@ namespace D2012.Common
     public class NPOIHelper : IDisposable
     {
         private string fileName = null; //文件名
+        private string tempPath = null; //文件名
         private IWorkbook workbook = null;
         private FileStream fs = null;
         private bool disposed;
 
-        public NPOIHelper(string fileName)
+        public NPOIHelper(string fileName,string tempPath)
         {
             this.fileName = fileName;
+            this.tempPath = tempPath;
             disposed = false;
         }
 
@@ -30,30 +32,62 @@ namespace D2012.Common
         /// <param name="isColumnWritten">DataTable的列名是否要导入</param>
         /// <param name="sheetName">要导入的excel的sheet的名称</param>
         /// <returns>导入数据行数(包含列名那一行)</returns>
-        public int DataTableToExcel(DataTable data, string sheetName, bool isColumnWritten)
+        public int DataTableToExcel(DataTable data, string sheetName, bool isColumnWritten,string templateName = "订单信息.xlsx")
         {
             int i = 0;
             int j = 0;
             int count = 0;
             ISheet sheet = null;
-
-            fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            if (fileName.IndexOf(".xlsx") > 0) // 2007版本
-                workbook = new XSSFWorkbook();
-            else if (fileName.IndexOf(".xls") > 0) // 2003版本
-                workbook = new HSSFWorkbook();
+            ICellStyle cellStyle;
 
             try
             {
-                if (workbook != null)
+
+                fs = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
+                Stream fstemplate = null;
+                if (File.Exists(fileName))
                 {
-                    sheet = workbook.CreateSheet(sheetName);
+                    fstemplate = new FileStream(tempPath + templateName, FileMode.Open, FileAccess.ReadWrite);
+                    if (fileName.IndexOf(".xlsx") > 0) // 2007版本
+                        workbook = new XSSFWorkbook(fstemplate);
+                    //else if (fileName.IndexOf(".xls") > 0) // 2003版本
+                    //workbook = new HSSFWorkbook(fileName);
+
+                    if (workbook != null)
+                    {
+                        sheet = workbook.GetSheet(sheetName);
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+
+                    isColumnWritten = false;
                 }
                 else
                 {
-                    return -1;
+                   // fs = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
+                    if (fileName.IndexOf(".xlsx") > 0) // 2007版本
+                        workbook = new XSSFWorkbook();
+                    else if (fileName.IndexOf(".xls") > 0) // 2003版本
+                        workbook = new HSSFWorkbook();
+
+                    if (workbook != null)
+                    {
+                        sheet = workbook.CreateSheet(sheetName);
+                    }
+                    else
+                    {
+                        return -1;
+                    }
                 }
 
+                cellStyle = workbook.CreateCellStyle();
+                cellStyle.BorderTop = BorderStyle.Thin;
+                cellStyle.BorderLeft = BorderStyle.Thin;
+                cellStyle.BorderRight = BorderStyle.Thin;
+                cellStyle.BorderBottom = BorderStyle.Thin;
+              
                 if (isColumnWritten == true) //写入DataTable的列名
                 {
                     IRow row = sheet.CreateRow(0);
@@ -65,19 +99,28 @@ namespace D2012.Common
                 }
                 else
                 {
-                    count = 0;
+                    count = 1;
                 }
 
                 for (i = 0; i < data.Rows.Count; ++i)
                 {
                     IRow row = sheet.CreateRow(count);
+                    
                     for (j = 0; j < data.Columns.Count; ++j)
                     {
-                        row.CreateCell(j).SetCellValue(data.Rows[i][j].ToString());
+                        ICell icell = row.CreateCell(j);
+                        icell.CellStyle = cellStyle;
+                        icell.SetCellValue(data.Rows[i][j].ToString());
                     }
                     ++count;
                 }
-                workbook.Write(fs); //写入到excel
+                workbook.Write(fs); //写入到excel     
+               
+                fs.Close();
+                if (fstemplate != null)
+                {
+                    fstemplate.Close();
+                }
                 return count;
             }
             catch (Exception ex)
@@ -86,6 +129,7 @@ namespace D2012.Common
                 return -1;
             }
         }
+
 
         /// <summary>
         /// 将excel中的数据导入到DataTable中
