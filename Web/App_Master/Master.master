@@ -52,6 +52,12 @@
                 $("#FactoryOrder").parent().parent().find("a span").eq(0).css("color", "white");
                 $("#FactoryOrder").parent().parent().attr("class", "active");
             }
+            else if (location.href.indexOf("BasicInfo.aspx") > -1) {
+                $("#BasicInfo").attr("class", "active");
+                $("#BasicInfo").parent().parent().find("a").eq(0).click();
+                $("#BasicInfo").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#BasicInfo").parent().parent().attr("class", "active");
+            }
             else {
                 $("#ProductSalesList").attr("class", "active");
                 $("#ProductSalesList").parent().parent().find("a").eq(0).click();
@@ -288,6 +294,7 @@
                             <li id="DictManagement"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-bold"></i>&nbsp;数据字典</a></li>
                             <li id="SpecManage"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-th-large"></i>&nbsp;规格型号配置</a></li>
                              <li id="CustomManage"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;客户管理</a></li>
+                             <li id="BasicInfo"><a href="../SystemConfig/BasicInfo.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;客户管理</a></li>
                         </ul>
                     </li>
 

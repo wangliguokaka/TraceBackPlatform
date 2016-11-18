@@ -468,7 +468,7 @@
     <div class="cd-popup-container">
         <div class="box" >
           <div class="title" >订单详细</div>
-          <div class="divWidth" >
+          <div class="divWidth"  style="overflow:auto;" >
             <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">订货号<span class="red" >*</span></td>

@@ -12,6 +12,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using D2012.Common;
+using System.Data.SqlClient;
 
 namespace DD2012.Service
 {
@@ -47,9 +48,64 @@ namespace DD2012.Service
             try
             {
                 Log.LogInfo("Upload");
+               
+                string con = ConfigurationManager.AppSettings["ConnectString"];
+                SqlConnection sqlConn = new SqlConnection(con);
+                SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlConn);
+                bulkCopy.DestinationTableName = "orders";
+               
+                bulkCopy.BulkCopyTimeout = 60;
+                try
+                {
+                    string faccon = ConfigurationManager.AppSettings["FactoryConnectString"];
+                    SqlConnection sqlFacConn = new SqlConnection(faccon);
+                    sqlFacConn.Open();
+                    string strSql = "SELECT [CardNo],'JJ2011' as [Serial],a.[Order_ID],[hospital],[doctor],[patient],[age],[sex],[OutDate],c.itemname as[Itemname], "
+                        + "b.Qty as [Qty],b.a_teeth as [a_teeth],b.b_teeth as [b_teeth],b.c_teeth as [c_teeth],b.d_teeth as [d_teeth],b.bColor as [Color],(select top 1 BatchNo from DisinRec d where d.Order_ID = a.[Order_ID]) as [BatchNo],"
+                        + "b.Valid as[Valid] FROM [orders] a inner join OrdersDetail b on a.[Order_ID] = b.[Order_ID] inner join products c on b.ProductId = c.id";
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(strSql, sqlFacConn);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    sqlFacConn.Close();
+
+                    strSql = "SELECT id,itemclass,SmallClass,itemname from products";
+                    adapter = new SqlDataAdapter(strSql, sqlFacConn);
+                    DataTable dtProducts = new DataTable();
+                    adapter.Fill(dtProducts);
+                    sqlFacConn.Close();
+
+
+                    bulkCopy.BatchSize = dt.Rows.Count;
+
+                    sqlConn.Open();
+                    SqlCommand sqlCom = new SqlCommand("delete from orders", sqlConn);
+                    sqlCom.ExecuteNonQuery();
+                    sqlCom.CommandText = "delete from products";
+                    sqlCom.ExecuteNonQuery();
+                    // new SqlCommand("delete from Patran_Model where [ModelID] = '" + modelID.ToString() + "'", sqlConn).ExecuteNonQuery();
+                    if (dt != null && dt.Rows.Count != 0)
+                        bulkCopy.WriteToServer(dt);
+
+                    bulkCopy.DestinationTableName = "products";
+                    bulkCopy.BatchSize = dtProducts.Rows.Count;
+                    if (dtProducts != null && dtProducts.Rows.Count != 0)
+                        bulkCopy.WriteToServer(dtProducts);
+                }
+                catch (Exception ex)
+                {
+                    Log.LogInfo(ex.Message);
+                }
+                finally
+                {
+                    sqlConn.Close();
+                    if (bulkCopy != null)
+                        bulkCopy.Close();
+                }
             }
             catch (Exception ex)
             {
+                Log.LogInfo(ex.Message);
             }            
         }
 

@@ -86,7 +86,7 @@ public partial class SalesManage_ProductSales :PageBase
                 jsonResult = jsonResult.Replace("[", "").Replace("]", "").Replace("},{", "}|{").Replace("\"Id\":\"\"", "\"Id\":" + identityID.ToString());
                 List<ModelSaleDetail> listModel = Utility.ConvertJsonToEntity<ModelSaleDetail>(jsonResult.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries));
 
-                servComm.ExecuteSql(" delete from SaleDetail where ID = '" + identityID + "'");
+                servComm.ExecuteSql(" delete from SaleDetail where ID = '" + identityID + "';");
                 int serialIndex = 0;
                 foreach (ModelSaleDetail modelDetail in listModel)
                 {

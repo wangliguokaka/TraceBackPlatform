@@ -83,6 +83,7 @@
     <Compile Include="Entities\ModelDictArea.cs" />
     <Compile Include="Entities\JX_USERS.cs" />
     <Compile Include="Entities\loan_user.cs" />
+    <Compile Include="Entities\ModelBase.cs" />
     <Compile Include="Entities\ModelSpec.cs" />
     <Compile Include="Entities\DatabaseSetup.cs" />
     <Compile Include="Entities\ModelOrders.cs" />
