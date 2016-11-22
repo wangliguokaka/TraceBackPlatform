@@ -147,13 +147,15 @@ public partial class SalesManage_GenerateContract : PageBase
         strAction = "exportGoodsTicket";
         this.ReportViewerExcel.LocalReport.DataSources.Clear();
         DataTable dtGoodsTicket = (new SalesDataSet()).Tables["GoodsTicketDataTable"];
-        dtGoodsTicket.Rows.Add(dtGoodsTicket.NewRow());
-        dtGoodsTicket.Rows[0][0] = "单据号：";
-        dtGoodsTicket.Rows[0][1] = this.ContactBH.Text;
-        dtGoodsTicket.Rows[0][2] = "部门：";
-        dtGoodsTicket.Rows[0][3] = "口腔技术分厂";
-        dtGoodsTicket.Rows[0][4] = "打印日期：";
-        dtGoodsTicket.Rows[0][5] = DateTime.Now.ToString("yyyy/MM/dd");
+        for (int i = 0; i < OrderDetail.Rows.Count; i++)
+        {
+            dtGoodsTicket.Rows.Add(dtGoodsTicket.NewRow());
+            dtGoodsTicket.Rows[i][0] = (i+1).ToString();
+            dtGoodsTicket.Rows[i][1] = OrderDetail.Rows[i]["ProductName"]; 
+            dtGoodsTicket.Rows[i][2] = OrderDetail.Rows[i]["Spec"];            
+            dtGoodsTicket.Rows[i][4] = OrderDetail.Rows[i]["Qty"];
+        }
+            
 
         DataTable oneRowData = (new SalesDataSet()).Tables["OnerowDataTable"];
         oneRowData.Rows.Add(oneRowData.NewRow());
@@ -163,6 +165,11 @@ public partial class SalesManage_GenerateContract : PageBase
         this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Department", "口腔技术分厂"));
         this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("PrintDate", DateTime.Now.ToString("yyyy/MM/dd")));
         this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Customer", "吉星"));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("RecieveAddr", "淄博高新区北辛路99号"));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Receiver", "张总"));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Telephone", "18669803591"));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Operator", "颉宏勇"));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Maker", "颉宏勇"));
         this.ReportViewerExcel.DataBind();
         this.ReportViewerExcel.LocalReport.Refresh();
 
@@ -185,14 +192,14 @@ public partial class SalesManage_GenerateContract : PageBase
         string extension;
         string filename;
 
-       
 
+        //EXCELOPENXML
         byte[] bytes = ReportViewerExcel.LocalReport.Render(
-           "EXCELOPENXML", null, out mimeType, out encoding,
+           "EXCEL", null, out mimeType, out encoding,
             out extension,
            out streamids, out warnings);
         //File.Delete(path);
-        filename = string.Format("{0}.{1}", this.ContactBH.Text, "xlsx");
+        filename = string.Format("{0}.{1}", this.ContactBH.Text, "xls");
         Response.ClearHeaders();
         Response.Clear();
         Response.AddHeader("Content-Disposition", "attachment;filename=" + filename);
