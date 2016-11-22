@@ -36,7 +36,7 @@ public class PageBase : System.Web.UI.Page
     {
         get 
         {
-            return "/uploadedFiles/" + LoginUser.BelongFactory + "/" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString()+"/";
+            return "/uploadedFiles/" + LoginUser.Serial + "/" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString()+"/";
         }
     }
 
@@ -53,7 +53,7 @@ public class PageBase : System.Web.UI.Page
     {
         get
         {
-            return Session["Language"] == "zh-cn";
+            return true;
         }
     }
 
@@ -100,10 +100,10 @@ public class PageBase : System.Web.UI.Page
         Thread.CurrentThread.CurrentUICulture = GetCurrentCulture;
     }
 
-    public WUSERS LoginUser
+    public ModelClient LoginUser
     {
         get {
-            return (WUSERS)(Session["objUser"]);
+            return (ModelClient)(Session["objUser"]);
         }
     }
 
@@ -172,8 +172,8 @@ public class PageBase : System.Web.UI.Page
         if (Session["UserName"] == null && !Request.RawUrl.Contains("login.aspx") )
         {
             //HttpContext.Current.Response.Redirect("/login.aspx");
-            //Response.Write("<script>top.location='/login.aspx'</script>");
-            //Response.End();
+            Response.Write("<script>top.location='/login.aspx'</script>");
+            Response.End();
         }
         else
         {

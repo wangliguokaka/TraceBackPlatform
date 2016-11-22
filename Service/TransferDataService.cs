@@ -50,6 +50,7 @@ namespace DD2012.Service
                 Log.LogInfo("Upload");
                
                 string con = ConfigurationManager.AppSettings["ConnectString"];
+                string facBM = ConfigurationManager.AppSettings["FactoryBM"];
                 SqlConnection sqlConn = new SqlConnection(con);
                 SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlConn);
                 bulkCopy.DestinationTableName = "orders";
@@ -57,19 +58,30 @@ namespace DD2012.Service
                 bulkCopy.BulkCopyTimeout = 60;
                 try
                 {
+                    sqlConn.Open();
+                    string xhSql = "select productID,1 as sno from base  union   select convert(varchar,isnull(max(regtime),'1900-01-01'),121) ,2 as sno from orders order by sno";
+                    SqlDataAdapter adapter = new SqlDataAdapter(xhSql, sqlConn);
+                    DataTable dtConfig = new DataTable();
+                    adapter.Fill(dtConfig);
+
+                    string ProductID = dtConfig.Rows[0][0].ToString();
+                    string MaxRegTime = dtConfig.Rows[1][0].ToString(); ;
+
                     string faccon = ConfigurationManager.AppSettings["FactoryConnectString"];
                     SqlConnection sqlFacConn = new SqlConnection(faccon);
                     sqlFacConn.Open();
-                    string strSql = "SELECT [CardNo],'JJ2011' as [Serial],a.[Order_ID],[hospital],[doctor],[patient],[age],[sex],[OutDate],c.itemname as[Itemname], "
+                    string strSql = "SELECT [CardNo],'"+ facBM + "' as [Serial],a.[Order_ID],[hospital],[doctor],[patient],[age],[sex],[OutDate],c.itemname as[Itemname], "
                         + "b.Qty as [Qty],b.a_teeth as [a_teeth],b.b_teeth as [b_teeth],b.c_teeth as [c_teeth],b.d_teeth as [d_teeth],b.bColor as [Color],(select top 1 BatchNo from DisinRec d where d.Order_ID = a.[Order_ID]) as [BatchNo],"
-                        + "b.Valid as[Valid] FROM [orders] a inner join OrdersDetail b on a.[Order_ID] = b.[Order_ID] inner join products c on b.ProductId = c.id";
+                        + "b.Valid as[Valid],a.regtime FROM [orders] a inner join OrdersDetail b on a.[Order_ID] = b.[Order_ID] inner join products c on b.ProductId = c.id where c.ID in("+ ProductID+") and a.Regtime > '"+ MaxRegTime+"'";
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(strSql, sqlFacConn);
+                    //Log.LogInfo(strSql);
+
+                    adapter = new SqlDataAdapter(strSql, sqlFacConn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     sqlFacConn.Close();
 
-                    strSql = "SELECT id,itemclass,SmallClass,itemname from products";
+                    strSql = "SELECT '"+ facBM + "' as Serial,id,itemclass,SmallClass,itemname from products";
                     adapter = new SqlDataAdapter(strSql, sqlFacConn);
                     DataTable dtProducts = new DataTable();
                     adapter.Fill(dtProducts);
@@ -78,11 +90,10 @@ namespace DD2012.Service
 
                     bulkCopy.BatchSize = dt.Rows.Count;
 
-                    sqlConn.Open();
-                    SqlCommand sqlCom = new SqlCommand("delete from orders", sqlConn);
+                    SqlCommand sqlCom = new SqlCommand("delete from products", sqlConn);
                     sqlCom.ExecuteNonQuery();
-                    sqlCom.CommandText = "delete from products";
-                    sqlCom.ExecuteNonQuery();
+                    //sqlCom.CommandText = "delete from products";
+                    //sqlCom.ExecuteNonQuery();
                     // new SqlCommand("delete from Patran_Model where [ModelID] = '" + modelID.ToString() + "'", sqlConn).ExecuteNonQuery();
                     if (dt != null && dt.Rows.Count != 0)
                         bulkCopy.WriteToServer(dt);

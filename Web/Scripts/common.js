@@ -207,6 +207,17 @@ function addTableRow(objId) {
     $.fn.tables.addRow(objId);
 }
 
+function validateRow(tableID, sliceIndex) {
+    var ispass = $.fn.tables.validateRow(tableID, sliceIndex);
+
+    if (!ispass) {
+        layer.alert("还有必填项未填写！请继续完善后再保存!");
+    }
+
+    return ispass;
+
+}
+
 //控制只能输入数字
 function onlyDecimal(obj) {
     if (obj.value.length > 20) {

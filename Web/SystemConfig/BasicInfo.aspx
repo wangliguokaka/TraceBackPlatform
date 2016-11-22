@@ -5,6 +5,62 @@
         {
             GetDataList();
 
+           
+
+            var EditJson = $.parseJSON('<%=EditJson%>');
+            $("#corp").val(EditJson["corp"]);
+            $("#Ecorp").val(EditJson["Ecorp"]);
+            $("#Address").val(EditJson["Address"]);
+            $("#netname").val(EditJson["netname"]);
+            $("#Email").val(EditJson["Email"]);
+            $("#LinkMan").val(EditJson["LinkMan"]);
+            $("#phone").val(EditJson["phone"]);
+            $("#fax").val(EditJson["fax"]);
+            $("#ServerIP").val(EditJson["ServerIP"]);
+            if (EditJson["ProductID"] != null) {
+               
+                $.each(EditJson["ProductID"].split(','), function (n, value) {
+                    $("#" + value).attr("checked", "checked");
+                });
+            }
+            
+            $("#RoleA").html($("#template").html())
+            $("#RoleB").html($("#template").html())
+            $("#RoleC").html($("#template").html())
+            $("#RoleD").html($("#template").html())
+
+            $("#SettingModal input[type=checkbox]").on("click", function () {
+                $(this).attr("checked") == "checked" ? $("#" + $(this).parents("div").attr("id") + " input[name*=" + $(this).val() + "]").attr("checked", "checked") : $("#" + $(this).parents("div").attr("id") + " input[name*=" + $(this).val() + "]").removeAttr("checked");
+            })
+
+            if (EditJson["RoleA"] != null) {
+
+                $.each(EditJson["RoleA"].split(':'), function (n, value) {
+                    $("#RoleA input[value=" + value+"]").attr("checked", "checked");
+                });
+            }
+
+            if (EditJson["RoleB"] != null) {
+
+                $.each(EditJson["RoleB"].split(':'), function (n, value) {
+                    $("#RoleB input[value=" + value + "]").attr("checked", "checked");
+                });
+            }
+
+            if (EditJson["RoleC"] != null) {
+
+                $.each(EditJson["RoleC"].split(':'), function (n, value) {
+                    $("#RoleC input[value=" + value + "]").attr("checked", "checked");
+                });
+            }
+
+            if (EditJson["RoleD"] != null) {
+
+                $.each(EditJson["RoleD"].split(':'), function (n, value) {
+                    $("#RoleD input[value=" + value + "]").attr("checked", "checked");
+                });
+            }
+            
             //打开窗口
             $('.cd-popup-product').on('click', function (event) {
                 $("#Serial").val(-1);
@@ -38,6 +94,17 @@
 
         }
 
+        function validateRow(tableID, sliceIndex) {
+            var ispass = $.fn.tables.validateRow(tableID, sliceIndex);
+
+            if (!ispass) {
+                layer.alert("还有必填项未填写！请继续完善后再保存!");
+            }
+
+            return ispass;
+
+        }
+
         function SaveBase() {
             if (validateRow('girdBase', 0) == false)
             {
@@ -49,7 +116,25 @@
                 productId = productId + ","+$(this).attr("id");
             })
             productId = productId.substr(1,productId.len)
-            alert(productId)
+
+           
+            var AcheckID = "";
+            $("#RoleA input[type=checkbox]:checked").each(function () {
+                AcheckID = AcheckID + ":" + $(this).val()
+            })
+            var BcheckID = "";
+            $("#RoleB input[type=checkbox]:checked").each(function () {
+                BcheckID = BcheckID + ":" + $(this).val()
+            })
+            var CcheckID = "";
+            $("#RoleC input[type=checkbox]:checked").each(function () {
+                CcheckID = CcheckID + ":" + $(this).val()
+            })
+            var DcheckID = "";
+            $("#RoleD input[type=checkbox]:checked").each(function () {
+                DcheckID = DcheckID + ":" + $(this).val()
+            })
+
             $.ajax({
                 type: "post",
                 url: "BasicInfo.aspx",
@@ -58,7 +143,7 @@
                 data: {
                     actiontype: "SaveBase", corp: $("#corp").val(), Ecorp: $("#Ecorp").val(), Address: $("#Address").val(), netname: $("#netname").val()
                 , Email: $("#Email").val(), fax: $("#fax").val(), LinkMan: $("#LinkMan").val(), phone: $("#phone").val(), ServerIP: $("#ServerIP").val(),
-                ProductID: productId
+                ProductID: productId, "RoleA": AcheckID, "RoleB": BcheckID, "RoleC": CcheckID, "RoleD": DcheckID
                 },
                 dataType: "text",
                 success: function (data) {
@@ -120,6 +205,61 @@
                 }
             });
         }
+       
+        var deleteDialogIndex = 0;
+        function DeleteHistory()
+        {
+            layer.open({
+                  title:"历史数据删除",
+                  type: 1,
+                  skin: 'layui-layer-rim', //加上边框
+                  area: ['360px', '200px'], //宽高
+                  content: '<div style="width:80%;margin:auto;"><div style="margin:15px;"><button type="button" class="ui-button" onclick="DeleteHisData()">删除</button></div>'
+                      + '<div style="margin:15px;">开始日期：<input type="text"  id="StartDate" readonly="readonly" style="width:160px;"  class="detepickers pro_input1 required" /> </div>'
+                      + '<div style="margin:15px;">结束日期：<input type="text" id="EndDate"  readonly="readonly"  style="width:160px;" class="detepickers pro_input1 required" /></div></div>'
+            });
+
+            deleteDialogIndex = layer.index ;
+
+        }
+
+        function DeleteHisData()
+        {
+            var startDate = $("#StartDate").val();
+            var endDate = $("#EndDate").val();
+            if (startDate == "")
+            {
+                layer.msg("开始日期不能为空");
+                return;
+            }
+
+            if (endDate == "") {
+                layer.msg("结束日期不能为空");
+                return;
+            }
+
+            $.ajax({
+                type: "post",
+                url: "BasicInfo.aspx",
+                cache: false,
+                async: false,
+                data: {
+                    actiontype: "DeleteHisData", "startDate": startDate, "endDate": endDate
+                },
+                dataType: "text",
+                success: function (data) {
+                    //用到这个方法的地方需要重写这个success方法
+                    if (data == "0") {
+                        layer.msg("删除失败！");
+                    }
+                    else {
+                        layer.msg("删除成功！");
+                        layer.close(deleteDialogIndex);
+                    }
+                }
+            });
+
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -131,51 +271,54 @@
           <tr>
             <td colspan="6" style="text-align:right;">
                <button type="button" class="ui-button" onclick="SaveBase()">保存</button>
-              <button type="button" class="ui-button cd-popup-product">产品设置</button>
+              
             </td>
           </tr>
+           
+            <tr>
+                <td class="pro_tableTd" colspan="6">
+                    <hr style="margin:10px 0px;" />
+                    <button type="button" class="ui-button cd-popup-product">产品设置</button>
+                    <button type="button" class="ui-button" data-toggle="modal" data-target="#SettingModal">权限设置</button>
+                    <button type="button" class="ui-button" onclick="DeleteHistory();">删除历史</button>
+                </td>
+            </tr>
           <tr>
             <td class="pro_tableTd">公司名称</td>
-            <td colspan="5"><input type="text" id="corp" class="pro_input required" /></td>
+            <td colspan="5"><input type="text" id="corp" maxlength="50" class="pro_input required" /></td>
           </tr>
           <tr>
             <td class="pro_tableTd">公司英文名称</td>
-            <td colspan="5"><input type="text" id="Ecorp" class="pro_input" /></td>
+            <td colspan="5"><input type="text" id="Ecorp" maxlength="50"  class="pro_input" /></td>
           </tr>
           <tr>
             <td class="pro_tableTd">公司地址</td>
-            <td colspan="5"><input type="text" id="Address" class="pro_input" /></td>
+            <td colspan="5"><input type="text" id="Address" maxlength="50"  class="pro_input" /></td>
           </tr>
           <tr>
             <td class="pro_tableTd">官方网站</td>
-            <td colspan="5"><input type="text" id="netname" class="pro_input" /></td>
+            <td colspan="5"><input type="text" id="netname" maxlength="50"  class="pro_input" /></td>
           </tr>
           <tr>
             <td class="pro_tableTd">电子邮箱</td>
-            <td colspan="5"><input type="text" id="Email" class="pro_input" /></td>
+            <td colspan="5"><input type="text" id="Email" maxlength="50"  class="pro_input" /></td>
           </tr>
           <tr>
             <td class="pro_tableTd">传真</td>
-            <td colspan="5"><input type="text" id="fax" class="pro_input" /></td>
+            <td colspan="5"><input type="text" id="fax" maxlength="50"  class="pro_input" /></td>
           </tr>
           <tr>
             <td class="pro_tableTd">联系人</td>
-            <td colspan="5"><input type="text" id="LinkMan" class="pro_input" /></td>
+            <td colspan="5"><input type="text" id="LinkMan" maxlength="50"  class="pro_input" /></td>
           </tr>
           <tr>
             <td class="pro_tableTd">联系电话</td>
-            <td colspan="5"><input type="text" id="phone" class="pro_input" /></td>
+            <td colspan="5"><input type="text" id="phone" maxlength="50"  class="pro_input" /></td>
           </tr>
           <tr>
             <td class="pro_tableTd">服务器内网IP地址</td>
-            <td colspan="5"><input type="text" id="ServerIP" class="pro_input" /></td>
+            <td colspan="5"><input type="text" id="ServerIP" maxlength="50"  class="pro_input" /></td>
           </tr>
-         
-          <tr>
-            <td class="pro_tableTd">简介</td>
-            <td colspan="5"><textarea class="pro_textarea"></textarea></td>
-          </tr>
-          
         </table>   
       </div>
       <!--divWidth  end-->
@@ -198,6 +341,52 @@
         <!--box  end-->
         <a href="#0" class="cd-popup-close">关闭</a>
     </div>
+        
 </div>
+    
+    
+    <div class="modal fade" id="SettingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">权限设置</h4>
+                </div>
+                <div class="modal-body">
+                    <ul id="myTab" class="nav nav-tabs">
+	                    <li class="active"><a href="#RoleA" data-toggle="tab">经销商</a></li>
+	                    <li><a href="#RoleB" data-toggle="tab">加工厂</a></li>
+	                    <li><a href="#RoleC" data-toggle="tab">本公司员工</a></li>
+                        <li><a href="#RoleD" data-toggle="tab">本公司文员</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+	                    <div class="tab-pane  in active" id="RoleA">
+	                    </div>
+	                    <div class="tab-pane " id="RoleB">		 
+	                    </div>
+	                    <div class="tab-pane " id="RoleC">
+	                    </div>
+	                    <div class="tab-pane " id="RoleD">
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="template" style="display:none;">
+         <table  style="width:80%; margin-left:100px;">
+                <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" name="SaleManage" value="SaleManage" /><span class="folder-open"></span>订单管理</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SaleManageProductSales" value="ProductSales" /><span class="folder-open"></span>产品销售</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SaleManageProductSaleList" value="ProductSalesList" /><span class="folder-open"></span>产品销售查询</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SaleManageProductFactoryOrder" value="FactoryOrder" /><span class="folder-open"></span>加工厂订单查询</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SaleManageProductRelatedOrder" value="RelatedOrder" /><span class="folder-open"></span>订单关联查询</td></tr>
+
+                <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" value="SystemSetting" name="SystemSetting" /><span class="folder-open"></span>系统设置</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SystemSettingDictManagement" value="DictManagement"/><span class="folder-open"></span>数据字段</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SystemSettingSpecManage" value="SpecManage"/><span class="folder-open"></span>规格型号维护</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SystemSettingCustomerManage" value="CustomerManage"/><span class="folder-open"></span>客户管理</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SystemSettingBasicInfo" value="BasicInfo"/><span class="folder-open"></span>基础信息</td></tr>
+            </table>
+    </div>
     <!--box  end-->
 </asp:Content>

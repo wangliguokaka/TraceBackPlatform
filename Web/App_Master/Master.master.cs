@@ -9,6 +9,13 @@ public partial class App_Master_Master : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+   
+    }
 
+    protected void logout_Click(object sender, EventArgs e)
+    {
+        Session["objUser"] = null;
+        Session["UserName"] = null;
+        HttpContext.Current.Response.Redirect("/login.aspx");
     }
 }

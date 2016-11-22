@@ -10,11 +10,21 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class SystemConfig_BasicInfo : System.Web.UI.Page
+public partial class SystemConfig_BasicInfo : PageBase
 {
     ServiceCommon servComm = new ServiceCommon();
+    protected string EditJson = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            ModelBase modelSale = servComm.GetEntity<ModelBase>("1");
+            var timeConvert = new IsoDateTimeConverter();
+            timeConvert.DateTimeFormat = "yyyy-MM-dd";
+            string modelJson = JsonConvert.SerializeObject(modelSale, Formatting.Indented, timeConvert);
+
+            EditJson = modelJson.Replace("\r\n", "");
+        }
         string actiontype = Request["actiontype"];
         if (actiontype == "GetProductList")
         {
@@ -30,7 +40,7 @@ public partial class SystemConfig_BasicInfo : System.Web.UI.Page
         }
         else if (actiontype == "SaveBase")
         {
-            int identityID = 0;
+            int identityID = 1;
             try
             {
                 ModelBase modelBase = new ModelBase();
@@ -45,9 +55,14 @@ public partial class SystemConfig_BasicInfo : System.Web.UI.Page
                 modelBase.netname = Request["netname"];
                 modelBase.phone = Request["phone"];
                 modelBase.ServerIP = Request["ServerIP"];
+                modelBase.ProductID = Request["ProductID"];
+                modelBase.RoleA = Request["RoleA"].Trim(':');
+                modelBase.RoleB = Request["RoleB"].Trim(':');
+                modelBase.RoleC = Request["RoleC"].Trim(':');
+                modelBase.RoleD = Request["RoleD"].Trim(':');
                 servComm.Delete<ModelBase>("1", true);
 
-                identityID = servComm.Add(modelBase);
+                servComm.Add(modelBase);
             }
             catch (Exception ex)
             {
@@ -56,6 +71,23 @@ public partial class SystemConfig_BasicInfo : System.Web.UI.Page
             }
 
             Response.Write(identityID);
+            Response.End();
+        }
+        else if (actiontype == "DeleteHisData")
+        {
+            try
+            {
+                string startDate = Request["startDate"];
+                string endDate = Request["endDate"];
+                servComm.ExecuteSql("exec SP_DeleteHistory '" + startDate + "','" + endDate+"'");
+            }
+            catch (Exception ex)
+            {
+                Response.Write(0);
+                Response.End();
+            }
+
+            Response.Write("1");
             Response.End();
         }
     }

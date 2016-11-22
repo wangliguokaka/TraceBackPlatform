@@ -198,9 +198,9 @@
                                 <th >操作</th>                      
                             </tr>
                             <tr>
-                                <td ><input id="MainClass" type="text" style="width:120px;"  class="required" /></td>
-                                <td ><input id="ClassID" type="text" style="width:120px;"  class="required" /></td>
-                                <td><input id="ClassName" type="text" style="width:120px;"   class="required" /></td>
+                                <td ><input id="MainClass" type="text" style="width:120px;" maxlength="1"  class="required" /></td>
+                                <td ><input id="ClassID" type="text" style="width:120px;" maxlength="20"   class="required" /></td>
+                                <td><input id="ClassName" type="text" style="width:120px;" maxlength="50"   class="required" /></td>
                                 <td><input id="Sortno" type="text" style="width:30px;"  class="required" /></td>
                                 <td><input type="button" style="width:60px;" class="ui-button" value="保存" onclick="SaveMainClass()" /></td>
                             </tr>
@@ -231,39 +231,31 @@
                     </div>
                          
                         <table  id="tbClass" border="0" class="pro_table1" style="width:100%;" >
-                        <thead>
-                            <tr>
-                                <th style="width:120px;">项目编码</th>
-                                <th style="width:120px;">项目名称</th>
-                                <th style="width:120px;">项目序号</th>                         
-                                <th><span class="icon icon-add">操作</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="display:none;">                                
-                                <td>
-                                    <input name="Code" type="text" style="width: 100px" class="required" /></td>
-                                <td>
-                                    <input name="DictName" type="text" style="width: 100px" class="required" /></td>
-                                <td>
-                                    <input name="SortNo" type="text" style="width: 150px" class="required" /></td>                    
-                                <td>
-                                    <button type="button" name="Id" class="btn btn-link" onclick="deleteRow(this)">删除</button>
-                                </td>
-                            </tr>
-                        </tbody>
+                            <thead>
+                                <tr>
+                                    <th style="width:120px;">项目编码</th>
+                                    <th style="width:120px;">项目名称</th>
+                                    <th style="width:120px;">项目序号</th>                         
+                                    <th><span class="icon icon-add">操作</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="display:none;">                                
+                                    <td>
+                                        <input name="Code" type="text" maxlength="20"  style="width: 100px" class="required" /></td>
+                                    <td>
+                                        <input name="DictName" type="text" maxlength="100" style="width: 100px" class="required" /></td>
+                                    <td>
+                                        <input name="SortNo" type="text" style="width: 150px" class="required" /></td>                    
+                                    <td>
+                                        <button type="button" name="Id" class="btn btn-link" onclick="deleteRow(this)">删除</button>
+                                    </td>
+                                </tr>
+                            </tbody>
                     </table>
                     <div class="table-toolbar"></div>
                 </div>
             </td>
         </tr>
     </table>
-    <%--<div class="box" >
-      <div class="title" >查询条件</div>
-      
-       
-   
-      <!--divWidth  end-->
-      <div class="clear" ></div>
-    </div>--%>
 </asp:Content>

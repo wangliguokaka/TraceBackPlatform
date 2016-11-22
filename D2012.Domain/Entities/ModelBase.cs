@@ -93,6 +93,35 @@ namespace D2012.Domain.Entities
         /// </summary>
         [Column("ProductID", DataType.Varchar, false, false)]
         public string ProductID { set; get; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("RoleA", DataType.Varchar, false, false)]
+        public string RoleA { set; get; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("RoleB", DataType.Varchar, false, false)]
+        public string RoleB { set; get; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("RoleC", DataType.Varchar, false, false)]
+        public string RoleC { set; get; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("RoleD", DataType.Varchar, false, false)]
+        public string RoleD { set; get; }
+
         #endregion ModelBase
     }
 }

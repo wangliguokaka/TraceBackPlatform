@@ -69,7 +69,7 @@ public partial class SalesManage_ProductSales :PageBase
                 modelSale.BillNo = Request["BillNo"];
                 modelSale.BillClass = Request["BillClass"];
                 modelSale.IsDel = "0";
-                modelSale.Reg = "User1";
+                modelSale.Reg = LoginUser.UserName;
                 modelSale.RegTime = DateTime.Now;
                 if (String.IsNullOrEmpty(Request["Id"]))
                 {

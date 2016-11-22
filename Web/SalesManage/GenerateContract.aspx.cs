@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 using System.Xml;
 using TraceBackPlatform.AppCode;
 
-public partial class SalesManage_GenerateContract : System.Web.UI.Page
+public partial class SalesManage_GenerateContract : PageBase
 {
     protected string strAction = "0";
     protected DataTable OrderDetail = new DataTable() ;

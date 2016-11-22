@@ -65,6 +65,7 @@
             $("#gridDetail tbody input[type='checkbox']:checked").each(function () {
 
                 arrayCheck.push($(this).val());
+                CheckDetail(obj, $(this).val());
             })
         }
 
@@ -142,6 +143,7 @@
        
         function BindGrid()
         {
+            arrayCheck = new Array();
             $("#gridDetail tbody").empty();
             var trHtml = $("#gridDetail tbody").find("tr").eq(0).html();
             //遍历行结果
@@ -196,16 +198,7 @@
             
         }
 
-        function validateRow(tableID, sliceIndex) {
-            var ispass = $.fn.tables.validateRow(tableID, sliceIndex);
-
-            if (!ispass) {
-                layer.alert("还有必填项未填写！请继续完善后再保存!");
-            }
-
-            return ispass;
-
-        }
+       
 
         function MakeContact()
         {

@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class SalesManage_ExportToExcel : System.Web.UI.Page
+public partial class SalesManage_ExportToExcel : PageBase
 {
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();

@@ -7,7 +7,7 @@ using System.Web.SessionState;
 
 public class ValidateCode : IHttpHandler, IRequiresSessionState
 {
-    
+
     public void ProcessRequest (HttpContext context) {
 
         string checkCode = CreateRandomCode(4);
@@ -16,7 +16,7 @@ public class ValidateCode : IHttpHandler, IRequiresSessionState
         //context.Response.ContentType = "text/plain";
         //context.Response.Write("Hello World");
     }
- 
+
     public bool IsReusable {
         get {
             return false;
@@ -54,7 +54,7 @@ public class ValidateCode : IHttpHandler, IRequiresSessionState
         int iwidth = (int)(checkCode.Length * 18);
         System.Drawing.Bitmap image = new System.Drawing.Bitmap(iwidth, 25);
         Graphics g = Graphics.FromImage(image);
-        Font f = new System.Drawing.Font("Arial", 10, System.Drawing.FontStyle.Bold);
+        Font f = new System.Drawing.Font("Arial", 14, System.Drawing.FontStyle.Bold);
         Brush b = new System.Drawing.SolidBrush(Color.Black);
         //g.FillRectangle(new System.Drawing.SolidBrush(Color.Blue),0,0,image.Width, image.Height);
         g.Clear(Color.FromArgb(238, 238, 238));
@@ -62,11 +62,11 @@ public class ValidateCode : IHttpHandler, IRequiresSessionState
 
         Pen blackPen = new Pen(Color.Black, 0);
         Random rand = new Random();
-        for (int i = 0; i < 3; i++)
-        {
-            int y = rand.Next(image.Height);
-            g.DrawLine(blackPen, 0, y, image.Width, y);
-        }
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    int y = rand.Next(image.Height);
+        //    g.DrawLine(blackPen, 0, y, image.Width, y);
+        //}
 
         System.IO.MemoryStream ms = new System.IO.MemoryStream();
         image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);

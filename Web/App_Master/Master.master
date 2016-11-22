@@ -46,6 +46,12 @@
                 $("#DictManagement").parent().parent().find("a span").eq(0).css("color", "white");
                 $("#DictManagement").parent().parent().attr("class", "active");
             }
+            else if (location.href.indexOf("CustomerManage.aspx") > -1) {
+                $("#CustomerManage").attr("class", "active");
+                $("#CustomerManage").parent().parent().find("a").eq(0).click();
+                $("#CustomerManage").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#CustomerManage").parent().parent().attr("class", "active");
+            }
             else if (location.href.indexOf("FactoryOrder.aspx") > -1) {
                 $("#FactoryOrder").attr("class", "active");
                 $("#FactoryOrder").parent().parent().find("a").eq(0).click();
@@ -57,6 +63,12 @@
                 $("#BasicInfo").parent().parent().find("a").eq(0).click();
                 $("#BasicInfo").parent().parent().find("a span").eq(0).css("color", "white");
                 $("#BasicInfo").parent().parent().attr("class", "active");
+            }
+            else if (location.href.indexOf("SpecManage.aspx") > -1) {
+                $("#SpecManage").attr("class", "active");
+                $("#SpecManage").parent().parent().find("a").eq(0).click();
+                $("#SpecManage").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#SpecManage").parent().parent().attr("class", "active");
             }
             else {
                 $("#ProductSalesList").attr("class", "active");
@@ -75,6 +87,83 @@
                 );
         })
         
+        var updateIndex = 0;
+        function ModifyPassword() {
+            layer.open({
+                title: "密码修改",
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['360px', '240px'], //宽高
+                content: '<div style="width:80%;margin:auto;"><div style="margin:15px;"><button type="button" class="ui-button" onclick="ModifyPass()">修改</button></div>'
+                    + '<div style="margin:15px;">旧密码&nbsp;&nbsp;&nbsp;：<input type="password"  id="OldPass" style="width:160px;"  class=" pro_input1 required" /> </div>'
+                    + '<div style="margin:15px;">新密码&nbsp;&nbsp;&nbsp;：<input type="password" id="NewPass"   style="width:160px;" class=" pro_input1 required" /></div>'
+                    + '<div style="margin:15px;">确认密码：<input type="password" id="ConfirmPass"   style="width:160px;" class=" pro_input1 required" /></div></div>'
+            });
+
+            updateIndex = layer.index;
+
+        }
+
+        function ModifyPass()
+        {
+            var OldPass = $("#OldPass").val();
+            var NewPass = $("#NewPass").val();
+            var ConfirmPass = $("#ConfirmPass").val();
+            if (OldPass == "") {
+                layer.msg("旧密码不能为空");
+                return;
+            }
+
+            if (NewPass == "") {
+                layer.msg("新密码不能为空");
+                return;
+            }
+
+            if (ConfirmPass == "") {
+                layer.msg("确认密码不能为空");
+                return;
+            }
+
+            if (NewPass != ConfirmPass) {
+                layer.msg("两次密码输入不一致");
+                return;
+            }
+
+            $.ajax({
+                type: "post",
+                url: "../Handler/BaseOpetation.ashx",
+                cache: false,
+                async: false,
+                data: {
+                    actiontype: "ModifyPass", "OldPass": OldPass, "NewPass": NewPass, "ConfirmPass": ConfirmPass
+                },
+                dataType: "text",
+                success: function (data) {
+                    //用到这个方法的地方需要重写这个success方法
+                    if (data == "0") {
+                        layer.msg("修改失败！");
+                    }
+                    else {
+                        layer.msg("修改成功！");
+                        layer.close(updateIndex);
+                    }
+                }
+            });
+        }
+
+        function Logout()
+        {
+            layer.confirm('确认注销吗？', {
+
+            }, function (index) {
+
+                $("#logout").click();
+                layer.close(index);
+            }, function () {
+
+            });
+
+        }
 
     </script>
      <style media="print" type="text/css">
@@ -255,9 +344,10 @@
                     <img class="navbar-brand" src="../Css/images/logo.png" /><a class="navbar-brand" href="#" style=" font-size:15px; font-family:'Microsoft YaHei'" id="logo">新&nbsp;华&nbsp;医&nbsp;疗&nbsp;订&nbsp;单&nbsp;信&nbsp;息&nbsp;追&nbsp;溯&nbsp;系&nbsp;统
                     </a>
                 </div>
-                <div  style="color:white; margin-top:20px; float:right;  margin-right:20%;">&nbsp;<span class="glyphicon glyphicon-user"><i style="font-size:10px;">&nbsp;王立国</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="注销"><i style="font-size:10px;">&nbsp;注销</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-lock" title="密码修改"><i style="font-size:10px;">&nbsp;密码修改</i></span></div>
+                <div  style="color:white; margin-top:20px; float:right;  margin-right:20%;">&nbsp;<span class="glyphicon glyphicon-user"><i style="font-size:10px;">&nbsp;<%=Session["UserName"] %></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="注销"  style="cursor:pointer;" onclick="Logout()"><i style="font-size:10px;">&nbsp;注销</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-lock" style="cursor:pointer;" title="密码修改" onclick="ModifyPassword();"><i style="font-size:10px;" >&nbsp;密码修改</i></span></div>
         </div>
         </div>
+         <div style="display:none;"><asp:Button ID="logout" runat="server" OnClick="logout_Click" /></div>
     </header>
     
           <div class="col-md-2 Noprint">
@@ -292,9 +382,9 @@
                         </a>
                         <ul id="configSetting" class="nav nav-list secondmenu collapse ">
                             <li id="DictManagement"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-bold"></i>&nbsp;数据字典</a></li>
-                            <li id="SpecManage"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-th-large"></i>&nbsp;规格型号配置</a></li>
-                             <li id="CustomManage"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;客户管理</a></li>
-                             <li id="BasicInfo"><a href="../SystemConfig/BasicInfo.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;客户管理</a></li>
+                            <li id="SpecManage"><a href="../SystemConfig/SpecManage.aspx"><i class="glyphicon glyphicon-th-large"></i>&nbsp;规格型号配置</a></li>
+                             <li id="CustomerManage"><a href="../SystemConfig/CustomerManage.aspx"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;客户管理</a></li>
+                             <li id="BasicInfo"><a href="../SystemConfig/BasicInfo.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;基础信息</a></li>
                         </ul>
                     </li>
 

@@ -174,6 +174,7 @@
                     allRowCount = returnData[0].RowCount
                     var json = returnData[0].JsonData;
                     $("#SalesDetail tbody").empty();
+                    arrayCheck = new Array();
                     //遍历行结果
                     for (var i = 0; i < json.length; i++) {
                         //var trnum = $("#" + gridId + " tbody").find("tr").slice(0).length - 1;

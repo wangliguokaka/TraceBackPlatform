@@ -13,7 +13,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TraceBackPlatform.AppCode;
 
-public partial class SalesManage_FactoryOrder : System.Web.UI.Page
+public partial class SalesManage_FactoryOrder : PageBase
 {
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();

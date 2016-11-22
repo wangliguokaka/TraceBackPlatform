@@ -12,7 +12,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TraceBackPlatform.AppCode;
 
-public partial class SystemConfig_DictManagement : System.Web.UI.Page
+public partial class SystemConfig_DictManagement :PageBase
 {
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccWhere = new ConditionComponent();
@@ -46,7 +46,7 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
                             modelDict.ClassName = ClassName;
                             modelDict.Sortno = int.Parse(Sortno);
                             modelDict.UpdateTime = DateTime.Now;
-                            modelDict.UpdateUser = "User1";
+                            modelDict.UpdateUser = LoginUser.UserName;
                             if (servComm.ExecuteSqlDatatable("select ClassID from Dict where MainClass = '" + MainClass + "' and ClassID = '" + ClassID + "'").Rows.Count > 0)
                             {
                                 ccWhere.AddComponent("MainClass", MainClass, SearchComponent.Equals, SearchPad.NULL);
@@ -111,7 +111,7 @@ public partial class SystemConfig_DictManagement : System.Web.UI.Page
                     {
                         model.ClassID = SelectClassID;
                         model.OperTime = DateTime.Now;
-                        model.oper = "User1";
+                        model.oper = LoginUser.UserName;
                         servComm.Add(model);
                     }
                 }
