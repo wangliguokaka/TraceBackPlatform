@@ -3,6 +3,7 @@ using D2012.Domain.Entities;
 using D2012.Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -45,7 +46,30 @@ public partial class login : System.Web.UI.Page
         {
             Session["UserName"] = username;
             Session["objUser"] = objUser;
-            Response.Redirect("SalesManage/ProductSales.aspx");
+            Session["UserName"] = objUser.Client;
+
+
+            servComm.ExecuteSql("insert into Visitor values ( getdate())");
+
+            if (objUser.Class == "S")
+            {
+                Session["AccessMenu"] = "S";
+            }
+            else
+            {
+                DataTable dtRole = servComm.ExecuteSqlDatatable("select Role" + objUser.Class + " from base");
+                if (dtRole.Rows.Count > 0)
+                {
+                    Session["AccessMenu"] = dtRole.Rows[0][0].ToString();
+                }
+                if (Session["AccessMenu"] == null)
+                {
+                    Session["AccessMenu"] = "";
+                }
+            }
+           
+
+            Response.Redirect("index.aspx");
         }
         else
         {

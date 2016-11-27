@@ -99,7 +99,7 @@
                 cache: false,
                 async: false,
                 data: {
-                    actiontype: "ValidCardNo", NoStart :$("#NoStart").val() , NoEnd: $("#NoEnd").val()
+                    actiontype: "ValidCardNo", NoStart: $("#NoStart").val(), NoEnd: $("#NoEnd").val(), Id: $("#Id").val(), Serial: $("#Serial").val()
                 },
                 dataType: "text",
                 success: function (data) {
@@ -200,7 +200,7 @@
 
        
 
-        function MakeContact()
+        function MakeContactFun()
         {
            
             //    $('.cd-popup-contact').addClass('is-visible');
@@ -330,11 +330,14 @@
                 
                 if ($("#NoStart").val() != '' && $("#NoEnd").val() != '')
                 {
+                    
+                    var fullStartNo = $("#NoStart").val() + "00000000";
+                    var fullEndNo = $("#NoEnd").val() + "00000000";
+                    //$("#NoStart").val(fullStartNo.substring(fullStartNo.length - 8, fullStartNo.length))
+                    //$("#NoEnd").val(fullEndNo.substring(fullEndNo.length - 8, fullEndNo.length))
+                    $("#NoStart").val(fullStartNo.substring(0, 8))
+                    $("#NoEnd").val(fullEndNo.substring(0, 8))
                     var startNo = parseInt($("#NoStart").val());
-                    var fullStartNo = "00000000" + $("#NoStart").val();
-                    var fullEndNo = "00000000" + $("#NoEnd").val();
-                    $("#NoStart").val(fullStartNo.substring(fullStartNo.length - 8, fullStartNo.length))
-                    $("#NoEnd").val(fullEndNo.substring(fullEndNo.length - 8, fullEndNo.length))
                     var endNo = parseInt($("#NoEnd").val());
                     if (startNo > endNo) {
                         layer.msg("防伪卡起始号不能大于防伪卡结束号");
@@ -409,7 +412,7 @@
                     <button type="button" class="ui-button cd-popup-addbtn">新增订单</button>
                     <button type="button" class="ui-button cd-popup-editbtn">编辑订单</button>
                     <button type="button" class="ui-button" onclick="DeleteDetail()">删除订单</button>
-                    <button type="button" id="MakeContact" style="display:none;" class="ui-button" onclick="MakeContact()">生成合同</button>
+                    <button type="button" id="MakeContact" style="display:none;" class="ui-button" onclick="MakeContactFun()">生成合同</button>
                 </td>
               </tr>
             </table>   

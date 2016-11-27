@@ -1,5 +1,4 @@
-﻿using Cjwdev.WindowsApi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -70,6 +69,10 @@ namespace DD2012.Service
                     string faccon = ConfigurationManager.AppSettings["FactoryConnectString"];
                     SqlConnection sqlFacConn = new SqlConnection(faccon);
                     sqlFacConn.Open();
+                    if (ProductID == "")
+                    {
+                        ProductID = "''";
+                    }
                     string strSql = "SELECT [CardNo],'"+ facBM + "' as [Serial],a.[Order_ID],[hospital],[doctor],[patient],[age],[sex],[OutDate],c.itemname as[Itemname], "
                         + "b.Qty as [Qty],b.a_teeth as [a_teeth],b.b_teeth as [b_teeth],b.c_teeth as [c_teeth],b.d_teeth as [d_teeth],b.bColor as [Color],(select top 1 BatchNo from DisinRec d where d.Order_ID = a.[Order_ID]) as [BatchNo],"
                         + "b.Valid as[Valid],a.regtime FROM [orders] a inner join OrdersDetail b on a.[Order_ID] = b.[Order_ID] inner join products c on b.ProductId = c.id where c.ID in("+ ProductID+") and a.Regtime > '"+ MaxRegTime+"'";

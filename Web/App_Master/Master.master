@@ -1,6 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Master.master.cs" Inherits="App_Master_Master" %>
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -12,8 +12,6 @@
     <link href="../Css/layer.css" rel="stylesheet" />
     <link href="../Css/style.css" rel="stylesheet" />
    
-
-
     <script type="text/javascript" src="../Scripts/jquery-1.7.1.min.js"></script>
     <script type="text/javascript"  src="../Scripts/jquery-ui-1.8.20.min.js"></script>
     <script type="text/javascript"  src="../Scripts/jBootstrapPage.js"></script>
@@ -21,7 +19,15 @@
     <script type="text/javascript" src="../Scripts/common.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../Scripts/layer.js"></script>
+
+
     <script type="text/javascript">
+
+        $(window).resize(function () {
+            $(".col-md-10").css("height", $(window).height() - 100);
+        });
+
+
         $(function () {
             $(".col-md-10").css("height",$(window).height() - 100);
             //$("#SalesMenu").click();
@@ -39,6 +45,25 @@
                 $("#ProductSalesList").parent().parent().find("a").eq(0).click();
                 $("#ProductSalesList").parent().parent().find("a span").eq(0).css("color","white");
                 $("#ProductSalesList").parent().parent().attr("class", "active");
+            }
+            else if (location.href.indexOf("FactoryExportExcel.aspx") > -1) {
+                $("#FactoryExportExcel").attr("class", "active");
+                $("#FactoryExportExcel").parent().parent().find("a").eq(0).click();
+                $("#FactoryExportExcel").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#FactoryExportExcel").parent().parent().attr("class", "active");
+            }
+            else if (location.href.indexOf("RelatedOrder.aspx") > -1) {
+                $("#RelatedOrder").attr("class", "active");
+                $("#RelatedOrder").parent().parent().find("a").eq(0).click();
+                $("#RelatedOrder").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#RelatedOrder").parent().parent().attr("class", "active");
+            }
+            else if (location.href.indexOf("UserTrace.aspx") > -1) {
+               
+                $("#UserTrace").attr("class", "active");
+                $("#UserTrace").parent().parent().find("a").eq(0).click();
+                $("#UserTrace").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#UserTrace").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("DictManagement.aspx") > -1) {
                 $("#DictManagement").attr("class", "active");
@@ -70,13 +95,33 @@
                 $("#SpecManage").parent().parent().find("a span").eq(0).css("color", "white");
                 $("#SpecManage").parent().parent().attr("class", "active");
             }
-            else {
-                $("#ProductSalesList").attr("class", "active");
-                $("#ProductSalesList").parent().parent().find("a").eq(0).click();
-                $("#ProductSalesList").parent().parent().find("a span").eq(0).css("color","white");
-                $("#ProductSalesList").parent().parent().attr("class", "active");
-            }
            
+
+        
+            var menuid = "<%=Session["AccessMenu"]%>"
+            
+                if (menuid == "S") {
+                }
+                else {
+                    $("#main-nav ul li").each(function () {
+                        if ((menuid+":").indexOf($(this).attr("id")+":") > -1) {
+
+                        }
+                        else {
+                           // $(this).remove();
+                            $(this).hide();
+                        }
+                    })
+                    
+                    $("#main-nav>li").each(function () {
+                        //alert($(this).find("ul li:visible").length)
+                        if ($(this).find("ul li:hidden").length == $(this).find("ul li").length)
+                        {
+                            $(this).hide()
+                        }
+                    })
+                }
+               
             $(".nav-header").each(function () {
 
                 $(this).bind("click", function ()
@@ -352,7 +397,7 @@
     
           <div class="col-md-2 Noprint">
               
-                <ul id="main-nav" class="main-nav nav nav-tabs nav-stacked" style="">
+                <ul id="main-nav" class="main-nav nav nav-tabs nav-stacked" style="max-width:300px;">
                    <%-- <li>
                         <a href="#">
                             <i class="glyphicon glyphicon-th-large"></i>
@@ -370,8 +415,9 @@
                             <li id="ProductSales"><a href="../SalesManage/ProductSales.aspx"><i class="glyphicon glyphicon-user"></i>&nbsp;产品销售</a></li>
                             <li id="ProductSalesList"><a href="../SalesManage/ProductSalesList.aspx"><i class="glyphicon glyphicon-th-list"></i>&nbsp;产品销售查询</a></li>
                             <li id="FactoryOrder"><a href="../SalesManage/FactoryOrder.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;加工厂订单查询</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>
+                            <li id="FactoryExportExcel"><a href="../SalesManage/FactoryExportExcel.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;数据导入</a></li>
+                            <li id="RelatedOrder"><a href="../SalesManage/RelatedOrder.aspx"><i class="glyphicon glyphicon-edit"></i>&nbsp;关联查询</a></li>
+                            <li id="UserTrace"><a href="../SalesManage/UserTrace.aspx"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;用户追踪</a></li>
                         </ul>
                     </li>
                     <li>
@@ -387,17 +433,7 @@
                              <li id="BasicInfo"><a href="../SystemConfig/BasicInfo.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;基础信息</a></li>
                         </ul>
                     </li>
-
-                    <li>
-                        <a href="#">
-                            <i class="glyphicon glyphicon-fire"></i>
-                            关于系统
-                            <span class="badge pull-right">1</span>
-                        </a>
-                    </li>
-
                 </ul>
-              
             </div>           
            <div class="col-md-10" style=" border-left-style:solid; border-width:1px;border-color:#D5D5D5">       
                <%--<div id="splitLine" style="float:left;border-width:0px; ">&nbsp;</div>--%>

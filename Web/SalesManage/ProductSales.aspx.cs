@@ -111,12 +111,18 @@ public partial class SalesManage_ProductSales :PageBase
         {
             string NoStart = Request["NoStart"];
             string NoEnd = Request["NoEnd"];
-
+            string Serial = Request["Serial"];
             ccWhere.Clear();
-            ccWhere.AddComponent("Id", Id, SearchComponent.Equals, SearchPad.NULL);
-            int count = servComm.ExecuteSqlDatatable("select Id from SaleDetail where NoStart<="+ NoStart+ " and NoEnd>=" + NoStart + 
+            string condition = "";
+            if (Serial != null && Serial != "-1")
+            {
+                condition = condition + " and ID !=" + Id + " and Serial != " + Serial;
+                //ccWhere.AddComponent("Id", Id, SearchComponent.Equals, SearchPad.NULL);
+                //ccWhere.AddComponent("Serial", Serial, SearchComponent.UnEquals, SearchPad.And);
+            }
+            int count = servComm.ExecuteSqlDatatable("select Id from SaleDetail where (NoStart<="+ NoStart+ " and NoEnd>=" + NoStart + 
                 "or NoStart<=" + NoEnd + " and NoEnd>=" + NoEnd + 
-                "or NoStart>=" + NoStart + " and NoEnd<=" + NoEnd).Rows.Count;
+                "or NoStart>=" + NoStart + " and NoEnd<=" + NoEnd +")"+ condition).Rows.Count;
             Response.Write(count);
             Response.End();
 

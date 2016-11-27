@@ -16,6 +16,7 @@ public partial class App_Master_Master : System.Web.UI.MasterPage
     {
         Session["objUser"] = null;
         Session["UserName"] = null;
+        Session["AccessMenu"] = "";
         HttpContext.Current.Response.Redirect("/login.aspx");
     }
 }

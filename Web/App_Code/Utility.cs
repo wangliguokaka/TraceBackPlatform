@@ -152,7 +152,7 @@ namespace TraceBackPlatform.AppCode
         /// <typeparam name="T"></typeparam>    
         /// <param name="list"></param>    
         /// <returns></returns>    
-        public static DataTable ToDataTable<T>(this IEnumerable<T> list)
+        public static DataTable ToDataTable<T>(this IEnumerable<T> list,DataTable dt = null)
         {
 
             //创建属性的集合    
@@ -160,15 +160,31 @@ namespace TraceBackPlatform.AppCode
             //获得反射的入口    
 
             Type type = typeof(T);
-            DataTable dt = new DataTable();
+            if (dt == null)
+            {
+                dt = new DataTable();
+                
+            }
+            else
+            {
+                Array.ForEach<PropertyInfo>(type.GetProperties(), p => { pList.Add(p);});
+            }
+            
             //把所有的public属性加入到集合 并添加DataTable的列    
-            Array.ForEach<PropertyInfo>(type.GetProperties(), p => { pList.Add(p); dt.Columns.Add(p.Name, GetCoreType(p.PropertyType)); });
+           
             foreach (var item in list)
             {
                 //创建一个DataRow实例    
                 DataRow row = dt.NewRow();
-                //给row 赋值    
-                pList.ForEach(p => row[p.Name] = p.GetValue(item, null));
+                //给row 赋值  
+                foreach (var p in pList)
+                {
+                    if (row.Table.Columns.Contains(p.Name))
+                    {
+                        row[p.Name] = p.GetValue(item, null) == null ? DBNull.Value : p.GetValue(item, null);
+                     }
+                }
+               // pList.ForEach(p => });
                 //加入到DataTable    
                 dt.Rows.Add(row);
             }

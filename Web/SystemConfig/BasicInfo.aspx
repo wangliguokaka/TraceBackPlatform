@@ -31,6 +31,17 @@
 
             $("#SettingModal input[type=checkbox]").on("click", function () {
                 $(this).attr("checked") == "checked" ? $("#" + $(this).parents("div").attr("id") + " input[name*=" + $(this).val() + "]").attr("checked", "checked") : $("#" + $(this).parents("div").attr("id") + " input[name*=" + $(this).val() + "]").removeAttr("checked");
+         
+                if ($(this).parents("div").eq(0).find("input[class=" + $(this).attr("class") + "]").length <= $(this).parents("div").eq(0).find("input[class=" + $(this).attr("class") + "]:checked").length + 1)
+                {
+                  
+                   $(this).parents("div").find("." + $(this).attr("class")).eq(0).attr("checked", "checked");
+                }                
+                if ($(this).parents("div").eq(0).find("input[class=" + $(this).attr("class") + "]").eq(0).attr("checked") == "checked" && $(this).parents("div").eq(0).find("input[class=" + $(this).attr("class") + "]").length > $(this).parents("div").eq(0).find("input[class=" + $(this).attr("class") + "]:checked").length) {
+                   // alert($(this).parents("div").eq(0).find("input[class=" + $(this).attr("class") + "]:checked").length)
+                    $(this).parents("div").find("." + $(this).attr("class")).eq(0).removeAttr("checked");
+                }
+
             })
 
             if (EditJson["RoleA"] != null) {
@@ -83,28 +94,7 @@
             });
         })
 
-        function validateRow(tableID, sliceIndex) {
-            var ispass = $.fn.tables.validateRow(tableID, sliceIndex);
-
-            if (!ispass) {
-                layer.alert("还有必填项未填写！请继续完善后再保存!");
-            }
-
-            return ispass;
-
-        }
-
-        function validateRow(tableID, sliceIndex) {
-            var ispass = $.fn.tables.validateRow(tableID, sliceIndex);
-
-            if (!ispass) {
-                layer.alert("还有必填项未填写！请继续完善后再保存!");
-            }
-
-            return ispass;
-
-        }
-
+      
         function SaveBase() {
             if (validateRow('girdBase', 0) == false)
             {
@@ -284,7 +274,7 @@
                 </td>
             </tr>
           <tr>
-            <td class="pro_tableTd">公司名称</td>
+            <td class="pro_tableTd">公司名称<span class="red" >*</span></td>
             <td colspan="5"><input type="text" id="corp" maxlength="50" class="pro_input required" /></td>
           </tr>
           <tr>
@@ -375,17 +365,18 @@
     </div>
     <div id="template" style="display:none;">
          <table  style="width:80%; margin-left:100px;">
-                <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" name="SaleManage" value="SaleManage" /><span class="folder-open"></span>订单管理</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SaleManageProductSales" value="ProductSales" /><span class="folder-open"></span>产品销售</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SaleManageProductSaleList" value="ProductSalesList" /><span class="folder-open"></span>产品销售查询</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SaleManageProductFactoryOrder" value="FactoryOrder" /><span class="folder-open"></span>加工厂订单查询</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SaleManageProductRelatedOrder" value="RelatedOrder" /><span class="folder-open"></span>订单关联查询</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" name="SaleManage"class="Sales"   value="SaleManage" /><span class="folder-open"></span>订单管理</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductSales" value="ProductSales" /><span class="folder-open"></span>产品销售</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductSaleList" value="ProductSalesList" /><span class="folder-open"></span>产品销售查询</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductFactoryOrder" value="FactoryOrder" /><span class="folder-open"></span>加工厂订单查询</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageFactoryExportExcel" value="FactoryExportExcel" /><span class="folder-open"></span>数据导入</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductRelatedOrder" value="RelatedOrder" /><span class="folder-open"></span>订单关联查询</td></tr>
 
-                <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" value="SystemSetting" name="SystemSetting" /><span class="folder-open"></span>系统设置</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SystemSettingDictManagement" value="DictManagement"/><span class="folder-open"></span>数据字段</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SystemSettingSpecManage" value="SpecManage"/><span class="folder-open"></span>规格型号维护</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SystemSettingCustomerManage" value="CustomerManage"/><span class="folder-open"></span>客户管理</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" name="SystemSettingBasicInfo" value="BasicInfo"/><span class="folder-open"></span>基础信息</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" class="System"   value="SystemSetting" name="SystemSetting" /><span class="folder-open"></span>系统设置</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingDictManagement" value="DictManagement"/><span class="folder-open"></span>数据字段</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingSpecManage" value="SpecManage"/><span class="folder-open"></span>规格型号维护</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingCustomerManage" value="CustomerManage"/><span class="folder-open"></span>客户管理</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingBasicInfo" value="BasicInfo"/><span class="folder-open"></span>基础信息</td></tr>
             </table>
     </div>
     <!--box  end-->

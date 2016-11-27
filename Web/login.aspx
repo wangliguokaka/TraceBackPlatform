@@ -90,7 +90,7 @@ html,body{
 <div class="login" >
   <div class="login_title" >用户登录</div>
   <ul class="login_ul" >
-    <li class="login_li" ><span class="login_name" >用户名：</span><input type="text" name="username" id="username" class="login_input" ></li>
+    <li class="login_li" ><span class="login_name" >用户名：</span><input type="text" name="username" id="username" value="<%=Request["username"] %>" class="login_input" ></li>
     <li class="login_li" ><span class="login_name" >密码：</span><input type="password" name="password" id="password" class="login_input" ></li>
     <li class="login_li login_li1" ><span class="login_name" >验证码：</span><input type="text" id="txtimgcode" class="login_input" ><img  id="validCode" alt="" ><a href="javascript:void(0);" onclick="refreshcode();" >换一张</a></li>
     <li class="login_li2" >  <asp:Button ID="loginBtn" runat="server" OnClientClick="return CheckLogin()"  CssClass="login_btn" Text="登录" OnClick="loginBtn_Click" /></li>
@@ -98,8 +98,8 @@ html,body{
   <div class="clear" ></div>
 </div>
 <div class="footer" style="background-color:rgb(1,138,218)">
-    <div style="text-align:center; vertical-align:middle; margin-top:15px;">
-            版权所有：山东新华医疗器械股份有限公司　　ICP备案号：鲁ICP备07005707号-1　互联网药品信息服务资格证书编号：（鲁）-非经营性-2016-0001
+    <div style="text-align:center; vertical-align:middle; margin-top:15px; color:white; font-size:15px;">
+            <strong>版权所有：山东新华医疗器械股份有限公司　　ICP备案号：鲁ICP备07005707号-1　互联网药品信息服务资格证书编号：（鲁）-非经营性-2016-0001</strong>
     </div>
 </div>
   </form>

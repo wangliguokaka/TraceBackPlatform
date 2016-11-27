@@ -20,6 +20,8 @@
                     $('.cd-popup-add').removeClass('is-visible');
                 }
             });
+
+             $("#gridLayer input").attr("disabled","disabled")
         });
 
         function SearchList()
@@ -106,6 +108,9 @@
             $.each(arrSelect[0], function (i, n) {
                 $("#" + i).val(arrSelect[0][i]);
             });
+
+            $(" <table width='100%' class='pro_table'><tr><td class='pro_tableTd'>牙位B（上左位）</td><td><input type='text' id='b_teeth' maxlength='10'  class='pro_input' /></td>"
+                + "<td class='pro_tableTd'>牙位C（上左位）</td><td><input type='text' id='b_teeth' maxlength='10'  class='pro_input' /></td><td class='pro_tableTd'>牙位D（上左位）</td><td><input type='text' id='b_teeth' maxlength='10'  class='pro_input' /></td></tr></table>  ").insertAfter("#gridLayer");
         }
 
        
@@ -127,7 +132,15 @@
         function isIe() {
             return ("ActiveXObject" in window);
         }
+
 </script>
+    <style type="text/css">
+        #gridLayer input 
+        {
+            border-style:none;
+            background-color:white;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -137,11 +150,11 @@
       <div class="divWidth" >
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
-            <td width="10%" class="pro_tableTd">防伪卡号开始<span class="red" >*</span></td>
+            <td width="10%" class="pro_tableTd">防伪卡号开始</td>
             <td width="25%"><input type="text" id="CardNoStart" class="pro_input" /></td>
-              <td width="10%" class="pro_tableTd">防伪卡号开始<span class="red" >*</span></td>
+              <td width="10%" class="pro_tableTd">防伪卡号开始</td>
             <td width="25%"><input type="text" id="CardNoEnd" class="pro_input" /></td>
-            <td width="10%" class="pro_tableTd">加工厂编码</td>
+            <td width="10%" class="pro_tableTd">业务员</td>
             <td width="20%"><input type="text" id="Salesperson" class="pro_input" /></td>
           </tr>
           <tr>
@@ -186,22 +199,22 @@
     <div class="cd-popup-container">
         <div class="box" >
           <div class="title" >工厂订单详细</div>
-          <div class="divWidth" >
+          <div class="divWidth" style="overflow:auto !important; height:260px;">
             <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
-                <td class="pro_tableTd">防伪卡号<span class="red" >*</span></td>
+                <td class="pro_tableTd">防伪卡号</td>
                 <td><div class="search"><input type="text" id="CardNo" maxlength="50"  class="pro_input required" /><div id="auto_div"></div></div></td>
-                <td class="pro_tableTd">加工厂编码<span class="red" >*</span></td>
+                <td class="pro_tableTd">加工厂编码</td>
                 <td><input type="text" id="Serial" value="" maxlength="50"   class="pro_input required" /></td>
-                <td class="pro_tableTd">订单条码<span class="red" >*</span></td>
+                <td class="pro_tableTd">订单条码</td>
                 <td><input type="text" id="Order_ID" maxlength="10" class="pro_input required number" /></td>
               </tr>
               <tr>
-                <td class="pro_tableTd">医疗机构<span class="red" >*</span></td>
+                <td class="pro_tableTd">医疗机构</td>
                 <td><input type="text" id="Hospital" maxlength="10"  class="pro_input required number" /></td>
-                <td class="pro_tableTd">医生<span class="red" >*</span></td>
+                <td class="pro_tableTd">医生</td>
                 <td><input type="text" id="Doctor" maxlength="50"  class="pro_input required number" /></td>
-                  <td class="pro_tableTd">患者<span class="red" >*</span></td>
+                  <td class="pro_tableTd">患者</td>
                 <td><input type="text" id="Patient" maxlength="50"  class="pro_input required number" /></td>
                 
               </tr>
@@ -210,12 +223,12 @@
                 <td><input type="text" id="Age" maxlength="10"  class="pro_input" /></td>
                 <td class="pro_tableTd">患者性别</td>
                 <td><input type="text" id="Sex" maxlength="50"  class="pro_input" /></td>
-                <td class="pro_tableTd">出货日期<span class="red" >*</span></td>
+                <td class="pro_tableTd">出货日期</td>
                 <td><input type="text" id="OutDate" maxlength="50"  class="pro_input required" /></td>
                
               </tr>
               <tr>
-                 <td class="pro_tableTd">产品名称<span class="red" >*</span></td>
+                 <td class="pro_tableTd">产品名称</td>
                 <td><input type="text" id="Itemname" class="detepickers pro_input required" /></td>
                 <td class="pro_tableTd">产品数量</td>
                 <td><input type="text" id="Qty" class="detepickers pro_input" /></td>
@@ -231,17 +244,9 @@
                  <td class="pro_tableTd">牙位D（下左位）</td>
                 <td><input type="text" id="d_teeth" maxlength="50"  class="pro_input" /></td>
               </tr>
+           
+            </table> 
              
-              <tr>
-                <td class="pro_tableTd">颜色</td>
-                <td><input type="text" id="Color" maxlength="20"  class="pro_input" /></td>
-                <td class="pro_tableTd">材料批号</td>
-                <td><input type="text" id="BatchNo" maxlength="50"  class="pro_input" /></td>
-                <td class="pro_tableTd">加工厂保修期</td>
-                <td><input type="text" id="Valid" maxlength="100"  class="pro_input" /></td>
-              </tr>
-              
-            </table>   
           </div>
           <!--divWidth  end-->
           <div class="clear" ></div>

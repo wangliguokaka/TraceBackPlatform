@@ -1,4 +1,5 @@
-﻿using D2012.Domain.Entities;
+﻿using D2012.Common.DbCommon;
+using D2012.Domain.Entities;
 using D2012.Domain.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -13,6 +14,7 @@ using System.Web.UI.WebControls;
 public partial class SystemConfig_BasicInfo : PageBase
 {
     ServiceCommon servComm = new ServiceCommon();
+    ConditionComponent ccWhere = new ConditionComponent();
     protected string EditJson = "";
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,7 +31,8 @@ public partial class SystemConfig_BasicInfo : PageBase
         if (actiontype == "GetProductList")
         {
             servComm.strOrderString = "itemname collate Chinese_PRC_CS_AS_KS_WS";
-            DataTable dtProduct = servComm.GetListTop(0, "products", null);
+           // ccWhere.AddComponent("Serial", LoginUser.Serial, SearchComponent.Equals, SearchPad.NULL);
+            DataTable dtProduct = servComm.GetListTop(0, "products", ccWhere);
             var timeConvert = new IsoDateTimeConverter();
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";

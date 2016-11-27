@@ -103,7 +103,16 @@ public class PageBase : System.Web.UI.Page
     public ModelClient LoginUser
     {
         get {
-            return (ModelClient)(Session["objUser"]);
+            if (Session["objUser"] == null)
+            {
+                return new ModelClient();
+                
+            }
+            else
+            {
+                return (ModelClient)(Session["objUser"]);
+
+            }
         }
     }
 
@@ -172,8 +181,9 @@ public class PageBase : System.Web.UI.Page
         if (Session["UserName"] == null && !Request.RawUrl.Contains("login.aspx") )
         {
             //HttpContext.Current.Response.Redirect("/login.aspx");
-            Response.Write("<script>top.location='/login.aspx'</script>");
-            Response.End();
+            Session["AccessMenu"] = "S";
+            //Response.Write("<script>top.location='/login.aspx'</script>");
+            //Response.End();
         }
         else
         {

@@ -176,7 +176,6 @@ D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Domain.pdb
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.csprojResolveAssemblyReference.cache
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.dll
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.pdb
-C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.csprojResolveAssemblyReference.cache
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.dll
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.pdb
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.DbCommon.dll
@@ -196,5 +195,6 @@ C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\bin\Debug\Microsof
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Common.DbCommon.pdb
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\bin\Debug\D2012.DBUtility.pdb
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\bin\Debug\D2012.Domain.pdb
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.csprojResolveAssemblyReference.cache
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.dll
 C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common\obj\Debug\D2012.Common.pdb

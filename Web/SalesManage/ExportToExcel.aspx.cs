@@ -42,7 +42,7 @@ public partial class SalesManage_ExportToExcel : PageBase
         using (NPOIHelper excelHelper = new NPOIHelper(fileName, Request.PhysicalApplicationPath + "UploadFile\\"))
         {
             
-            int count = excelHelper.DataTableToExcel(dtSales, "订单信息", true);
+            //int count = excelHelper.DataTableToExcel(dtSales, "订单信息", true);
         }
     }
 }
