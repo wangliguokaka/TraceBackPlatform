@@ -86,6 +86,7 @@
     <Compile Include="CacheHelper.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="CookieHelper.cs" />
+    <Compile Include="DESHelper.cs" />
     <Compile Include="EncryptClass.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Log.cs" />

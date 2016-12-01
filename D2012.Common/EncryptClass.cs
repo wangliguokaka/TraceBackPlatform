@@ -8,11 +8,13 @@ using System.Security.Cryptography;
 namespace D2012.Common
 {
     /// <summary>
-    /// EncryptClass 的摘要说明。
+    /// EncryptClass 的摘要说明。
+
     /// </summary>
     public class EncryptClass
     {
-        //加密字符串
+        //加密字符串
+
         Byte[] byIv64 = { 12, 25, 87, 33, 05, 56, 85, 8 };
         Byte[] byKey64 = { 11, 45, 85, 28, 58, 78, 50, 89 };
 
@@ -20,7 +22,8 @@ namespace D2012.Common
         byte[] desKey = new byte[] { 0x12, 0x50, 0x43, 0x75, 0x97, 0x04, 0x05, 0x05 };
         byte[] desIV = new byte[] { 0x2, 0x35, 0x87, 0x56, 0x12, 0x85, 0x24, 0x36 };
 
-        //自定义双向加密函数使用数组
+        //自定义双向加密函数使用数组
+
         private static Char[] phKey = { 'O', 'M', 'T', '5', 'S', '2', 'Q', 'V', 'A', '3', 'X', 'L', '4', '1', 'D', '7', 'W', '6', 'R', '9', 'J', '8', 'H', 'C', 'K' };
 
 
@@ -35,7 +38,8 @@ namespace D2012.Common
            
         }
         /// <summary>
-        /// DES加密字符串
+        /// DES加密字符串
+
         /// </summary>
         /// <param name="encryptString">待加密的字符串</param>
         /// <param name="encryptKey">加密密钥,要求为8位</param>
@@ -64,7 +68,8 @@ namespace D2012.Common
            
         }
         /// <summary>
-        /// DES解密字符串
+        /// DES解密字符串
+
         /// </summary>
         /// <param name="decryptString">待解密的字符串</param>
         /// <param name="decryptKey">解密密钥,要求为8位,和加密密钥相同</param>
@@ -111,10 +116,12 @@ namespace D2012.Common
         }
 
 
-        # region byte //字符串加密
+        # region byte //字符串加密
+
 
         /// <summary>
-        /// 字符串加密
+        /// 字符串加密
+
         /// </summary>
         /// <param name="strText">strText</param>
         /// <returns></returns>
@@ -138,7 +145,8 @@ namespace D2012.Common
 
 
         /// <summary>
-        /// 字符串解密
+        /// 字符串解密
+
         /// </summary>
         /// <param name="strText">strText</param>
         /// <returns></returns>

@@ -51,6 +51,8 @@ namespace DD2012.Service
                 Log.LogInfo("Upload");
                
                 string con = ConfigurationManager.AppSettings["ConnectString"];
+                con = CryptoHelper.StaticDecrypt(con);
+                Log.LogInfo("远程数据库连接:" + con);
                 string facBM = ConfigurationManager.AppSettings["FactoryBM"];
                 string passWord = ConfigurationManager.AppSettings["Password"];
                 SqlConnection sqlConn = new SqlConnection(con);
@@ -61,14 +63,15 @@ namespace DD2012.Service
                 try
                 {
                     sqlConn.Open();
-                    string xhSql = "select productID,1 as sno from base  union   select convert(varchar,isnull(max(regtime),'1900-01-01'),121) ,2 as sno from orders union select Serial,3 as sno from Client where Serial = '"+ facBM + "' and Passwd = '"+ passWord + "'  order by sno";
+                    string xhSql = "select convert(varchar,isnull(max(regtime),'1900-01-01'),121) ,1 as sno from orders union select ProductID,2 as sno from Client where Serial = '"+ facBM + "' and Passwd = '"+ CryptoHelper.StaticEncrypt(passWord) + "'  order by sno";
                     SqlDataAdapter adapter = new SqlDataAdapter(xhSql, sqlConn);
                     DataTable dtConfig = new DataTable();
                     adapter.Fill(dtConfig);
-                    if (dtConfig.Rows.Count >= 3)
+                    if (dtConfig.Rows.Count >= 2)
                     {
-                        string ProductID = dtConfig.Rows[0][0].ToString();
-                        string MaxRegTime = dtConfig.Rows[1][0].ToString(); ;
+                        string ProductID = dtConfig.Rows[1][0].ToString();
+                        string MaxRegTime = dtConfig.Rows[0][0].ToString();
+                        Log.LogInfo("ProductID:"+ ProductID+ ";MaxRegTime:"+MaxRegTime);
 
                         string faccon = ConfigurationManager.AppSettings["FactoryConnectString"];
                         SqlConnection sqlFacConn = new SqlConnection(faccon);

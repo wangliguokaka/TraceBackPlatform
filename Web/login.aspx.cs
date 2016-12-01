@@ -1,4 +1,5 @@
-﻿using D2012.Common.DbCommon;
+﻿using D2012.Common;
+using D2012.Common.DbCommon;
 using D2012.Domain.Entities;
 using D2012.Domain.Services;
 using System;
@@ -40,7 +41,7 @@ public partial class login : System.Web.UI.Page
         ccWhere.Clear();
         //condComponent.AddComponent("UPPER(Alias)", strUserName.ToUpper(), SearchComponent.Equals, SearchPad.Ex);
         ccWhere.AddComponent("UPPER(UserName)", username.ToUpper(), SearchComponent.Equals, SearchPad.NULL);
-        ccWhere.AddComponent("Passwd", password, SearchComponent.Equals, SearchPad.And);
+        ccWhere.AddComponent("Passwd", CryptoHelper.StaticEncrypt(password), SearchComponent.Equals, SearchPad.And);
         ModelClient objUser = servComm.GetEntity<ModelClient>(null, ccWhere);
         if (objUser != null && objUser.ID > 0)
         {

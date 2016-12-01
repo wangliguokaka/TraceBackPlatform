@@ -107,7 +107,12 @@ public partial class SystemConfig_CustomerManage : PageBase
                     modelClient.Email = Request["Email"];
                     modelClient.Addr = Request["Addr"];
                     modelClient.UserName = Request["UserName"];
-                    modelClient.Passwd = Request["Passwd"];
+                    string password = Request["Passwd"];
+                    if (!String.IsNullOrEmpty(password))
+                    {
+                        password = CryptoHelper.StaticEncrypt(password, "pass");
+                    }
+                    modelClient.Passwd = password;
                     identityID = servComm.Add(modelClient);
                 }
                 else
@@ -133,7 +138,12 @@ public partial class SystemConfig_CustomerManage : PageBase
                         modelClient.Email = Request["Email"];
                         modelClient.Addr = Request["Addr"];
                         modelClient.UserName = Request["UserName"];
-                        modelClient.Passwd = Request["Passwd"];
+                        string password = Request["Passwd"];
+                        if (!String.IsNullOrEmpty(password))
+                        {
+                            password = CryptoHelper.StaticEncrypt(password);
+                        }
+                        modelClient.Passwd = password;
                         modelClient.ID = identityID;
                         int result = servComm.Update(modelClient);
                     }
