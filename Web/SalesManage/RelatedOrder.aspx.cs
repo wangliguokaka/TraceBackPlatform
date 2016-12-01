@@ -48,14 +48,94 @@ public partial class SalesManage_RelatedOrder : PageBase
             using (NPOIHelper excelHelper = new NPOIHelper(fileName, Request.PhysicalApplicationPath + "UploadFile\\"))
             {
                 DataTable dt = new DataTable();
+   
                 dt.Columns.Add("SaleDate");
                 dt.Columns.Add("seller");
                 dt.Columns.Add("Salesperson");
                 dt.Columns.Add("BillDate");
+                dt.Columns.Add("BillNo");
+                dt.Columns.Add("BillClass");
                 dt.Columns.Add("Qty");
+                dt.Columns.Add("Bh");
+                dt.Columns.Add("ProductName");
+                dt.Columns.Add("orderid");
+                dt.Columns.Add("BatchNo");
+                dt.Columns.Add("OClass");
+                dt.Columns.Add("ObatchNo");
+                dt.Columns.Add("ProdDate");
+                dt.Columns.Add("BtQty");
+                dt.Columns.Add("SRate");
+                dt.Columns.Add("Valid");
+                dt.Columns.Add("receiver");
+                dt.Columns.Add("Addr");
+                dt.Columns.Add("Tel");
+                dt.Columns.Add("distri");
+                dt.Columns.Add("distriNo");
+                dt.Columns.Add("NoStart");
+                dt.Columns.Add("NoEnd");
+                dt.Columns.Add("NoQty");
+                dt.Columns.Add("factoryBM");
+                dt.Columns.Add("Order_ID");
+                dt.Columns.Add("hospital");
+                dt.Columns.Add("doctor");
+                dt.Columns.Add("patient");
+                dt.Columns.Add("OutDate");
+                dt.Columns.Add("Itemname");
+                dt.Columns.Add("factoryValid");
+                dt.Columns.Add("a_teeth");
+                dt.Columns.Add("b_teeth");
+                dt.Columns.Add("c_teeth");
+                dt.Columns.Add("d_teeth");
+
+                string templateName = "订单关联信息.xlsx";
+                if (LoginUser.Class == "A")
+                {
+                    templateName = "订单关联信息A.xlsx";
+                    dt.Columns.Remove("SaleDate");
+                    dt.Columns.Remove("Salesperson");
+                    dt.Columns.Remove("BillDate");
+                    dt.Columns.Remove("BillNo");
+                    dt.Columns.Remove("BillClass");
+                    dt.Columns.Remove("Bh");
+                    dt.Columns.Remove("OClass");
+                    dt.Columns.Remove("ObatchNo");
+                    dt.Columns.Remove("BtQty");
+                    dt.Columns.Remove("distri");
+                    dt.Columns.Remove("NoStart");
+                    dt.Columns.Remove("NoEnd");          
+
+                    dt.Columns.Remove("factoryBM");
+                    dt.Columns.Remove("Order_ID");
+                    dt.Columns.Remove("hospital");
+                    dt.Columns.Remove("doctor");
+                    dt.Columns.Remove("patient");
+                    dt.Columns.Remove("OutDate");
+                    dt.Columns.Remove("Itemname");
+                    dt.Columns.Remove("factoryValid");
+                    dt.Columns.Remove("a_teeth");
+                    dt.Columns.Remove("b_teeth");
+                    dt.Columns.Remove("c_teeth");
+                    dt.Columns.Remove("d_teeth");
+                }
+                else if (LoginUser.Class == "B")
+                {
+                    templateName = "订单关联信息B.xlsx";
+                    dt.Columns.Remove("SaleDate");
+                    dt.Columns.Remove("Salesperson");
+                    dt.Columns.Remove("BillDate");
+                    dt.Columns.Remove("BillNo");
+                    dt.Columns.Remove("BillClass");
+                    dt.Columns.Remove("Bh");
+                    dt.Columns.Remove("OClass");
+                    dt.Columns.Remove("ObatchNo");
+                    dt.Columns.Remove("BtQty");
+                    dt.Columns.Remove("distri");
+                    dt.Columns.Remove("NoStart");
+                    dt.Columns.Remove("NoEnd");
+                }
 
                 DataTable dtTable = listObj.ToDataTable(dt);                
-                int count = excelHelper.DataTableToExcel(dtTable, "订单关联信息", true, "订单关联信息.xlsx");
+                int count = excelHelper.DataTableToExcel(dtTable, "订单关联信息", true, templateName);
             }
             Response.Write("http://" + Request.Url.Authority + "//UploadFile//" + shortName);
             Response.End();

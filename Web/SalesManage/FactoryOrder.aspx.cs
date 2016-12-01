@@ -37,6 +37,21 @@ public partial class SalesManage_FactoryOrder : PageBase
             Response.End();
 
         }
+        else if (actiontype == "GetOrderDetail")
+        {
+            servComm.strOrderString = "CardNo";
+            ccwhere.Clear();
+            string CardNo = Request["CardNo"];
+            ccwhere.AddComponent("CardNo", CardNo, SearchComponent.Equals, SearchPad.NULL);
+            IList<ModelOrdersDetail> listObj = servComm.GetListTop<ModelOrdersDetail>(0, "*", "OrdersDetail", ccwhere);
+            var timeConvert = new IsoDateTimeConverter();
+            //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+            timeConvert.DateTimeFormat = "yyyy-MM-dd";
+            string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
+            responseJson = responseJson.Replace("\r\n", "");
+            Response.Write(responseJson);
+            Response.End();
+        }
         else if (actiontype == "ExportExcel")
         {
             ConstructionCondition();
@@ -47,16 +62,52 @@ public partial class SalesManage_FactoryOrder : PageBase
             string fileName = Request.PhysicalApplicationPath + "UploadFile\\" + shortName;
             using (NPOIHelper excelHelper = new NPOIHelper(fileName, Request.PhysicalApplicationPath + "UploadFile\\"))
             {
-                DataTable dtTable = listObj.ToDataTable();                
+                DataTable dtTable = listObj.ToDataTable();
                 int count = excelHelper.DataTableToExcel(dtTable, "工厂订单信息", true, "工厂订单信息.xlsx");
             }
             Response.Write("http://" + Request.Url.Authority + "//UploadFile//" + shortName);
+            Response.End();
+        }
+        else if (actiontype == "GetProductList")
+        {
+            ccwhere.Clear();
+            ccwhere.AddComponent("Serial", LoginUser.Serial, SearchComponent.Equals, SearchPad.NULL);
+            servComm.strOrderString = "itemname collate Chinese_PRC_CS_AS_KS_WS";
+            // ccWhere.AddComponent("Serial", LoginUser.Serial, SearchComponent.Equals, SearchPad.NULL);
+            DataTable dtProduct = servComm.GetListTop(0, "products", ccwhere);
+            var timeConvert = new IsoDateTimeConverter();
+            //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+            timeConvert.DateTimeFormat = "yyyy-MM-dd";
+            string responseJson = JsonConvert.SerializeObject(dtProduct, Formatting.Indented, timeConvert);
+            Response.Write("[{\"RowCount\":" + servComm.RowCount + ",\"JsonData\":" + responseJson + "}]");
+            Response.End();
+
+        }
+        else if (actiontype == "SaveProduct")
+        {
+            int identityID = 1;
+            try
+            {
+                string productID = Request["ProductID"];
+                if (!String.IsNullOrEmpty(productID))
+                {
+                    servComm.ExecuteSql("update client set productID = '" + productID + "' where Serial = '" + LoginUser.Serial + "'");
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(0);
+                Response.End();
+            }
+
+            Response.Write(identityID);
             Response.End();
         }
     }
 
     private void ConstructionCondition()
     {
+        ccwhere.Clear();
         string CardNoStart = Request["CardNoStart"];
         if (!String.IsNullOrEmpty(CardNoStart))
         {

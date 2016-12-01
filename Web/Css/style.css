@@ -397,6 +397,18 @@ input[type=checkbox].pro_checkbox{
 	font-size:12px;
 	color:#333;
 	}
+.cd-popup-save{
+	position:absolute;
+	right:40px;
+	top:0;
+	z-index:10;
+	width:auto;
+	height:30px;
+	line-height:30px;
+	display:block;
+	font-size:12px;
+	color:#333;
+	}
 .is-visible .cd-popup-container{
 	-webkit-transform:scale(1);
 	-moz-transform:scale(1);

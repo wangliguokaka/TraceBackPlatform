@@ -114,15 +114,15 @@
           </tr>
            <tr>
               <td>卖方：</td>
-              <td><asp:TextBox ID="Seller" CssClass="ContactInput"  Text="山东新华医疗器械股份有限公司" runat="server"></asp:TextBox></td>
+              <td><asp:TextBox ID="Seller" CssClass="ContactInput"  Text="" runat="server"></asp:TextBox></td>
               <td>合同编号：</td>
-              <td><asp:TextBox ID="ContactBH" CssClass="ContactInput" Text="KQ"  runat="server"></asp:TextBox></td>
+              <td><asp:TextBox ID="ContactBH" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
           </tr>
            <tr >
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>签订地点：</td>
-              <td><asp:TextBox ID="SignAddr" CssClass="ContactInput" Text="山东淄博"  runat="server"></asp:TextBox></td>
+              <td><asp:TextBox ID="SignAddr" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
           </tr>
            <tr >
               <td>买方：</td>
@@ -175,7 +175,7 @@
                   <table style="width:100%;">
                       <tr>
                           <td style="width:150px;">第二条：质量标准：</td>
-                          <td><asp:TextBox ID="Quantity" CssClass="ContactInput"  runat="server" Text="企标"></asp:TextBox></td>
+                          <td><asp:TextBox ID="Quantity" CssClass="ContactInput"  runat="server" Text=""></asp:TextBox></td>
                       </tr> 
                     </table>
                 </td>                
@@ -195,7 +195,7 @@
                   <table style="width:100%;">
                       <tr>
                           <td style="width:380px;">第四条：运输方式及到达站（港）和费用负担：</td>
-                          <td><asp:TextBox ID="FeeCharge" CssClass="ContactInput"  Text="卖方负担运费。" runat="server"></asp:TextBox></td>
+                          <td><asp:TextBox ID="FeeCharge" CssClass="ContactInput"  Text="" runat="server"></asp:TextBox></td>
                       </tr> 
                     </table>
                 </td>                
@@ -225,7 +225,7 @@
                   <table style="width:100%;">
                       <tr>
                           <td style="width:180px;">第七条：违约责任：</td>
-                          <td><asp:TextBox ID="Contact" CssClass="ContactInput"  Text="《合同法》。" runat="server"></asp:TextBox></td>
+                          <td><asp:TextBox ID="Contact" CssClass="ContactInput"  Text="" runat="server"></asp:TextBox></td>
                       </tr> 
                     </table>
                 </td>                
@@ -235,7 +235,7 @@
                   <table style="width:100%;">
                       <tr>
                           <td style="width:230px;">第八条：合同争议的解决方式：</td>
-                          <td><asp:TextBox ID="Solve" CssClass="ContactInput" Text="友好 协商。"  runat="server"></asp:TextBox></td>
+                          <td><asp:TextBox ID="Solve" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                       </tr> 
                     </table>
                 </td>                
@@ -245,7 +245,7 @@
                   <table style="width:100%;">
                       <tr>
                           <td style="width:200px;">第九条：本合同自</td>
-                          <td><asp:TextBox ID="SignMethod" CssClass="ContactInput"  runat="server" Text="签章"></asp:TextBox></td>
+                          <td><asp:TextBox ID="SignMethod" CssClass="ContactInput"  runat="server" Text=""></asp:TextBox></td>
                           <td style="width:100px;">起生效。</td>
                       </tr> 
                     </table>
@@ -256,7 +256,7 @@
                   <table style="width:100%;">
                       <tr>
                           <td style="width:200px;">第十条：其他约定事项：</td>
-                          <td><asp:TextBox ID="AppointedItem" CssClass="ContactInput" Text="1、增值税票（√），普票（    ）。请将收货信息、开票信息、汇款信息回传至"  runat="server"></asp:TextBox></td>
+                          <td><asp:TextBox ID="AppointedItem" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                       </tr> 
                     </table>
                 </td>                
@@ -266,7 +266,7 @@
                   <table style="width:100%;">
                       <tr>
                           <td style="width:200px;">&nbsp;</td>
-                          <td><asp:TextBox ID="AppointedItem1" CssClass="ContactInput" Text="0533-3588673  。" Width="400"  runat="server"></asp:TextBox>发票类型不选视为开普票 。</td>
+                          <td><asp:TextBox ID="AppointedItem1" CssClass="ContactInput" Text="" Width="400"  runat="server"></asp:TextBox>发票类型不选视为开普票 。</td>
                       </tr> 
                     </table>
                 </td>                
@@ -295,19 +295,19 @@
                           <td colspan="2" style="text-align:center;">买   方</td>
                       </tr>
                       <tr>
-                          <td style="width:140px">卖方：</td><td class="Split" style="width:260px"><asp:TextBox ID="SellerBottom" CssClass="ContactInput" Text="山东新华医疗器械股份有限公司"  runat="server"></asp:TextBox></td>
-                          <td style="width:140px">买方：</td><td style="width:260px"><asp:TextBox ID="BuyerBottom" CssClass="ContactInput" Text="山东新华医疗"  runat="server"></asp:TextBox></td>
+                          <td style="width:140px">卖方：</td><td class="Split" style="width:260px"><asp:TextBox ID="SellerBottom" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
+                          <td style="width:140px">买方：</td><td style="width:260px"><asp:TextBox ID="BuyerBottom" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                       </tr>
                        <tr>
                           <td >住所：</td><td class="Split"><asp:TextBox ID="SellerAddr" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                           <td>住所：</td><td><asp:TextBox ID="BuyerAddr" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                       </tr>
                       <tr>
-                          <td >经办人：</td><td class="Split"><asp:TextBox ID="SellerOperator" CssClass="ContactInput" Text="颉宏勇"  runat="server"></asp:TextBox></td>
+                          <td >经办人：</td><td class="Split"><asp:TextBox ID="SellerOperator" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                           <td>经办人：</td><td><asp:TextBox ID="BuyerOperator" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                       </tr>
                       <tr>
-                          <td >电话：</td><td class="Split"><asp:TextBox ID="SellerTel" CssClass="ContactInput"   Text="0533-3581573"  runat="server"></asp:TextBox></td>
+                          <td >电话：</td><td class="Split"><asp:TextBox ID="SellerTel" CssClass="ContactInput"   Text=""  runat="server"></asp:TextBox></td>
                           <td>电话：</td><td><asp:TextBox ID="BuyerTel" CssClass="ContactInput"  Text=""  runat="server"></asp:TextBox></td>
                       </tr>
                       <tr>
@@ -332,11 +332,11 @@
                            </td>
                       </tr>--%>
                        <tr>
-                          <td >开户银行：</td><td class="Split"><asp:TextBox ID="SellerBank" CssClass="ContactInput" Text="中国银行淄博人民公园支行"  runat="server"></asp:TextBox></td>
+                          <td >开户银行：</td><td class="Split"><asp:TextBox ID="SellerBank" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                           <td>开户银行：</td><td><asp:TextBox ID="BuyerBank" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                       </tr>
                        <tr>
-                          <td >账号：</td><td class="Split"><asp:TextBox ID="SellerAccount" CssClass="ContactInput" Text="244211260465"  runat="server"></asp:TextBox></td>
+                          <td >账号：</td><td class="Split"><asp:TextBox ID="SellerAccount" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                           <td>账号：</td><td><asp:TextBox ID="BuyerAccount" CssClass="ContactInput" Text=""  runat="server"></asp:TextBox></td>
                       </tr>
                         <tr>

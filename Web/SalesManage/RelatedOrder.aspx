@@ -22,6 +22,11 @@
             });
 
             $("#gridLayer input").attr("disabled", "disabled")
+            $("#gridLayer tr").hide();
+           
+            $("tr[class*='<%=LoginUser.Class%>']").each(function () {
+                $(this).show();
+            });
         });
 
         function SearchList()
@@ -108,6 +113,35 @@
             $.each(arrSelect[0], function (i, n) {
                 $("#" + i).val(arrSelect[0][i]);
             });
+            if ("SBCD".indexOf("<%=LoginUser.Class%>") > -1) {
+                $(".cd-popup-container").css("height", "430px");
+                $(".cd-popup-container .divWidth").css("height", "390px");
+                $.ajax({
+                    type: "post",
+                    url: "FactoryOrder.aspx",
+                    cache: false,
+                    async: false,
+                    data: {
+                        "actiontype": "GetOrderDetail", "CardNo": CardNo
+                    },
+                    dataType: "text",
+                    success: function (data) {
+                        //用到这个方法的地方需要重写这个success方法
+
+                        var detailJson = $.parseJSON(data);
+                        $(".detailTR").remove();
+                        var OrdersDetail = "<tr class=\"detailTR\"><td colspan=\"6\"><b>订单详细：</b></td></tr>"
+                        //遍历行结果
+                        for (var i = 0; i < detailJson.length; i++) {
+                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\"><td class=\"pro_tableTd\">产品名称</td><td>" + detailJson[i]["Itemname"] + "</td><td class=\"pro_tableTd\">牙位A（上右位）</td><td>" + detailJson[i]["a_teeth"] + "</td><td class=\"pro_tableTd\">牙位B（上左位）</td><td>" + detailJson[i]["b_teeth"] + "</td></tr>";
+                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\" style=\"border-bottom-style:dotted;border-bottom-width:1px;\"><td class=\"pro_tableTd\">保修期</td><td>" + detailJson[i]["Valid"] + "</td><td class=\"pro_tableTd\">牙位C（下右位）</td><td>" + detailJson[i]["c_teeth"] + "</td><td class=\"pro_tableTd\">牙位D（下左位）</td><td>" + detailJson[i]["d_teeth"] + "</td></tr>";
+                        }
+
+                        $("#gridLayer").append(OrdersDetail);
+                    }
+                });
+            }
+            
         }
 
        
@@ -192,75 +226,85 @@
         <ul class="pagination"></ul>
       </div>
     <div class="cd-popup-add">
-    <div class="cd-popup-container" style="height:380px;">
+    <div class="cd-popup-container" style="top:35%;" >
         <div class="box" >
           <div class="title" >关联订单详细</div>
-          <div class="divWidth" >
+          <div class="divWidth" style="overflow:auto !important;">
             <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
-              <tr>
+              <tr class="SC" %>
                 <td class="pro_tableTd">发货日期</td>
                 <td><div class="search"><input type="text" id="SaleDate" maxlength="50"  class="pro_input required" /><div id="auto_div"></div></div></td>
-                <td class="pro_tableTd">单位名称/磁块经销商</td>
-                <td><input type="text" id="seller" value="" maxlength="50"   class="pro_input required" /></td>
                 <td class="pro_tableTd">业务员</td>
                 <td><input type="text" id="Salesperson" maxlength="10" class="pro_input required number" /></td>
-              </tr>
-              <tr>
-                <td class="pro_tableTd">开票日期</td>
+                   <td class="pro_tableTd">开票日期</td>
                 <td><input type="text" id="BillDate" maxlength="10"  class="pro_input required number" /></td>
+              </tr>
+              <tr class="SC" >
                 <td class="pro_tableTd">发票号</td>
                 <td><input type="text" id="BillNo" maxlength="50"  class="pro_input required number" /></td>
                   <td class="pro_tableTd">发票类型</td>
                 <td><input type="text" id="BillClass" maxlength="50"  class="pro_input required number" /></td>
-                
-              </tr>
-              <tr>
                 <td class="pro_tableTd">存货编码</td>
                 <td><input type="text" id="Bh" maxlength="10"  class="pro_input" /></td>
+              </tr>
+              <tr class="SC" >
+               
+                <td class="pro_tableTd">粉料类型(原材料类型)</td>
+                <td><input type="text" id="OClass" class="detepickers pro_input" /></td>
+                <td class="pro_tableTd">原材料批号</td>
+                <td><input type="text" id="ObatchNo" maxlength="10"  class="pro_input number" /></td>
+                <td class="pro_tableTd">批次数量</td>
+                <td><input type="text" id="BtQty" maxlength="10"  class="pro_input number" /></td>
+              </tr>
+             <tr class="SC" >
+                <td class="pro_tableTd">电话</td>
+                <td><input type="text" id="Tel" maxlength="20"  class="pro_input" /></td>               
+                <td class="pro_tableTd">快递单号</td>
+                <td><input type="text" id="distriNo" maxlength="100"  class="pro_input" /></td>
+                  <td class="pro_tableTd">防伪卡数量</td>
+                <td><input type="text" id="NoQty" maxlength="100"  class="pro_input" /></td>
+              </tr >
+                  <tr class="SC" >
+                <td class="pro_tableTd">防伪卡起始号</td>
+                <td><input type="text" id="NoStart" maxlength="20"  class="pro_input" /></td>
+                <td class="pro_tableTd">防伪卡结束号</td>
+                <td><input type="text" id="NoEnd" maxlength="50"  class="pro_input" /></td>
+                 <td class="pro_tableTd">货运公司</td>
+                <td><input type="text" id="distri" maxlength="50"  class="pro_input" /></td>
+                
+              </tr >
+              <tr class="SABCD" >
+                <td class="pro_tableTd">单位名称/磁块经销商</td>
+                <td><input type="text" id="seller" value="" maxlength="50"   class="pro_input required" /></td>
                 <td class="pro_tableTd">产品名称</td>
                 <td><input type="text" id="ProductName" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">订货号</td>
                 <td><input type="text" id="orderid" maxlength="50"  class="pro_input required" /></td>
                
               </tr>
-              <tr>
-                 <td class="pro_tableTd">生产批号</td>
-                <td><input type="text" id="BatchNo" class="detepickers pro_input required" /></td>
-                <td class="pro_tableTd">粉料类型(原材料类型)</td>
-                <td><input type="text" id="OClass" class="detepickers pro_input" /></td>
-                <td class="pro_tableTd">原材料批号</td>
-                <td><input type="text" id="ObatchNo" maxlength="10"  class="pro_input number" /></td>
-               
+            
+              <tr  class="SABCD">
+                <td class="pro_tableTd">数量</td>
+                <td><input type="text" id="Qty" value="" maxlength="50"   class="pro_input required" /></td>
+                <td class="pro_tableTd">生产批号</td>
+                <td><input type="text" id="BatchNo" class="detepickers pro_input required" /></td>                
+               <td class="pro_tableTd">生产日期</td>
+                <td><input type="text" id="ProdDate" class="detepickers pro_input required" /></td>
               </tr>
-              <tr>
+              <tr  class="SABCD">
                 <td class="pro_tableTd">有效期/年</td>
                 <td><input type="text" id="Valid" maxlength="10"  class="pro_input" /></td>
                 <td class="pro_tableTd">联系人</td>
                 <td><input type="text" id="receiver" class="pro_input" /></td>
-                 <td class="pro_tableTd">收货单位或地址</td>
-                <td><input type="text" id="Addr" maxlength="50"  class="pro_input" /></td>
+                 <td class="pro_tableTd">收缩比</td>
+                <td><input type="text" id="SRate" maxlength="50"  class="pro_input" /></td>
               </tr>
-             
-              <tr>
-                <td class="pro_tableTd">电话</td>
-                <td><input type="text" id="Tel" maxlength="20"  class="pro_input" /></td>
-                <td class="pro_tableTd">货运公司</td>
-                <td><input type="text" id="distri" maxlength="50"  class="pro_input" /></td>
-                <td class="pro_tableTd">快递单号</td>
-                <td><input type="text" id="distriNo" maxlength="100"  class="pro_input" /></td>
-              </tr>
-
-           
-
-            <tr>
-                <td class="pro_tableTd">防伪卡起始号</td>
-                <td><input type="text" id="NoStart" maxlength="20"  class="pro_input" /></td>
-                <td class="pro_tableTd">防伪卡结束号</td>
-                <td><input type="text" id="NoEnd" maxlength="50"  class="pro_input" /></td>
-                <td class="pro_tableTd">防伪卡数量</td>
-                <td><input type="text" id="NoQty" maxlength="100"  class="pro_input" /></td>
-              </tr>
-            <tr>
+               <tr>
+                    <td class="pro_tableTd">收货单位或地址</td>
+                    <td colspan="5"><input type="text" id="Addr" maxlength="50"  class="pro_input" /></td>
+               </tr>           
+          
+            <tr  class="SBCD">
                 <td class="pro_tableTd">加工厂</td>
                 <td><input type="text" id="factoryBM" maxlength="20"  class="pro_input" /></td>
                 <td class="pro_tableTd">加工厂订单号</td>
@@ -268,30 +312,30 @@
                 <td class="pro_tableTd">医疗机构</td>
                 <td><input type="text" id="hospital" maxlength="100"  class="pro_input" /></td>
               </tr>
-             <tr>
+             <tr  class="SBCD">
                 <td class="pro_tableTd">医生</td>
                 <td><input type="text" id="doctor" maxlength="20"  class="pro_input" /></td>
                 <td class="pro_tableTd">患者</td>
                 <td><input type="text" id="patient" maxlength="50"  class="pro_input" /></td>
-                <td class="pro_tableTd">种类</td>
-                <td><input type="text"  maxlength="100"  class="pro_input" /></td>
-              </tr>
-              <tr>
-                <td class="pro_tableTd">生产日期</td>
+                 <td class="pro_tableTd">出货日期</td>
                 <td><input type="text" id="OutDate" maxlength="20"  class="pro_input" /></td>
+              </tr>
+             <%-- <tr class="SBCD">
+                  <td class="pro_tableTd">种类</td>
+                <td><input type="text"  maxlength="100"  class="pro_input" /></td>
                 <td class="pro_tableTd">牙位A（上右位）</td>
                 <td><input type="text" id="a_teeth" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">牙位B（上左位）</td>
                 <td><input type="text" id="b_teeth" maxlength="100"  class="pro_input" /></td>
               </tr>
-              <tr>
+              <tr  class="SBCD">
                 <td class="pro_tableTd">保修期</td>
                 <td><input type="text" id="factoryValid" maxlength="20"  class="pro_input" /></td>
                 <td class="pro_tableTd">牙位C（下右位）</td>
                 <td><input type="text" id="c_teeth" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">牙位D（下左位）</td>
                 <td><input type="text" id="d_teeth" maxlength="100"  class="pro_input" /></td>
-              </tr>
+              </tr>--%>
             </table>   
           </div>
           <!--divWidth  end-->

@@ -4,11 +4,13 @@ using D2012.Domain.Services;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Xml;
 using TraceBackPlatform.AppCode;
@@ -26,7 +28,35 @@ public partial class SalesManage_GenerateContract : PageBase
         OrderDetail = servComm.GetListTop(0, "ViewSalesDetail", ccwhere);
         if (!IsPostBack)
         {
-
+            try
+            {
+                foreach (Control cp in Page.Controls)
+                {
+                    foreach (Control ct in cp.Controls)
+                    {
+                        if (ct is HtmlForm)
+                        {
+                            foreach (Control con in ct.Controls)
+                            {
+                                foreach (Control ctr in con.Controls)
+                                {
+                                    if (ctr is TextBox)
+                                    {
+                                        if (ConfigurationManager.AppSettings.Get(ctr.ID) != null)
+                                        {
+                                            ((TextBox)ctr).Text = ConfigurationManager.AppSettings.Get(ctr.ID);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception excrt)
+            {
+            }           
+           
         }
         else
         {

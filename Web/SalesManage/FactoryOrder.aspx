@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script type="text/javascript">
         $(function () {
-
+            GetProductList();
             GetDataList(0);
             createPage(10, 10, allRowCount);
 
@@ -21,8 +21,112 @@
                 }
             });
 
+
+            //打开窗口
+            $('.cd-popup-product').on('click', function (event) {
+                event.preventDefault();
+                $('.cd-popup-contact').addClass('is-visible');
+            });
+
+            //关闭窗口
+            $('.cd-popup-contact').on('click', function (event) {
+                if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup-add')) {
+                    event.preventDefault();
+                    $(this).removeClass('is-visible');
+                }
+            });
+
+            $('.cd-popup-contact').on('click', function (event) {
+                if ($(event.target).is('.cd-popup-save')) {
+                    event.preventDefault();
+                    var productId = "";
+                    $("#productTable [type=checkbox]:checked").each(function () {
+                        productId = productId + "," + $(this).attr("id");
+                    })
+                    productId = productId.substr(1, productId.length)
+                    $.ajax({
+                        type: "post",
+                        url: "FactoryOrder.aspx",
+                        cache: false,
+                        async: false,
+                        data: {
+                            actiontype: "SaveProduct", ProductID: productId
+                        },
+                        dataType: "text",
+                        success: function (data) {
+                            //用到这个方法的地方需要重写这个success方法
+                            if (data == "0") {
+                                layer.msg("保存失败！");
+                            }
+                            else {
+                                layer.msg("保存成功！");
+                            }
+                        }
+                    });
+                    $(this).removeClass('is-visible');
+                }
+            });
+
+            //ESC关闭
+            $(document).keyup(function (event) {
+                if (event.which == '27') {
+                    $('.cd-popup-contact').removeClass('is-visible');
+                }
+            });
+            var ProductID = '<%=LoginUser.ProductID%>'
+            if (ProductID != '') {
+
+                $.each(ProductID.split(','), function (n, value) {
+                    $("#" + value).attr("checked", "checked");
+                });
+            }
+
              $("#gridLayer input").attr("disabled","disabled")
         });
+
+
+        function GetProductList() {
+
+            $.ajax({
+                type: "post",
+                url: "FactoryOrder.aspx",
+                cache: false,
+                async: false,
+                data: {
+                    "actiontype": "GetProductList"
+                },
+                dataType: "text",
+                success: function (data) {
+                    //用到这个方法的地方需要重写这个success方法
+
+                    var returnData = $.parseJSON(data);
+                    allRowCount = returnData[0].RowCount
+                    json = returnData[0].JsonData;
+                    $("#productTable tbody").empty();
+                    //遍历行结果
+                    var line = parseInt(json.length / 6);
+                    for (var i = 0; i < line; i++) {
+
+                        //遍历行中每一列的key 
+
+                        var trHtml = "<tr><td><input type=\"checkbox\" id =\"" + json[i * 6]["id"] + "\">" + json[i * 6]["itemname"] + "</td>"
+                            + "<td><input type=\"checkbox\" id =\"" + json[i * 6 + 1]["id"] + "\">" + json[i * 6 + 1]["itemname"] + "</td>"
+                            + "<td><input type=\"checkbox\" id =\"" + json[i * 6 + 2]["id"] + "\">" + json[i * 6 + 2]["itemname"] + "</td>"
+                            + "<td><input type=\"checkbox\" id =\"" + json[i * 6 + 3]["id"] + "\">" + json[i * 6 + 3]["itemname"] + "</td>"
+                            + "<td><input type=\"checkbox\" id =\"" + json[i * 6 + 4]["id"] + "\">" + json[i * 6 + 4]["itemname"] + "</td>"
+                            + "<td><input type=\"checkbox\" id =\"" + json[i * 6 + 5]["id"] + "\">" + json[i * 6 + 5]["itemname"] + "</td></tr>"
+
+                        $("#productTable tbody").append(trHtml);
+                    }
+                    var trHtml = "<tr>";
+                    for (var i = 0; i < json.length % 6; i++) {
+                        trHtml = trHtml + "<td><input type=\"checkbox\" id =\"" + json[line * 6 + i]["id"] + "\">" + json[line * 6 + i]["itemname"] + "</></td>";
+                    }
+                    trHtml = trHtml + "</tr>";
+                    $("#productTable tbody").append(trHtml);
+                }
+            });
+        }
 
         function SearchList()
         {
@@ -109,9 +213,33 @@
                 $("#" + i).val(arrSelect[0][i]);
             });
 
-            $(" <table width='100%' class='pro_table'><tr><td class='pro_tableTd'>牙位B（上左位）</td><td><input type='text' id='b_teeth' maxlength='10'  class='pro_input' /></td>"
-                + "<td class='pro_tableTd'>牙位C（上左位）</td><td><input type='text' id='b_teeth' maxlength='10'  class='pro_input' /></td><td class='pro_tableTd'>牙位D（上左位）</td><td><input type='text' id='b_teeth' maxlength='10'  class='pro_input' /></td></tr></table>  ").insertAfter("#gridLayer");
+            $.ajax({
+                type: "post",
+                url: "FactoryOrder.aspx",
+                cache: false,
+                async: false,
+                data: {
+                    "actiontype": "GetOrderDetail", "CardNo": CardNo
+                },
+                dataType: "text",
+                success: function (data) {
+                    //用到这个方法的地方需要重写这个success方法
+
+                    var detailJson = $.parseJSON(data);
+                    $(".detailTR").remove();
+                    var OrdersDetail = "<tr class=\"detailTR\"><td colspan=\"6\"><b>订单详细：</b></td></tr>"
+                    //遍历行结果
+                    for (var i = 0; i < detailJson.length; i++) {
+                        OrdersDetail = OrdersDetail + "<tr class=\"detailTR\"><td class=\"pro_tableTd\">产品名称</td><td>" + detailJson[i]["Itemname"] + "</td><td class=\"pro_tableTd\">牙位A（上右位）</td><td>" + detailJson[i]["a_teeth"] + "</td><td class=\"pro_tableTd\">牙位B（上左位）</td><td>" + detailJson[i]["b_teeth"] + "</td></tr>";
+                        OrdersDetail = OrdersDetail + "<tr class=\"detailTR\" style=\"border-bottom-style:dotted;border-bottom-width:1px;\"><td class=\"pro_tableTd\">产品数量</td><td>" + detailJson[i]["Qty"] + "</td><td class=\"pro_tableTd\">牙位C（下右位）</td><td>" + detailJson[i]["c_teeth"] + "</td><td class=\"pro_tableTd\">牙位D（下左位）</td><td>" + detailJson[i]["d_teeth"] + "</td></tr>";
+                      
+                    }
+                  
+                    $("#gridLayer").append(OrdersDetail);
+                }
+            });           
         }
+
 
        
 
@@ -162,6 +290,7 @@
               <button class="ui-button" type="button" onclick="SearchList()">查询</button>
               <button class="ui-button" type="button" onclick="ExportSale()">导出</button>
               <button class="ui-button" type="button"  onclick="printDirent()">打印</button>
+                <button type="button" class="ui-button cd-popup-product">产品设置</button>
                 <object id="WebBrowser" width="0" height="0"  classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>
             </td>
           </tr>
@@ -195,6 +324,25 @@
      <div  >
         <ul class="pagination"></ul>
       </div>
+     <div class="cd-popup-contact">
+         <div class="cd-popup-container" >
+            <div class="box" >
+              <div class="title" >新华医疗产品设置</div>
+              <div class="divWidth"  style=" overflow:auto !important;height:240px;" >
+               <table id="productTable" class="pro_table" >
+                        <tbody>
+
+                        </tbody>
+                    </table>
+              </div>
+              <!--divWidth  end-->
+              <div class="clear" ></div>
+            </div>
+            <!--box  end-->
+             <a href="#0" class="cd-popup-save">保存</a>
+            <a href="#0" class="cd-popup-close">关闭</a>
+        </div>
+    </div>
     <div class="cd-popup-add">
     <div class="cd-popup-container">
         <div class="box" >
@@ -227,26 +375,10 @@
                 <td><input type="text" id="OutDate" maxlength="50"  class="pro_input required" /></td>
                
               </tr>
-              <tr>
-                 <td class="pro_tableTd">产品名称</td>
-                <td><input type="text" id="Itemname" class="detepickers pro_input required" /></td>
-                <td class="pro_tableTd">产品数量</td>
-                <td><input type="text" id="Qty" class="detepickers pro_input" /></td>
-                <td class="pro_tableTd">牙位A（上右位）</td>
-                <td><input type="text" id="a_teeth" maxlength="10"  class="pro_input number" /></td>
-               
-              </tr>
-              <tr>
-                <td class="pro_tableTd">牙位B（上左位）</td>
-                <td><input type="text" id="b_teeth" maxlength="10"  class="pro_input" /></td>
-                <td class="pro_tableTd">牙位C（下右位）</td>
-                <td><input type="text" id="c_teeth" class="pro_input" /></td>
-                 <td class="pro_tableTd">牙位D（下左位）</td>
-                <td><input type="text" id="d_teeth" maxlength="50"  class="pro_input" /></td>
-              </tr>
+              
            
             </table> 
-             
+            
           </div>
           <!--divWidth  end-->
           <div class="clear" ></div>

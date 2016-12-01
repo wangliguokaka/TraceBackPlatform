@@ -113,13 +113,13 @@
                         }
                     })
                     
-                    $("#main-nav>li").each(function () {
-                        //alert($(this).find("ul li:visible").length)
-                        if ($(this).find("ul li:hidden").length == $(this).find("ul li").length)
-                        {
-                            $(this).hide()
-                        }
-                    })
+                    //$("#main-nav>li").each(function () {
+                    //    alert($(this).find("ul li[style='display: none;']").length)
+                    //    if ($(this).find("ul li[style='display: none;']").length == $(this).find("ul li").length)
+                    //    {
+                    //        $(this).hide()
+                    //    }
+                    //})
                 }
                
             $(".nav-header").each(function () {
@@ -404,7 +404,7 @@
                             首页 		
                         </a>
                     </li>--%>
-                    <li >
+                    <li id="SaleManage">
                         <a href="#SalesManage" class="nav-header collapsed  " data-toggle="collapse">
                             <i class="glyphicon glyphicon-cog"></i>
                             订单管理
@@ -420,7 +420,7 @@
                             <li id="UserTrace"><a href="../SalesManage/UserTrace.aspx"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;用户追踪</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="SystemSetting">
                         <a href="#configSetting" class="nav-header collapsed" data-toggle="collapse">
                             <i class="glyphicon glyphicon-credit-card"></i>
                             配置管理	

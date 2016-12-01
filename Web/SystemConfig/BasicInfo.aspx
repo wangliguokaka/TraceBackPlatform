@@ -105,7 +105,7 @@
             {
                 productId = productId + ","+$(this).attr("id");
             })
-            productId = productId.substr(1,productId.len)
+            productId = productId.substr(1,productId.length)
 
            
             var AcheckID = "";
@@ -371,6 +371,7 @@
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductFactoryOrder" value="FactoryOrder" /><span class="folder-open"></span>加工厂订单查询</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageFactoryExportExcel" value="FactoryExportExcel" /><span class="folder-open"></span>数据导入</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductRelatedOrder" value="RelatedOrder" /><span class="folder-open"></span>订单关联查询</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageUserTrace" value="UserTrace" /><span class="folder-open"></span>患者查询跟踪</td></tr>
 
                 <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" class="System"   value="SystemSetting" name="SystemSetting" /><span class="folder-open"></span>系统设置</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingDictManagement" value="DictManagement"/><span class="folder-open"></span>数据字段</td></tr>

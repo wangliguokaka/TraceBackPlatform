@@ -453,7 +453,7 @@
           <div class="box" >
               <div class="title" >合同管理</div>
               <div style="width:950px; height:500px;">
-                    <iframe src="GenerateContract.aspx?orderid=<%="42" %>" width="950"  style="width:90%; height:90%; border:none;"></iframe>
+                    <%--<iframe src="GenerateContract.aspx?orderid=<%="42" %>" width="950"  style="width:90%; height:90%; border:none;"></iframe>--%>
 
               </div>
           </div>

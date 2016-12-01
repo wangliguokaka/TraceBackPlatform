@@ -6,7 +6,19 @@
         {
             if ($("#main-nav ul li a").length > 0)
             {
-                window.location.href = $("#main-nav ul li a").attr("href");
+       
+                var href = "../SalesManage/ProductSalesList.aspx";
+                $("#main-nav ul li ").each(function ()
+                {
+                    if ($(this).css("display") == "block")
+                    {
+                        href = $(this).find("a").eq(0).attr("href");
+                        return false;
+                        
+                    }
+                  
+                })
+                window.location.href = href;
             }
           
         })

@@ -181,9 +181,9 @@ public class PageBase : System.Web.UI.Page
         if (Session["UserName"] == null && !Request.RawUrl.Contains("login.aspx") )
         {
             //HttpContext.Current.Response.Redirect("/login.aspx");
-            Session["AccessMenu"] = "S";
-            //Response.Write("<script>top.location='/login.aspx'</script>");
-            //Response.End();
+            //Session["AccessMenu"] = "S";
+            Response.Write("<script>top.location='/login.aspx'</script>");
+            Response.End();
         }
         else
         {

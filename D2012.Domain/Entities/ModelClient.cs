@@ -51,7 +51,7 @@ namespace D2012.Domain.Entities
         /// </summary>
         [Column("linkman", DataType.Nvarchar, false, false)]
         public string linkman { set; get; }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -117,6 +117,12 @@ namespace D2012.Domain.Entities
         [Column("Passwd", DataType.Varchar, false, false)]
         public string Passwd { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("ProductID", DataType.Varchar, false, false)]
+        public string ProductID { set; get; }
+   
 
         #endregion Client
 
