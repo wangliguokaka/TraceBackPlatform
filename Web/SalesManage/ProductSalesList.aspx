@@ -7,6 +7,8 @@
             GetDataList(0);
             createPage(10, 10, allRowCount);
             ControlButton();
+            
+           
         });
 
         function SearchList()
@@ -27,6 +29,15 @@
                 $("#ReuseOrder").hide();
             }
             $("#selectAllCheck").removeAttr("checked");
+            var userClass = "<%=LoginUser.Class%>"
+            if (userClass == "S" || userClass == "C") {
+                $("#DisableOrder").show();
+                $("#ReuseOrder").show();
+            }
+            else {
+                $("#DisableOrder").hide();
+                $("#ReuseOrder").hide();
+            }
         }
 
         function CheckDetail(obj, SerialIndex) {
@@ -182,8 +193,14 @@
 
 
                         //遍历行中每一列的key 
+                        if (json[i]["IsDel"] == "1") {
+                            var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail()\"  value=\"" + json[i]["Id"] + "\" /></td><td>" + json[i]["Id"] + "</td><td>" + json[i]["Seller"].substring(0, 20) + "</td><td>" + json[i]["Salesperson"].substring(0, 20) + "</td><td>" + json[i]["BillNo"].substring(0, 20) + "</td><td>" + json[i]["SaleDate"] + "</td><td>" + (json[i]["BillDate"] == null ? "" : json[i]["BillDate"]) + "</td><td>" + json[i]["RegTime"] + "</td></tr>";
 
-                        var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail()\"  value=\"" + json[i]["Id"] + "\" /></td><td><a href=\"ProductSales.aspx?Id=" + json[i]["Id"] + "\">" + json[i]["Id"] + "</a></td><td>" + json[i]["Seller"] + "</td><td>" + json[i]["Salesperson"] + "</td><td>" + json[i]["BillNo"] + "</td><td>" + json[i]["SaleDate"] + "</td><td>" + (json[i]["BillDate"] == null ? "" : json[i]["BillDate"]) + "</td><td>" + json[i]["RegTime"] + "</td></tr>";
+                        }
+                        else {
+                            var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail()\"  value=\"" + json[i]["Id"] + "\" /></td><td><a href=\"ProductSales.aspx?Id=" + json[i]["Id"] + "\">" + json[i]["Id"] + "</a></td><td>" + json[i]["Seller"].substring(0, 20) + "</td><td>" + json[i]["Salesperson"].substring(0, 20) + "</td><td>" + json[i]["BillNo"].substring(0, 20) + "</td><td>" + json[i]["SaleDate"] + "</td><td>" + (json[i]["BillDate"] == null ? "" : json[i]["BillDate"]) + "</td><td>" + json[i]["RegTime"] + "</td></tr>";
+
+                        }
 
                         $("#SalesDetail tbody").append(trHtml);
                     }
@@ -230,8 +247,8 @@
           <tr>
             <td colspan="6" style="text-align:right;">
               <button class="ui-button" type="button" onclick="SearchList()">查询</button>
-              <button class="ui-button" id="DisableOrder" type="button" onclick="DisableDetailOrder()">废止</button>
-              <button class="ui-button"  id="ReuseOrder" type="button" onclick="ReuseDetailOrder()">恢复</button>
+              <button class="ui-button" id="DisableOrder" type="button" style="display:none;" onclick="DisableDetailOrder()">废止</button>
+              <button class="ui-button"  id="ReuseOrder" type="button" style="display:none;" onclick="ReuseDetailOrder()">恢复</button>
               <button class="ui-button" type="button" onclick="ExportSale()">导出</button>
               <button class="ui-button" type="button"  onclick="printDirent()">打印</button>
                 <object id="WebBrowser" width="0" height="0"  classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>

@@ -12,7 +12,33 @@
     $(".number").live('keyup', function () {
         onlyNumber(this);
     });
-    
+
+    $(".CardNoStart").attr("maxlength", "8");
+    $(".CardNoStart").val("00000000")
+    $(".CardNoStart").bind("blur", function () {
+        if ($(this).length < 8) {
+            var fullStartNo = "00000000" + $("#NoStart").val();
+          
+            $(this).val(fullStartNo.substring(fullStartNo.length - 8, fullStartNo.length))
+        }
+        CompareCardNo();
+    })
+    $(".CardNoEnd").attr("maxlength", "8");
+    $(".CardNoEnd").val("00000000")
+    $(".CardNoEnd").bind("blur", function () {
+
+        if ($(this).length < 8) {
+            var fullEndNo = "00000000" + $("#NoEnd").val();
+            $(this).val(fullEndNo.substring(fullEndNo.length - 8, fullEndNo.length))
+        }
+        CompareCardNo();
+    })
+
+   
+
+
+
+
     $(".detepickers").live("focus", function () {
         
         $(this).datepicker({
@@ -184,6 +210,21 @@
 
 });
 
+function CompareCardNo() {
+
+    var startNo = parseInt($("#NoStart").val());
+    var endNo = parseInt($("#NoEnd").val());
+    if (startNo > endNo) {
+        layer.msg("防伪卡起始号不能大于防伪卡结束号");
+        $("#NoQty").val("");
+        return false;
+    }
+    else {
+        $("#NoQty").val(endNo - startNo + 1);
+        return true;
+    }
+
+}
 
 Date.prototype.Format = function (fmt) { //author: meizz   
     var o = {
@@ -353,5 +394,81 @@ function AutoComplete(auto, search, mylist) {
 
 }
 
+function CommonAutoComplete(auto, search, mylist) {
+    //if ($("#" + search).val() != old_value || old_value == "") {
+      
+        var autoNode = $("#" + auto);   //缓存对象（弹出框）
+        var carlist = new Array();
+        var n = 0;
+        old_value = $("#" + search).val();
+
+        //for (i in mylist) {
+        //    if (mylist[i].indexOf(old_value) >= 0) {
+        //        carlist[n++] = mylist[i];
+        //    }
+        //}
+        $(mylist).each(function (index, item) {
+          //  if (item.NodeName.indexOf(old_value) >= 0) {
+                carlist[n++] = item.NodeName;
+           // }
+        }
+        )
+        if (carlist.length == 0) {
+            autoNode.hide();
+            return;
+        }
+        autoNode.empty();  //清空上次的记录
+        for (i in carlist) {
+            var wordNode = carlist[i];   //弹出框里的每一条内容
+
+            var newDivNode = $("<div>").attr("id", i);    //设置每个节点的id值
+            newDivNode.attr("style", "font:14px/25px arial;height:25px;padding:0 8px;cursor: pointer;");
+
+            newDivNode.html(wordNode).appendTo(autoNode);  //追加到弹出框
+
+            //鼠标移入高亮，移开不高亮
+            newDivNode.mouseover(function () {
+                if (highlightindex != -1) {        //原来高亮的节点要取消高亮（是-1就不需要了）
+                    autoNode.children("div").eq(highlightindex).css("background-color", "white");
+                }
+                //记录新的高亮节点索引
+                highlightindex = $(this).attr("id");
+                $(this).css("background-color", "#ebebeb");
+            });
+            newDivNode.mouseout(function () {
+                $(this).css("background-color", "white");
+            });
+
+            //鼠标点击文字上屏
+            newDivNode.click(function () {
+                //取出高亮节点的文本内容
+                var comText = autoNode.hide().children("div").eq(highlightindex).text();
+                highlightindex = -1;
+                //文本框中的内容变成高亮节点的内容
+                $("#" + search).val(comText);
+
+            })
+            if (carlist.length > 0) {    //如果返回值有内容就显示出来
+                autoNode.show();
+            } else {               //服务器端无内容返回 那么隐藏弹出框
+                autoNode.hide();
+                //弹出框隐藏的同时，高亮节点索引值也变成-1
+                highlightindex = -1;
+            }
+        //}
+    }
+
+    //点击页面隐藏自动补全提示框
+    document.onclick = function (e) {
+        var e = e ? e : window.event;
+        var tar = e.srcElement || e.target;
+        if (tar.id != search) {
+            if ($("#" + auto).is(":visible")) {
+                $("#" + auto).css("display", "none")
+            }
+        }
+    }
+
+}
 (function ($, h, c) { var a = $([]), e = $.resize = $.extend($.resize, {}), i, k = "setTimeout", j = "resize", d = j + "-special-event", b = "delay", f = "throttleWindow"; e[b] = 250; e[f] = true; $.event.special[j] = { setup: function () { if (!e[f] && this[k]) { return false } var l = $(this); a = a.add(l); $.data(this, d, { w: l.width(), h: l.height() }); if (a.length === 1) { g() } }, teardown: function () { if (!e[f] && this[k]) { return false } var l = $(this); a = a.not(l); l.removeData(d); if (!a.length) { clearTimeout(i) } }, add: function (l) { if (!e[f] && this[k]) { return false } var n; function m(s, o, p) { var q = $(this), r = $.data(this, d); r.w = o !== c ? o : q.width(); r.h = p !== c ? p : q.height(); n.apply(this, arguments) } if ($.isFunction(l)) { n = l; return m } else { n = l.handler; l.handler = m } } }; function g() { i = h[k](function () { a.each(function () { var n = $(this), m = n.width(), l = n.height(), o = $.data(this, d); if (m !== o.w || l !== o.h) { n.trigger(j, [o.w = m, o.h = l]) } }); g() }, e[b]) } })(jQuery, this);
 //$("#div").resize(function(){...}); 

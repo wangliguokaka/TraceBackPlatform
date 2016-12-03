@@ -26,9 +26,10 @@ public partial class SystemConfig_DictManagement :PageBase
         {
             if (type == "SaveMainClass")
             {
-                if (Request["deleteKey"] != null)
+                if (Request["DelMainClass"] != null && Request["DelClassID"] != null)
                 {
-                    servComm.Delete<ModelDict>(Request["deleteKey"], true);
+                    servComm.ExecuteSql(" delete from Dict where MainClass = '" + Request["DelMainClass"] + "' and ClassID = '" + Request["DelClassID"] + "'");
+                    servComm.ExecuteSql(" delete from DictDetail where ClassID = '" + Request["DelClassID"] + "'");
                 }
                 else
                 {
@@ -115,6 +116,8 @@ public partial class SystemConfig_DictManagement :PageBase
                         servComm.Add(model);
                     }
                 }
+
+                DataCache.dict = servComm.GetListTop<ModelDictDetail>(0, null).ToList();
                 Response.Write("DictDetail");
                 Response.End();
             }

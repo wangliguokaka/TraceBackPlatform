@@ -132,7 +132,7 @@ public partial class SystemConfig_SpecManage : PageBase
                         int result = servComm.Update(ModelSpec);
                     }
                 }
-
+                DataCache.dict = servComm.GetListTop<ModelDictDetail>(0, null).ToList();
             }
             catch (Exception ex)
             {

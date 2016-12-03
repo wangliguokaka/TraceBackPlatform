@@ -57,12 +57,11 @@ public partial class SalesManage_FactoryOrder : PageBase
             ConstructionCondition();
 
             servComm.strOrderString = "CardNo";
-            listObj = servComm.GetListTop<ModelOrders>(0, "*", "orders", ccwhere);
+            DataTable dtTable = servComm.GetListTop(0, "*", "ViewOrders", ccwhere);
             string shortName = DateTime.Now.ToString("yyyyMMddHHmmsshhh") + ".xlsx";
             string fileName = Request.PhysicalApplicationPath + "UploadFile\\" + shortName;
             using (NPOIHelper excelHelper = new NPOIHelper(fileName, Request.PhysicalApplicationPath + "UploadFile\\"))
             {
-                DataTable dtTable = listObj.ToDataTable();
                 int count = excelHelper.DataTableToExcel(dtTable, "工厂订单信息", true, "工厂订单信息.xlsx");
             }
             Response.Write("http://" + Request.Url.Authority + "//UploadFile//" + shortName);

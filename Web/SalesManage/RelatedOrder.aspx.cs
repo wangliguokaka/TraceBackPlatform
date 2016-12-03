@@ -148,12 +148,12 @@ public partial class SalesManage_RelatedOrder : PageBase
         string CardNoStart = Request["CardNoStart"];
         if (!String.IsNullOrEmpty(CardNoStart))
         {
-            ccwhere.AddComponent("CardNoStart", CardNoStart, SearchComponent.GreaterOrEquals, SearchPad.And);
+            ccwhere.AddComponent("CardNo", CardNoStart, SearchComponent.GreaterOrEquals, SearchPad.And);
         }
         string CardNoEnd = Request["CardNoEnd"];
         if (!String.IsNullOrEmpty(CardNoEnd))
         {
-            ccwhere.AddComponent("CardNoEnd", CardNoEnd, SearchComponent.LessOrEquals, SearchPad.And);
+            ccwhere.AddComponent("CardNo", CardNoEnd, SearchComponent.LessOrEquals, SearchPad.And);
         }
        
     }

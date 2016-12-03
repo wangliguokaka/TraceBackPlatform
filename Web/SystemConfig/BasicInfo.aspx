@@ -268,7 +268,7 @@
             <tr>
                 <td class="pro_tableTd" colspan="6">
                     <hr style="margin:10px 0px;" />
-                    <button type="button" class="ui-button cd-popup-product">产品设置</button>
+                    <button type="button" style="display:none;" class="ui-button cd-popup-product">产品设置</button>
                     <button type="button" class="ui-button" data-toggle="modal" data-target="#SettingModal">权限设置</button>
                     <button type="button" class="ui-button" onclick="DeleteHistory();">删除历史</button>
                 </td>

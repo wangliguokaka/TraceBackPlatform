@@ -10,8 +10,8 @@ using System.Web;
 /// </summary>
 public class DataCache
 {
-    private static List<ModelDictDetail> dict;
-    private static List<ModelSpec> dictSpec;
+    public static List<ModelDictDetail> dict;
+    public static List<ModelSpec> dictSpec;
 
     static DataCache()
     {

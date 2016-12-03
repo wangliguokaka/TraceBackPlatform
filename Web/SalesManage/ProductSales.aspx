@@ -87,7 +87,9 @@
         function SaveOrderDetail()
         {
            
-
+            if (CompareCardNo() == false) {
+                return false;
+            }
             if (validateRow('gridLayer', 0) == false) {
                 return false;
             }
@@ -162,6 +164,8 @@
 
         function SaveSales()
         {
+           
+
             if (validateRow('girdSales', 0) == false)
             {
                 return false;
@@ -266,12 +270,12 @@
             $('.cd-popup-editbtn').on('click', function (event) {
                 if (arrayCheck.length == 0)
                 {
-                    layer.msg("请选择订单进行编辑！");
+                    layer.msg("请选择订单进行操作！");
                     return false;
                 }
                 else if (arrayCheck.length > 1)
                 {
-                    layer.msg("只能选择一条订单进行编辑！");
+                    layer.msg("只能选择一条订单进行操作！");
                     return false;
                 }
                 event.preventDefault();
@@ -326,33 +330,18 @@
                 AutoComplete("auto_div", "orderid", test_list);
             }, false);
 
-            $("#NoStart,#NoEnd").blur(function () {
-                
-                if ($("#NoStart").val() != '' && $("#NoEnd").val() != '')
-                {
-                    
-                    var fullStartNo = $("#NoStart").val() + "00000000";
-                    var fullEndNo = $("#NoEnd").val() + "00000000";
-                    //$("#NoStart").val(fullStartNo.substring(fullStartNo.length - 8, fullStartNo.length))
-                    //$("#NoEnd").val(fullEndNo.substring(fullEndNo.length - 8, fullEndNo.length))
-                    $("#NoStart").val(fullStartNo.substring(0, 8))
-                    $("#NoEnd").val(fullEndNo.substring(0, 8))
-                    var startNo = parseInt($("#NoStart").val());
-                    var endNo = parseInt($("#NoEnd").val());
-                    if (startNo > endNo) {
-                        layer.msg("防伪卡起始号不能大于防伪卡结束号");
-                        $("#NoQty").val("");
-                        $(this).val("");
-                        return false;
-                    }
-                    else {
-                        $("#NoQty").val(endNo - startNo + 1);
-                    }
-                   
-                   
-                }
-               
-            })
+            
+
+            var userClass = "<%=LoginUser.Class%>"
+            if (userClass == "S" || userClass == "C") {
+                $("button").show();
+            }
+            else {
+                $("button").hide();
+                $("#OrderDetail").show();
+                $("#OrderDetail").text("查看详细");
+               // $("#girdSales input,select").attr("disabled", "disabled")
+            }
         })
         
 </script>
@@ -388,15 +377,15 @@
             <table width="100%" id="girdSales"  border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">经销商<span class="red" >*</span></td>
-                <td><input type="text" id="Seller" class="pro_input required" /></td>
+                <td><input type="text" id="Seller" maxlength="50" class="pro_input required" /></td>
                 <td class="pro_tableTd">业务员</td>
-                <td><input type="text" id="Salesperson" class="pro_input" /></td>
+                <td><input type="text" id="Salesperson" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">发货日期<span class="red" >*</span></td>
                 <td><input type="text" id="SaleDate"  class="detepickers pro_input required" /></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">发票号</td>
-                <td><input type="text" id="BillNo" class="pro_input" /></td>
+                <td><input type="text" id="BillNo" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">发票类型</td>
                 <td><select class="pro_select" id="BillClass" >
                     <%foreach(ModelDictDetail model in listDictType){ %>
@@ -410,7 +399,7 @@
                 <td colspan="6" style="text-align:right;">
                     <button class="ui-button" type="button" onclick="SaveSales()">保存</button>
                     <button type="button" class="ui-button cd-popup-addbtn">新增订单</button>
-                    <button type="button" class="ui-button cd-popup-editbtn">编辑订单</button>
+                    <button type="button" id="OrderDetail" class="ui-button cd-popup-editbtn">编辑订单</button>
                     <button type="button" class="ui-button" onclick="DeleteDetail()">删除订单</button>
                     <button type="button" id="MakeContact" style="display:none;" class="ui-button" onclick="MakeContactFun()">生成合同</button>
                 </td>
@@ -477,9 +466,9 @@
               <tr>
                
                 <td class="pro_tableTd">防伪卡开始号<span class="red" >*</span></td>
-                <td><input type="text" id="NoStart" maxlength="50"  class="pro_input required number" /></td>
+                <td><input type="text" id="NoStart"   class="pro_input required number CardNoStart" /></td>
                   <td class="pro_tableTd">防伪卡结束号<span class="red" >*</span></td>
-                <td><input type="text" id="NoEnd" maxlength="50"  class="pro_input required number" /></td>
+                <td><input type="text" id="NoEnd"    class="pro_input required number CardNoEnd" /></td>
                  <td class="pro_tableTd">防伪卡数量<span class="red" >*</span></td>
                 <td><input type="text" id="NoQty" maxlength="10"  class="pro_input required number" /></td>
               </tr>

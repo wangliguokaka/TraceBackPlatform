@@ -40,6 +40,7 @@
                            $.fn.tables.bindData('tbClass', data);
                        }
                        else {
+                           $("#tbClass tbody").find("tr").slice(1).remove();
                            $("#tbMainClass tbody").find("tr").slice(1).remove();
                            $.fn.tables.bindData('tbMainClass', data);
                        }
@@ -79,7 +80,7 @@
 
            }, function (index) {
 
-               AjaxHandle({ actiontype: "SaveMainClass", deleteKey: $(obj).parent().parent().find("input").eq(0).val() });
+               AjaxHandle({ actiontype: "SaveMainClass", DelMainClass: $(obj).parent().parent().find("input").eq(0).val(), DelClassID: $(obj).parent().parent().find("input").eq(1).val() });
                layer.close(index);
            }, function () {
 

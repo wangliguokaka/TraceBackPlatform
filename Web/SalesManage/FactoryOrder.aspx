@@ -73,13 +73,25 @@
                     $('.cd-popup-contact').removeClass('is-visible');
                 }
             });
-            var ProductID = '<%=LoginUser.ProductID%>'
-            if (ProductID != '') {
 
-                $.each(ProductID.split(','), function (n, value) {
-                    $("#" + value).attr("checked", "checked");
-                });
+            var userClass = "<%=LoginUser.Class%>"
+            if (userClass == "S" || userClass == "B") {
+                $(".cd-popup-product").show();
+                 var ProductID = '<%=LoginUser.ProductID%>'
+                if (ProductID != '') {
+
+                    $.each(ProductID.split(','), function (n, value) {
+                        $("#" + value).attr("checked", "checked");
+                    });
+                }
             }
+            else {
+                $(".cd-popup-product").hide();
+
+            }
+            
+
+         
 
              $("#gridLayer input").attr("disabled","disabled")
         });
@@ -344,10 +356,10 @@
         </div>
     </div>
     <div class="cd-popup-add">
-    <div class="cd-popup-container">
+    <div class="cd-popup-container" style="overflow:auto !important; height:240px;">
         <div class="box" >
           <div class="title" >工厂订单详细</div>
-          <div class="divWidth" style="overflow:auto !important; height:260px;">
+          <div class="divWidth" style="overflow:auto !important; height:190px;">
             <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">防伪卡号</td>

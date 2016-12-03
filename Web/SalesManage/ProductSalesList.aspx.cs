@@ -26,12 +26,12 @@ public partial class SalesManage_ProductSalesList : PageBase
             string BillNo = Request["BillNo"];
             if (!String.IsNullOrEmpty(BillNo))
             {
-                ccwhere.AddComponent("BillNo", "%"+BillNo+"%", SearchComponent.Like, SearchPad.And);
+                ccwhere.AddComponent("BillNo", "%"+BillNo.Trim() + "%", SearchComponent.Like, SearchPad.And);
             }
             string Salesperson = Request["Salesperson"];
             if (!String.IsNullOrEmpty(Salesperson))
             {
-                ccwhere.AddComponent("Salesperson", "%"+Salesperson+"%", SearchComponent.Like, SearchPad.And);
+                ccwhere.AddComponent("Salesperson", "%"+Salesperson.Trim()+"%", SearchComponent.Like, SearchPad.And);
             }
             string IsDel = Request["IsDel"];
             if (!String.IsNullOrEmpty(IsDel))
@@ -109,13 +109,21 @@ public partial class SalesManage_ProductSalesList : PageBase
             }
 
             servComm.strOrderString = "Id";
-            listObj = servComm.GetListTop<ModelSale>(0, "[Id],[SaleDate],[seller],[Salesperson],[BillDate],[BillNo],[BillClass],[Reg],[RegTime]", "Sale", ccwhere);
+            string fieldShow = "[Id],[SaleDate],[seller],[Salesperson],[BillDate],[BillNo],[BillClass],[Reg],[RegTime]";
+            listObj = servComm.GetListTop<ModelSale>(0, fieldShow, "Sale", ccwhere);
             string shortName = DateTime.Now.ToString("yyyyMMddHHmmsshhh") + ".xlsx";
             string fileName = Request.PhysicalApplicationPath + "UploadFile\\" + shortName;
             using (NPOIHelper excelHelper = new NPOIHelper(fileName, Request.PhysicalApplicationPath + "UploadFile\\"))
             {
-                DataTable dtTable = listObj.ToDataTable();
-                dtTable.Columns.Remove("IsDel");
+                DataTable dt = new DataTable();
+                string[] splitField = fieldShow.Split(',');
+                for (int i = 0; i < splitField.Length; i++)
+                {
+                    dt.Columns.Add(splitField[i].Trim('[').Trim(']'));
+                }                
+              
+                DataTable dtTable = listObj.ToDataTable(dt);
+                //dtTable.Columns.Remove("IsDel");
                 int count = excelHelper.DataTableToExcel(dtTable, "订单信息", true);
             }
             Response.Write("http://"+ Request.Url.Authority+"//UploadFile//"+ shortName);

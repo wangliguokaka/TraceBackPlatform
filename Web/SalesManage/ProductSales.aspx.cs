@@ -24,7 +24,8 @@ public partial class SalesManage_ProductSales :PageBase
         if (!IsPostBack)
         {
             
-            listDictType = DataCache.findAllDict().Where(model => model.ClassID == "MaterialType").ToList();
+            listDictType = DataCache.findAllDict().Where(model => model.ClassID == "BillType").ToList();
+            listDictType.Insert(0, new ModelDictDetail() { });
             servComm.strOrderString = "OrderNo";
             ccWhere.Clear();
             ccWhere.AddComponent("OrderNo", null, SearchComponent.ISNOT, SearchPad.NULL);
@@ -114,7 +115,7 @@ public partial class SalesManage_ProductSales :PageBase
             string Serial = Request["Serial"];
             ccWhere.Clear();
             string condition = "";
-            if (Serial != null && Serial != "-1")
+            if (Serial != null && Serial != "-1" && !String.IsNullOrEmpty(Id))
             {
                 condition = condition + " and ID !=" + Id + " and Serial != " + Serial;
                 //ccWhere.AddComponent("Id", Id, SearchComponent.Equals, SearchPad.NULL);

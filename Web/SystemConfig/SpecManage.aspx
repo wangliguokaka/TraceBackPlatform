@@ -57,6 +57,21 @@
                     $('.cd-popup-add').removeClass('is-visible');
                 }
             });
+
+            $("#detailProductName").focus(function () {
+                //if ($("#orderid").val() == "") {
+                CommonAutoComplete("auto_div", "detailProductName", [{ "NodeName": "全瓷义齿用氧化锆瓷块" }, { "NodeName": "二硅酸锂玻璃陶瓷" }]);
+
+               // }
+            });
+
+            $("#detailProductName").keyup(function () {
+               
+                CommonAutoComplete("auto_div", "detailProductName", [{ "NodeName": "全瓷义齿用氧化锆瓷块" }, { "NodeName": "二硅酸锂玻璃陶瓷" }]);
+            });
+
+            $("#auto_div").css("width", $("#detailProductName").width());
+            
         });
 
         function SaveSpec()
@@ -238,6 +253,27 @@
             return ("ActiveXObject" in window);
         }
 </script>
+    <style type="text/css">
+          .search
+        {
+            left: 0;
+            position: relative;
+        }
+
+         #auto_div
+        {
+            display: none;
+            width: 200px;
+            height:200px;
+            border: 1px #EDEDED solid;
+            background: #FFF;
+            position: absolute;
+            top: 22px;
+            left: 0;
+            color: #323232;
+            overflow:auto;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -271,7 +307,7 @@
     </div>
     <!--box  end-->
     <div class="divWidth1" >
-      <div class="divTable" style="height:300px; overflow:auto;" >
+      <div class="divTable" style="height:300px; overflow:hidden;" >
         <table border="0" style="width:100% "  id="CustomerDetail" cellspacing="0" cellpadding="0" class="pro_table1">
           <thead>
             <tr>
@@ -299,7 +335,7 @@
     <div class="cd-popup-container" style="height:200px;">
         <div class="box"  >
           <div class="title" >产品规格</div>
-          <div class="divWidth"  style="overflow:auto;" >
+          <div class="divWidth"  style="overflow:hidden;" >
             <table width="100%" border="0" id="gridSpec" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">编码<span class="red" >*</span></td>
@@ -311,16 +347,17 @@
                 
               </tr>
               <tr>
-                <td class="pro_tableTd">规格</td>
-                <td><input type="text" class="pro_input" id="detailSpec"  /></td>
+                   <td class="pro_tableTd">产品名称</td>
+                <td><div class="search"><input type="text" class="pro_input" id="detailProductName" /><div id="auto_div"></div></div></td>
+              
                 <td class="pro_tableTd">外形</td>
                 <td><input type="text" class="pro_input" id="detailexterior"  /></td>
                 <td class="pro_tableTd">尺寸</td>
                 <td><input type="text" class="pro_input" id="detailsize" /></td>
               </tr>       
               <tr>
-                <td class="pro_tableTd">产品名称</td>
-                <td><input type="text" class="pro_input" id="detailProductName" /></td>
+                 <td class="pro_tableTd">规格</td>
+                <td><input type="text" class="pro_input" id="detailSpec"  /></td>
                 <td class="pro_tableTd">颜色</td>
                 <td><input type="text" class="pro_input" id="detailColor" /></td> 
                   <td colspan="2">&nbsp;</td> 

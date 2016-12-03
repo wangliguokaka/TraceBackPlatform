@@ -181,9 +181,9 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
             <td width="10%" class="pro_tableTd">防伪卡号开始</td>
-            <td width="25%"><input type="text" id="CardNoStart" class="pro_input" /></td>
+            <td width="25%"><input type="text" id="CardNoStart" class="pro_input CardNoStart" /></td>
               <td width="10%" class="pro_tableTd">防伪卡号开始</td>
-            <td width="25%"><input type="text" id="CardNoEnd" class="pro_input" /></td>
+            <td width="25%"><input type="text" id="CardNoEnd" class="pro_input CardNoEnd" /></td>
             <td width="10%" class="pro_tableTd">&nbsp;</td>
             <td width="20%">&nbsp;</td>
           </tr>

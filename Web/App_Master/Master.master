@@ -113,13 +113,15 @@
                         }
                     })
                     
-                    //$("#main-nav>li").each(function () {
-                    //    alert($(this).find("ul li[style='display: none;']").length)
-                    //    if ($(this).find("ul li[style='display: none;']").length == $(this).find("ul li").length)
-                    //    {
-                    //        $(this).hide()
-                    //    }
-                    //})
+                    $("#main-nav>li").each(function () {
+                        //alert($(this).find("ul li[style='display: none;']").length)
+                        //alert($(this).find("ul li").length)
+                        if ($(this).find("ul li[style='display: none;']").length == $(this).find("ul li").length)
+                        {
+                            
+                            $(this).hide()
+                        }
+                    })
                 }
                
             $(".nav-header").each(function () {
