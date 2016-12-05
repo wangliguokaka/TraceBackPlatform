@@ -42,8 +42,9 @@ public partial class SystemConfig_CustomerManage : PageBase
 
             int iPageCount = 0;
             int iPageIndex = int.Parse(Request["PageIndex"]) + 1;
-            servComm.strOrderString = "Id";
+            servComm.strOrderString = "Id desc";
             listObj = servComm.GetList<ModelClient>("Client", "*", "Id", 10, iPageIndex, iPageCount, ccwhere);
+            
             var timeConvert = new IsoDateTimeConverter();
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
@@ -107,11 +108,11 @@ public partial class SystemConfig_CustomerManage : PageBase
                     modelClient.Email = Request["Email"];
                     modelClient.Addr = Request["Addr"];
                     modelClient.UserName = Request["UserName"];
-                    string password = Request["Passwd"];
-                    if (!String.IsNullOrEmpty(password))
-                    {
-                        password = CryptoHelper.StaticEncrypt(password, "pass");
-                    }
+                    //string password = Request["Passwd"];
+                    //if (!String.IsNullOrEmpty(password))
+                    //{
+                     string   password = CryptoHelper.StaticEncrypt("1");
+                    //}
                     modelClient.Passwd = password;
                     identityID = servComm.Add(modelClient);
                 }
@@ -141,7 +142,7 @@ public partial class SystemConfig_CustomerManage : PageBase
                         string password = Request["Passwd"];
                         if (!String.IsNullOrEmpty(password))
                         {
-                            password = CryptoHelper.StaticEncrypt(password);
+                            password = CryptoHelper.StaticEncrypt("1");
                         }
                         modelClient.Passwd = password;
                         modelClient.ID = identityID;

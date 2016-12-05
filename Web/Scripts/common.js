@@ -17,18 +17,22 @@
     $(".CardNoStart").val("00000000")
     $(".CardNoStart").bind("blur", function () {
         if ($(this).length < 8) {
-            var fullStartNo = "00000000" + $("#NoStart").val();
+            var fullStartNo = "00000000" + $(this).val();
           
             $(this).val(fullStartNo.substring(fullStartNo.length - 8, fullStartNo.length))
         }
         CompareCardNo();
     })
     $(".CardNoEnd").attr("maxlength", "8");
-    $(".CardNoEnd").val("00000000")
+    if ($(".CardNoEnd").val() == "")
+    {
+        $(".CardNoEnd").val("00000000")
+    }
+    
     $(".CardNoEnd").bind("blur", function () {
 
         if ($(this).length < 8) {
-            var fullEndNo = "00000000" + $("#NoEnd").val();
+            var fullEndNo = "00000000" + $(this).val();
             $(this).val(fullEndNo.substring(fullEndNo.length - 8, fullEndNo.length))
         }
         CompareCardNo();

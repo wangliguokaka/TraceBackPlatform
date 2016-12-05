@@ -114,8 +114,8 @@
                 $("#" + i).val(arrSelect[0][i]);
             });
             if ("SBCD".indexOf("<%=LoginUser.Class%>") > -1) {
-                $(".cd-popup-container").css("height", "430px");
-                $(".cd-popup-container .divWidth").css("height", "390px");
+                $(".cd-popup-container").css("height", "460px");
+                $(".cd-popup-container .divWidth").css("height", "420px");
                 $.ajax({
                     type: "post",
                     url: "FactoryOrder.aspx",
@@ -183,7 +183,7 @@
             <td width="10%" class="pro_tableTd">防伪卡号开始</td>
             <td width="25%"><input type="text" id="CardNoStart" class="pro_input CardNoStart" /></td>
               <td width="10%" class="pro_tableTd">防伪卡号开始</td>
-            <td width="25%"><input type="text" id="CardNoEnd" class="pro_input CardNoEnd" /></td>
+            <td width="25%"><input type="text" id="CardNoEnd" value="99999999" class="pro_input CardNoEnd" /></td>
             <td width="10%" class="pro_tableTd">&nbsp;</td>
             <td width="20%">&nbsp;</td>
           </tr>
@@ -303,7 +303,9 @@
                     <td class="pro_tableTd">收货单位或地址</td>
                     <td colspan="5"><input type="text" id="Addr" maxlength="50"  class="pro_input" /></td>
                </tr>           
-          
+            <tr  class="SBCD">
+                <td colspan="6"><b>加工厂订单信息:</b></td>
+            </tr>
             <tr  class="SBCD">
                 <td class="pro_tableTd">加工厂</td>
                 <td><input type="text" id="factoryBM" maxlength="20"  class="pro_input" /></td>

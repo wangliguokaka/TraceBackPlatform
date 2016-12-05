@@ -63,7 +63,7 @@ public partial class SalesManage_FactoryExportExcel : PageBase
         if (tbContainer.Rows.Count > 0)
         {
            
-            UploadResult.Text = "防伪卡号关联订单有错误，请检查上传文件";
+            UploadResult.Text = "防伪卡号关联订单有错误，防伪卡号与订单号需要一一对应,请检查上传文件";
             return null;
         }
         else
@@ -72,18 +72,18 @@ public partial class SalesManage_FactoryExportExcel : PageBase
             try
             {
                 DataTable dtOrders = new DataTable();
-                oda = new OleDbDataAdapter(string.Format("select distinct [防伪卡号],[加工厂编码],[订单号],[医疗机构],[医生],[患者],[患者年龄],[患者性别],[出货日期],Now() as [RegTime]  from [{0}$] where {1} ", sheetName, " [防伪卡号] <>'' and [加工厂编码] <> '' and [订单号] <>'' "), cnnxls);
+                oda = new OleDbDataAdapter(string.Format("select distinct [防伪卡号],[加工厂编码],[订单号],[医疗机构],[医生],[患者],[患者年龄],[患者性别],[出货日期],Now() as [RegTime]  from [{0}$] where {1} ", sheetName, " [防伪卡号] <>'' and [加工厂编码] <> '' and [订单号] <>'' and Len([防伪卡号]) = 8 "), cnnxls);
                 oda.Fill(dtOrders);
 
                 if (dtOrders.Rows.Count == 0)
                 {
                     file.Delete();
-                    UploadResult.Text = "没有任何数据被上传，如果“防伪卡号,工厂编码，订单号”为空将视为无效记录。";
+                    UploadResult.Text = "没有任何数据被上传，如果“防伪卡号,工厂编码，订单号”,为空或者防伪卡号位数不足8位将视为无效记录。";
                     return null;
                 }
 
                 DataTable dtOrdersDetail = new DataTable();
-                oda = new OleDbDataAdapter(string.Format("select [防伪卡号],[加工厂编码],null as [subNo],[产品名称],[产品数量],[上右位],[上左位],[下右位],[下左位],[颜色],[材料批号],[加工厂保修期] from [{0}$] ", sheetName), cnnxls);
+                oda = new OleDbDataAdapter(string.Format("select [防伪卡号],[加工厂编码],null as [subNo],[产品名称],[产品数量],[上右位],[上左位],[下右位],[下左位],[颜色],[材料批号],[加工厂保修期] from [{0}$] where {1}", sheetName, "  [防伪卡号] <>'' and [加工厂编码] <> '' and [订单号] <>'' and Len([防伪卡号]) = 8 "), cnnxls);
                 oda.Fill(dtOrdersDetail);
 
                 string con = ConfigurationManager.AppSettings["ConnectString"];

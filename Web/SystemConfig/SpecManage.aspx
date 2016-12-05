@@ -339,33 +339,33 @@
             <table width="100%" border="0" id="gridSpec" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">编码<span class="red" >*</span></td>
-                <td><input type="text" class="pro_input required" id="detailBh" /></td>
+                <td><input type="text"  maxlength="50" class="pro_input required" id="detailBh" /></td>
                   <td class="pro_tableTd">订单号<span class="red" >*</span></td>
                 <td><input type="text" class="pro_input required" id="detailOrderNo" /></td>
                 <td class="pro_tableTd">类别<span class="red" >*</span></td>
-                <td><input type="text" class="pro_input required" id="detailClass" /></td>
+                <td><input type="text"  maxlength="10" class="pro_input required" id="detailClass" /></td>
                 
               </tr>
               <tr>
                    <td class="pro_tableTd">产品名称</td>
-                <td><div class="search"><input type="text" class="pro_input" id="detailProductName" /><div id="auto_div"></div></div></td>
+                <td><div class="search"><input type="text" class="pro_input" maxlength="50" id="detailProductName" /><div id="auto_div"></div></div></td>
               
                 <td class="pro_tableTd">外形</td>
-                <td><input type="text" class="pro_input" id="detailexterior"  /></td>
+                <td><input type="text" class="pro_input"  maxlength="20" id="detailexterior"  /></td>
                 <td class="pro_tableTd">尺寸</td>
-                <td><input type="text" class="pro_input" id="detailsize" /></td>
+                <td><input type="text" class="pro_input"  maxlength="50" id="detailsize" /></td>
               </tr>       
               <tr>
                  <td class="pro_tableTd">规格</td>
-                <td><input type="text" class="pro_input" id="detailSpec"  /></td>
+                <td><input type="text" class="pro_input"  maxlength="50" id="detailSpec"  /></td>
                 <td class="pro_tableTd">颜色</td>
-                <td><input type="text" class="pro_input" id="detailColor" /></td> 
+                <td><input type="text" class="pro_input"  maxlength="10" id="detailColor" /></td> 
                   <td colspan="2">&nbsp;</td> 
           
               </tr>
               <tr>
                 <td class="pro_tableTd">备注</td>
-                <td colspan="5"><input type="text" class="pro_input" id="detailRemark"  /></td>
+                <td colspan="5"><input type="text"  maxlength="100" class="pro_input" id="detailRemark"  /></td>
               </tr>        
          
               <tr>

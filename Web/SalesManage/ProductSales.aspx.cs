@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -75,12 +76,14 @@ public partial class SalesManage_ProductSales :PageBase
                 if (String.IsNullOrEmpty(Request["Id"]))
                 {
                     identityID = servComm.Add(modelSale);
+                    servComm.ExecuteSql("update CardNoMaintenance set IsSave = 1 where ID = '" + LoginUser.UserName + "'");
                 }
                 else
                 {
                     identityID = int.Parse(Request["Id"]);
                     modelSale.Id = identityID;
                     int result = servComm.Update(modelSale);
+                    servComm.ExecuteSql("update CardNoMaintenance set IsSave = 1 where ID = '" + identityID + "'");
 
                 }
                 string jsonResult = Request["SalesDetail"];
@@ -95,6 +98,7 @@ public partial class SalesManage_ProductSales :PageBase
                     modelDetail.Serial = serialIndex;
                     servComm.Add(modelDetail);
                 }
+
             }
             catch (Exception ex)
             {
@@ -108,6 +112,31 @@ public partial class SalesManage_ProductSales :PageBase
 
 
         }
+        else if (Request["actionType"] == "GetMaxCardNo")
+        {
+            DataTable dtCardNo = servComm.ExecuteSqlDatatable("select max(NoEnd) as MaxNo from CardNoMaintenance");
+            if (dtCardNo.Rows.Count == 0)
+            {
+                Response.Write("00000000");
+                Response.End();
+            }
+            else
+            {
+                string maxNo = dtCardNo.Rows[0][0].ToString();
+                maxNo =  (int.Parse(maxNo) + 1).ToString().PadLeft(8,'0');
+                Response.Write(maxNo);
+                Response.End();
+            }
+        }
+        else if (Request["actionType"] == "DeleteCardNo")
+        {
+            string NoStart = Request["NoStart"];
+            string NoEnd = Request["NoEnd"];
+            if (!String.IsNullOrEmpty(NoStart) && !String.IsNullOrEmpty(NoEnd))
+            {
+                servComm.ExecuteSql("delete from CardNoMaintenance where  NoEnd ='" + NoEnd + "' and NoStart = '" + NoStart + "'");
+            }
+        }
         else if (Request["actiontype"] == "ValidCardNo")
         {
             string NoStart = Request["NoStart"];
@@ -115,18 +144,38 @@ public partial class SalesManage_ProductSales :PageBase
             string Serial = Request["Serial"];
             ccWhere.Clear();
             string condition = "";
-            if (Serial != null && Serial != "-1" && !String.IsNullOrEmpty(Id))
+            if (Serial != null && Serial == "-1")
             {
-                condition = condition + " and ID !=" + Id + " and Serial != " + Serial;
+                Serial = Request["DetailCount"];
+            }
+            else if (Serial != null && Serial != "-1" && !String.IsNullOrEmpty(Id))
+            {
+                condition = condition + " and (ID !='" + Id + "' or  ID ='" + Id + "' and Serial != " + Serial + ")";
                 //ccWhere.AddComponent("Id", Id, SearchComponent.Equals, SearchPad.NULL);
                 //ccWhere.AddComponent("Serial", Serial, SearchComponent.UnEquals, SearchPad.And);
+            }    
+            else
+            {
+                condition = condition + " and (ID !='" + LoginUser.UserName + "' or  ID ='" + LoginUser.UserName + "' and Serial != " + Serial + ")";
             }
-            int count = servComm.ExecuteSqlDatatable("select Id from SaleDetail where (NoStart<="+ NoStart+ " and NoEnd>=" + NoStart + 
-                "or NoStart<=" + NoEnd + " and NoEnd>=" + NoEnd + 
-                "or NoStart>=" + NoStart + " and NoEnd<=" + NoEnd +")"+ condition).Rows.Count;
-            Response.Write(count);
-            Response.End();
+            int count = servComm.ExecuteSqlDatatable("select Id from CardNoMaintenance where (NoStart<='" + NoStart + "' and NoEnd>='" + NoStart +
+                "' or NoStart<='" + NoEnd + "' and NoEnd>='" + NoEnd +
+                "' or NoStart>='" + NoStart + "' and NoEnd<='" + NoEnd + "')" + condition).Rows.Count;
+            if (count == 0)
+            {
+                if (String.IsNullOrEmpty(Id))
+                {
+                    servComm.ExecuteSql("delete from CardNoMaintenance where  ID ='" + LoginUser.UserName + "' and Serial = " + Serial + ";  insert into CardNoMaintenance values('" + LoginUser.UserName + "','" + Serial + "','" + NoStart + "','" + NoEnd + "',GetDate(),0)");
+                }
+                else
+                {
+                    servComm.ExecuteSql("delete from CardNoMaintenance where  ID ='" + Id + "' and Serial = " + Serial + ";insert into CardNoMaintenance values('" + Id + "','" + Serial + "','" + NoStart + "','" + NoEnd + "',GetDate(),0)");
+                }
 
+                Response.Write(count);
+                Response.End();
+
+            }
         }
         //if (modelSale.ExecuteSqlDatatable("select ClassID from Dict where ClassID = '" + ClassID + "'").Rows.Count > 0)
         //{

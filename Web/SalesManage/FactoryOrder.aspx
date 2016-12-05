@@ -75,7 +75,7 @@
             });
 
             var userClass = "<%=LoginUser.Class%>"
-            if (userClass == "S" || userClass == "B") {
+            if (userClass == "B") {
                 $(".cd-popup-product").show();
                  var ProductID = '<%=LoginUser.ProductID%>'
                 if (ProductID != '') {

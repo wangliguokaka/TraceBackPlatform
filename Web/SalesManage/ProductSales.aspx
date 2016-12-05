@@ -79,6 +79,18 @@
             $(arrayCheck).each(function (i, n) {
                 var index = json.map(function (d) { return d['Serial']; }).indexOf(n);
                 json.splice(index, 1);
+                $.ajax({
+                    type: "post",
+                    url: "ProductSales.aspx",
+                    cache: false,
+                    async: false,
+                    data: {
+                        actiontype: "DeleteCardNo", NoStart: $("#NoStart").val(), NoEnd: $("#NoEnd").val()
+                    },
+                    dataType: "text",
+                    success: function (data) {
+                    }
+                });
             })
             
             BindGrid();
@@ -101,7 +113,7 @@
                 cache: false,
                 async: false,
                 data: {
-                    actiontype: "ValidCardNo", NoStart: $("#NoStart").val(), NoEnd: $("#NoEnd").val(), Id: $("#Id").val(), Serial: $("#Serial").val()
+                    actiontype: "ValidCardNo", NoStart: $("#NoStart").val(), NoEnd: $("#NoEnd").val(), Id: $("#Id").val(), Serial: $("#Serial").val(), DetailCount: detailCount+1
                 },
                 dataType: "text",
                 success: function (data) {
@@ -229,6 +241,7 @@
                 $("#BillDate").val(EditJson["BillDate"]);
                 $("#BillClass").val(EditJson["BillClass"]);
                 json = EditJson.DetailJson;
+                detailCount = json.length;
                 BindGrid();
             }
 
@@ -248,6 +261,27 @@
             //打开窗口
             $('.cd-popup-addbtn').on('click', function (event) {
                 $("#Serial").val(-1);
+                $.ajax({
+                    type: "post",
+                    url: "ProductSales.aspx",
+                    cache: false,
+                    async: false,
+                    data: {
+                        actiontype: "GetMaxCardNo"
+                    },
+                    dataType: "text",
+                    success: function (data) {
+                        if (data.length > 8) {
+                            layer.msg("防伪卡号已经使用到最大值");
+                        }
+                        else {
+                            $("#NoStart").val(data);
+                            $("#NoEnd").val(data);
+                            $("#NoQty").val(1);
+                        }
+                        
+                    }
+                });
                 event.preventDefault();
                 $('.cd-popup-add').addClass('is-visible');
             });

@@ -3,21 +3,26 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script type="text/javascript">
 
-
+        var arrSelect = null;
         $(function () {
 
-          
+         
             $("#detailCountry").bind("change", function () {
+ 
                 $.getJSON("../Handler/GetDataHandler.ashx?IsCN=<%=IsCN %>&ddlType=Province&ddlId=" + $("#detailCountry").val(), function (data) {
 
                    $("#detailProvince").empty();
                    $("#detailProvince").append(" <option value=\"-1\">&nbsp;</option>");
-                   var provinceValue = $("#detailProvince").val();
+                   var provinceValue = -1;
+                   if (arrSelect != null && arrSelect.length > 0)
+                   {
+                       provinceValue = arrSelect[0].Province;
+                   }
                     for (var i = 0; i < data.length; i++) {
-                      
-                        
+                     
+                       
                         $("#detailProvince").append($("<option></option>").val(data[i].ID).html(data[i].Cname));
-                      
+                     
 
 
                         if (provinceValue != "") {
@@ -28,8 +33,8 @@
                    
                 });
                    
-              
-              
+             
+             
             });
 
 
@@ -38,7 +43,11 @@
 
                     $("#detailCity").empty();
                     $("#detailCity").append(" <option value=\"-1\">&nbsp;</option>");
-                    var cityValue = $("#detailCountry").val();
+                   
+                    var cityValue = -1;
+                    if (arrSelect != null && arrSelect.length > 0) {
+                        cityValue = arrSelect[0].City;
+                    }
                     for (var i = 0; i < data.length; i++) {
                         $("#detailCity").append($("<option ></option>").val(data[i].ID).html(data[i].Cname));
                         if (cityValue != "") {
@@ -55,7 +64,7 @@
 
             //打开窗口
             $('.cd-popup-addbtn').on('click', function (event) {
-              
+             
                 event.preventDefault();
                 $('.cd-popup-add').addClass('is-visible');
             });
@@ -116,7 +125,7 @@
                 data: {
                     actiontype: "SaveCustomer", Id: arrayCheck.toString(), Class: $("#detailClass").val(), Serial: $("#detailSerial").val(), Client: $("#detailClient").val()
                 , linkman: $("#detaillinkman").val(), Tel: $("#detailTel").val(), Tel2: $("#detailTel2").val(), Country: $("#detailCountry").val(), Province: $("#detailProvince").val()
-                    , City: $("#detailCity").val(), Email: $("#detailEmail").val(), Addr: $("#detailAddr").val(), UserName: $("#detailUserName").val(), Passwd: $("#detailPasswd").val()
+                    , City: $("#detailCity").val(), Email: $("#detailEmail").val(), Addr: $("#detailAddr").val(), UserName: $("#detailUserName").val(), Passwd: $("#detailPasswd").attr("checked")
                 },
                 dataType: "text",
                 success: function (data) {
@@ -171,7 +180,7 @@
 
             });
 
-            // 
+            //
         }
 
         function SearchList()
@@ -179,9 +188,8 @@
             GetDataList(0);
             createPage(10, 10, allRowCount);
         }
-
+       
         function CheckDetail(obj, id) {
-         
             arrayCheck = new Array();
             $("#CustomerDetail tbody input[type='checkbox']:checked").each(function () {
 
@@ -190,8 +198,8 @@
 
             if ($(obj).attr("checked") == "checked") {
                 //$("#Serial").val(SerialIndex);
-                var arrSelect = $.map(json, function (value) {
-                    return value.ID == id ? value : null;//isNaN:is Not a Number的缩写 
+                arrSelect = $.map(json, function (value) {
+                    return value.ID == id ? value : null;//isNaN:is Not a Number的缩写
                 }
                 );
                 $.each(arrSelect[0], function (i, n) {
@@ -229,7 +237,7 @@
         var allRowCount = 0;
         function GetDataList(PageIndex)
         {
-            
+           
             $.ajax({
                 type: "post",
                 url: "CustomerManage.aspx",
@@ -254,7 +262,7 @@
                         //if (i > trnum) {
 
 
-                        //遍历行中每一列的key 
+                        //遍历行中每一列的key
 
                         var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail(this," + json[i]["ID"] + ")\"  value=\"" + json[i]["ID"] + "\" /></td><td>" + json[i]["Serial"] + "</td><td>" + Transfer(json[i]["Class"]) + "</td><td>" + json[i]["Client"] + "</td><td>" + json[i]["linkman"] + "</td><td>" + json[i]["Tel"] + "</td><td>" + json[i]["Tel2"] + "</td></tr>";
 
@@ -279,7 +287,7 @@
             {
                 return "本公司员工";
             }
-            else 
+            else
             {
                 return "本公司文员";
             }
@@ -312,7 +320,7 @@
       <div class="divWidth" >
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
-            <td width="6%" class="pro_tableTd" >公司编码<span class="red" >*</span></td>
+            <td width="6%" class="pro_tableTd" >公司编码</td>
             <td width="20%"><input type="text" id="Serial" class="pro_input" /></td>
             <td width="6%" class="pro_tableTd">公司类别</td>
             <td width="20%"><input type="text" id="Class" class="pro_input" /></td>
@@ -328,7 +336,7 @@
                 <object id="WebBrowser" width="0" height="0"  classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>
             </td>
           </tr>
-        </table>   
+        </table>  
       </div>
       <!--divWidth  end-->
       <div class="clear" ></div>
@@ -369,17 +377,17 @@
                 <td class="pro_tableTd">公司类别<span class="red" >*</span></td>
                 <td><select class="pro_select required" id="detailClass" ><option value="A">经销商</option><option value="B">加工厂</option><option value="C">本公司员工</option><option value="D">本公司文员</option></select></td>
                 <td class="pro_tableTd">公司编码<span class="red" >*</span></td>
-                <td><input type="text" class="pro_input required" id="detailSerial" /></td>
+                <td><input type="text" class="pro_input required" maxlength="50" id="detailSerial" /></td>
                 <td class="pro_tableTd">公司名称<span class="red" >*</span></td>
-                <td><input type="text" class="pro_input required" id="detailClient" /></td>
+                <td><input type="text" class="pro_input required" maxlength="50"  id="detailClient" /></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">联系人</td>
-                <td><input type="text" class="pro_input" id="detaillinkman"  /></td>
+                <td><input type="text" class="pro_input" maxlength="50"  id="detaillinkman"  /></td>
                 <td class="pro_tableTd">手机</td>
-                <td><input type="text" class="pro_input" id="detailTel"  /></td>
+                <td><input type="text" class="pro_input" maxlength="50"  id="detailTel"  /></td>
                 <td class="pro_tableTd">电话</td>
-                <td><input type="text" class="pro_input" id="detailTel2" /></td>
+                <td><input type="text" class="pro_input" maxlength="50"  id="detailTel2" /></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">国家</td>
@@ -391,19 +399,19 @@
               </tr>
               <tr>
                 <td class="pro_tableTd">E_mail</td>
-                <td><input type="text" class="pro_input" id="detailEmail" /></td>
+                <td><input type="text" class="pro_input" maxlength="50"  id="detailEmail" /></td>
                 <td colspan="4"></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">详细地址</td>
-                <td><input type="text" class="pro_input" id="detailAddr"  /></td>
+                <td><input type="text" class="pro_input" maxlength="100"  id="detailAddr"  /></td>
                 <td colspan="4"></td>
-              </tr>         
+              </tr>        
               <tr>
-                <td class="pro_tableTd">账号</td>
-                <td><input type="text" class="pro_input" id="detailUserName" /></td>
-                <td class="pro_tableTd">密码</td>
-                <td><input type="text" class="pro_input"  id="detailPasswd"/></td>
+                <td class="pro_tableTd">账号<span class="red" >*</span></td>
+                <td><input type="text" class="pro_input required"  maxlength="50"  id="detailUserName" /></td>
+                <td class="pro_tableTd">密码重置</td>
+                <td style="float:left;"><input type="checkbox" class="pro_input"   id="detailPasswd"/></td>
                 <td colspan="2"></td>
               </tr>
               <tr>
@@ -421,5 +429,5 @@
     </div>
         </div>
     <!--divWidth1  end-->
-    
+   
 </asp:Content>
