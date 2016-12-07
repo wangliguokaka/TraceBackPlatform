@@ -18,7 +18,7 @@ namespace D2012.DBUtility.Data.Core.SQLCore
     public class SqlHelper : IDbHelper
     {
         private int intPageCount_ = 1;
-        private int intRowCount_ = 1;
+        private int intRowCount_ = 0;
         private int isDel_ = 0;
         private int intPageNum_ = 1;
         private string strOrderString_ = null;

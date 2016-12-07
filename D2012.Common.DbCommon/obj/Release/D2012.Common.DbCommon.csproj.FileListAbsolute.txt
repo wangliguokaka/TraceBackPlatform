@@ -27,3 +27,8 @@ D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\bin\Release\D2012.C
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.dll
 D:\TraceBackPlatform\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.pdb
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\bin\Release\D2012.Common.DbCommon.dll
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\bin\Release\D2012.Common.DbCommon.pdb
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.csprojResolveAssemblyReference.cache
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.dll
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.Common.DbCommon\obj\Release\D2012.Common.DbCommon.pdb

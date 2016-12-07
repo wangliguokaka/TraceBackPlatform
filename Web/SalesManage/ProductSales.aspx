@@ -228,7 +228,18 @@
         $(function ()
         {
             
-
+            var userClass = "<%=LoginUser.Class%>"
+            if (userClass == "S" || userClass == "C") {
+                
+                $("button").show();
+                $("#MakeContact").hide();
+            }
+            else {
+                $("button").hide();
+                $("#OrderDetail").show();
+                $("#OrderDetail").text("查看详细");
+               // $("#girdSales input,select").attr("disabled", "disabled")
+            }
             if ('<%=Request["Id"]%>' == '') {
             }
             else {
@@ -366,16 +377,7 @@
 
             
 
-            var userClass = "<%=LoginUser.Class%>"
-            if (userClass == "S" || userClass == "C") {
-                $("button").show();
-            }
-            else {
-                $("button").hide();
-                $("#OrderDetail").show();
-                $("#OrderDetail").text("查看详细");
-               // $("#girdSales input,select").attr("disabled", "disabled")
-            }
+            
         })
         
 </script>

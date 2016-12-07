@@ -78,7 +78,7 @@ public partial class SalesManage_FactoryOrder : PageBase
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
             string responseJson = JsonConvert.SerializeObject(dtProduct, Formatting.Indented, timeConvert);
-            Response.Write("[{\"RowCount\":" + servComm.RowCount + ",\"JsonData\":" + responseJson + "}]");
+            Response.Write("[{\"RowCount\":" + dtProduct.Rows.Count + ",\"JsonData\":" + responseJson + "}]");
             Response.End();
 
         }

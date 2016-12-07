@@ -40,3 +40,10 @@ D:\TraceBackPlatform\TraceBackPlatform\D2012.DBUtility\bin\Release\D2012.Common.
 D:\TraceBackPlatform\TraceBackPlatform\D2012.DBUtility\obj\Release\D2012.DBUtility.csprojResolveAssemblyReference.cache
 D:\TraceBackPlatform\TraceBackPlatform\D2012.DBUtility\obj\Release\D2012.DBUtility.dll
 D:\TraceBackPlatform\TraceBackPlatform\D2012.DBUtility\obj\Release\D2012.DBUtility.pdb
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.DBUtility\bin\Release\D2012.DBUtility.dll
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.DBUtility\bin\Release\D2012.DBUtility.pdb
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.DBUtility\bin\Release\D2012.Common.DbCommon.dll
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.DBUtility\bin\Release\D2012.Common.DbCommon.pdb
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.DBUtility\obj\Release\D2012.DBUtility.csprojResolveAssemblyReference.cache
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.DBUtility\obj\Release\D2012.DBUtility.dll
+C:\Users\kingmile\Source\Repos\TraceBackPlatform\D2012.DBUtility\obj\Release\D2012.DBUtility.pdb
