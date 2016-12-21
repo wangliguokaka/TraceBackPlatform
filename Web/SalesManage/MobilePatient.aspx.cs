@@ -34,7 +34,10 @@ public partial class SalesManage_MobilePatient : System.Web.UI.Page
             ccwhere.AddComponent("CardNo", CardNo, SearchComponent.Equals, SearchPad.NULL);
             DataTable dtOrdersDetail = servComm.GetListTop(0, "ordersdetail", ccwhere);
             string detailJson = JsonConvert.SerializeObject(dtOrdersDetail, Formatting.Indented, timeConvert);
-
+            if (dtOrders.Rows.Count > 0)
+            {
+                servComm.ExecuteSql("insert into Visitor values ( getdate())");
+            }
             Response.Write("[{\"RowCount\":" + dtOrders.Rows.Count + ",\"JsonData\":" + responseJson + ",\"JsonDetail\":" + detailJson + "}]");
             Response.End();
         }

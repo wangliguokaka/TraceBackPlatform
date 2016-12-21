@@ -3,7 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script type="text/javascript">
 
-
         $(function () {
             GetDataList(0);
             createPage(10, 10, allRowCount);
@@ -11,14 +10,16 @@
 
             //打开窗口
             $('.cd-popup-addbtn').on('click', function (event) {
-              
+                $("#ID").val("-1");
+                
+                $(".cd-popup-container input").val("");
                 event.preventDefault();
                 $('.cd-popup-add').addClass('is-visible');
             });
 
             //关闭窗口
             $('.cd-popup-add').on('click', function (event) {
-                $("#ID").val("-1");
+                
                 if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup-add')) {
                     event.preventDefault();
                     $(this).removeClass('is-visible');
@@ -33,6 +34,7 @@
 
             //打开窗口
             $('.cd-popup-editbtn').on('click', function (event) {
+                $("#ID").val("0");
                 if (arrayCheck.length == 0) {
                     layer.msg("请选择订单进行编辑！");
                     return false;
@@ -42,15 +44,30 @@
                     return false;
                 }
                 event.preventDefault();
+
+                if (arrSelect!= null && arrSelect.length > 0) {
+                    $.each(arrSelect[0], function (i, n) {
+                        if (i == "Class") {
+                            //$("#detail" + i).find("option:[innerHTML='" + arrSelect[0][i] + "']").attr("selected", true);
+                            $("#detail" + i + " option:contains('" + arrSelect[0][i] + "')").each(function () {
+                                if ($(this).text() == arrSelect[0][i]) {
+                                    $(this).attr('selected', true);
+                                }
+                            });
+
+                        }
+                        else {
+                            $("#detail" + i).val(arrSelect[0][i]);
+                        }
+                        
+                    });
+                    $("#detailCountry").change();
+                }
+                $("#ID").val("0");
+
                 $('.cd-popup-add').addClass('is-visible');
             });
-            //关闭窗口
-            $('.cd-popup-add').on('click', function (event) {
-                if ($(event.target).is('.cd-popup-close')) {
-                    event.preventDefault();
-                    $(this).removeClass('is-visible');
-                }
-            });
+
             //ESC关闭
             $(document).keyup(function (event) {
                 if (event.which == '27') {
@@ -71,7 +88,7 @@
             });
 
             $("#auto_div").css("width", $("#detailProductName").width());
-            
+            $(".cd-popup-container").draggable();
         });
 
         function SaveSpec()
@@ -79,15 +96,15 @@
             if (validateRow('gridSpec', 0) == false) {
                 return false;
             }
-
+           
             $.ajax({
                 type: "post",
                 url: "SpecManage.aspx",
                 cache: false,
                 async: false,
                 data: {
-                    actiontype: "SaveSpec", Id: arrayCheck.toString(), Bh: $("#detailBh").val(), Class: $("#detailClass").val(), ProductName: $("#detailProductName").val()
-                , Spec: $("#detailSpec").val(), exterior: $("#detailexterior").val(), size: $("#detailsize").val(), OrderNo: $("#detailOrderNo").val(), Remark: $("#detailRemark").val(), Color: $("#detailColor").val()
+                    actiontype: "SaveSpec", Id: $("#ID").val()=="-1"?"":arrayCheck.toString(), Bh: $("#detailBh").val(), Class: $("#detailClass").val(), ProductName: $("#detailProductName").val()
+                , Spec: $("#detailSpec").val(), exterior: $("#detailexterior").val(), size: $("#detailSize").val(), OrderNo: $("#detailOrderNo").val(), Remark: $("#detailRemark").val(), Color: $("#detailColor").val()
                 },
                 dataType: "text",
                 success: function (data) {
@@ -161,17 +178,28 @@
 
             if ($(obj).attr("checked") == "checked") {
                 //$("#Serial").val(SerialIndex);
-                var arrSelect = $.map(json, function (value) {
+                 arrSelect = $.map(json, function (value) {
                     return value.ID == id ? value : null;//isNaN:is Not a Number的缩写 
                 }
                 );
-                $.each(arrSelect[0], function (i, n) {
-                    $("#detail" + i).val(arrSelect[0][i]);
+                 $.each(arrSelect[0], function (i, n) {
+                     if (i == "Class") {
+                        // $("#detail" + i).find("option:contains('" + arrSelect[0][i] + "')").attr("selected", true);
+                         $("#detail" + i + " option:contains('" + arrSelect[0][i] + "')").each(function () {
+                             if ($(this).text() == arrSelect[0][i]) {
+                                 $(this).attr('selected', true);
+                             }
+                         });
+                     }
+                     else {
+                         $("#detail" + i).val(arrSelect[0][i]);
+                     }
+                    //$("#detail" + i).val(arrSelect[0][i]);
                 });
             }
 
         }
-
+        var arrSelect = null;
         function createPage(pageSize, buttons, total) {
             $(".pagination").jBootstrapPage({
                 pageSize: pageSize,
@@ -221,11 +249,11 @@
                     for (var i = 0; i < json.length; i++) {
                         //var trnum = $("#" + gridId + " tbody").find("tr").slice(0).length - 1;
                         //if (i > trnum) {
-
+                       
 
                         //遍历行中每一列的key 
 
-                        var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail(this," + json[i]["ID"] + ")\"  value=\"" + json[i]["ID"] + "\" /></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["Class"] + "</td><td>" + json[i]["OrderNo"] + "</td><td>" + json[i]["Color"] + "</td><td>" + json[i]["Size"] + "</td><td>" + json[i]["exterior"] + "</td></tr>";
+                        var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail(this," + json[i]["ID"] + ")\"  value=\"" + json[i]["ID"] + "\" /></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["Class"] + "</td><td>" + json[i]["ProductName"] + "</td><td>" + json[i]["OrderNo"] + "</td><td>" + json[i]["Color"] + "</td><td>" + json[i]["Size"] + "</td><td>" + json[i]["exterior"] + "</td><td>" + json[i]["Spec"] + "</td><td>" + (json[i]["Remark"].toString().length>20?json[i]["Remark"].toString().substring(0,20)+"...":json[i]["Remark"].toString()) + "</td></tr>";
 
                         $("#CustomerDetail tbody").append(trHtml);
                     }
@@ -285,8 +313,12 @@
           <tr>
             <td width="6%" class="pro_tableTd">编码</td>
             <td width="20%"><input type="text" id="Bh" class="pro_input" /></td>
-            <td width="6%" class="pro_tableTd" >类别<span class="red" >*</span></td>
-            <td width="20%"><input type="text" id="Class" class="pro_input" /></td>
+            <td width="6%" class="pro_tableTd" >类别</td>
+            <td width="20%"><select class="pro_select" id="Class" >
+                    <%foreach(ModelDictDetail model in listClassType){ %>
+                        <option value="<%=model.Code %>" ><%=model.DictName %></option>
+                    <%} %>
+                    </select></td>
             <td width="6%" class="pro_tableTd">订货号</td>
             <td width="20%"><input type="text" id="OrderNo" class="pro_input" /></td>
            
@@ -314,10 +346,13 @@
                 <th><input type="checkbox" id="selectAllCheck" class="pro_checkbox" onclick="SelectAll(this)" /></th>
                 <th>编码</th>
                 <th>类别</th>
+                <th>产品名称</th>
                 <th>订货号</th>
                 <th>颜色</th>
                 <th>尺寸</th>
                 <th>外形</th>
+                <th>规格</th>
+                <th>备注</th>
               </tr>        
           </thead>
             <tbody>
@@ -340,11 +375,18 @@
               <tr>
                 <td class="pro_tableTd">编码<span class="red" >*</span></td>
                 <td><input type="text"  maxlength="50" class="pro_input required" id="detailBh" /></td>
-                  <td class="pro_tableTd">订单号<span class="red" >*</span></td>
+                  <td class="pro_tableTd">订货号<span class="red" >*</span></td>
                 <td><input type="text" class="pro_input required" id="detailOrderNo" /></td>
                 <td class="pro_tableTd">类别<span class="red" >*</span></td>
-                <td><input type="text"  maxlength="10" class="pro_input required" id="detailClass" /></td>
-                
+                <td><select class="pro_select required" id="detailClass" >
+                    <%foreach (ModelDictDetail model in listClassType)
+                                 {
+                                     if (model.Code != null)
+                                     {%>
+                        <option value="<%=model.Code %>" ><%=model.DictName %></option>
+                    <%}
+                                 }%>
+                    </select></td>                
               </tr>
               <tr>
                    <td class="pro_tableTd">产品名称</td>
@@ -353,7 +395,7 @@
                 <td class="pro_tableTd">外形</td>
                 <td><input type="text" class="pro_input"  maxlength="20" id="detailexterior"  /></td>
                 <td class="pro_tableTd">尺寸</td>
-                <td><input type="text" class="pro_input"  maxlength="50" id="detailsize" /></td>
+                <td><input type="text" class="pro_input"  maxlength="50" id="detailSize" /></td>
               </tr>       
               <tr>
                  <td class="pro_tableTd">规格</td>

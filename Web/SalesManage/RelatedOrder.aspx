@@ -27,6 +27,8 @@
             $("tr[class*='<%=LoginUser.Class%>']").each(function () {
                 $(this).show();
             });
+
+            $(".cd-popup-container").draggable();
         });
 
         function SearchList()
@@ -74,7 +76,8 @@
                 cache: false,
                 async: false,
                 data: {
-                    "actiontype": "GetSaleList", "PageIndex": PageIndex, "CardNoStart": $("#CardNoStart").val(), "CardNoEnd": $("#CardNoEnd").val()
+                    "actiontype": "GetSaleList", "PageIndex": PageIndex, "CardNoStart": $("#CardNoStart").val(), "CardNoEnd": $("#CardNoEnd").val(), "FilterSerial": $("#FilterSerial").val()
+                    , "FilterSalesperson": $("#FilterSalesperson").val(), "FilterSeller": $("#FilterSeller").val(), "FilterSalesDateStart": $("#FilterSalesDateStart").val(), "FilterSalesDateEnd": $("#FilterSalesDateEnd").val()
                 },
                 dataType: "text",
                 success: function (data) {
@@ -114,8 +117,8 @@
                 $("#" + i).val(arrSelect[0][i]);
             });
             if ("SBCD".indexOf("<%=LoginUser.Class%>") > -1) {
-                $(".cd-popup-container").css("height", "460px");
-                $(".cd-popup-container .divWidth").css("height", "420px");
+                $(".cd-popup-container").css("height", "490px");
+                $(".cd-popup-container .divWidth").css("height", "450px");
                 $.ajax({
                     type: "post",
                     url: "FactoryOrder.aspx",
@@ -133,8 +136,8 @@
                         var OrdersDetail = "<tr class=\"detailTR\"><td colspan=\"6\"><b>订单详细：</b></td></tr>"
                         //遍历行结果
                         for (var i = 0; i < detailJson.length; i++) {
-                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\"><td class=\"pro_tableTd\">产品名称</td><td>" + detailJson[i]["Itemname"] + "</td><td class=\"pro_tableTd\">牙位A（上右位）</td><td>" + detailJson[i]["a_teeth"] + "</td><td class=\"pro_tableTd\">牙位B（上左位）</td><td>" + detailJson[i]["b_teeth"] + "</td></tr>";
-                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\" style=\"border-bottom-style:dotted;border-bottom-width:1px;\"><td class=\"pro_tableTd\">保修期</td><td>" + detailJson[i]["Valid"] + "</td><td class=\"pro_tableTd\">牙位C（下右位）</td><td>" + detailJson[i]["c_teeth"] + "</td><td class=\"pro_tableTd\">牙位D（下左位）</td><td>" + detailJson[i]["d_teeth"] + "</td></tr>";
+                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\"><td class=\"pro_tableTd\">产品名称</td><td>" + detailJson[i]["Itemname"] + "</td><td class=\"pro_tableTd\" style=\"border-bottom-style:solid;border-bottom-width:1px;\">牙位A（上右位）</td><td style=\"border-bottom-style:solid;border-right-style:solid;border-bottom-width:1px;border-right-width:1px;\">" + detailJson[i]["a_teeth"] + "</td><td class=\"pro_tableTd\">牙位B（上左位）</td><td>" + detailJson[i]["b_teeth"] + "</td></tr>";
+                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\" style=\"border-bottom-style:dotted;border-bottom-width:1px;\"><td class=\"pro_tableTd\">保修期</td><td>" + detailJson[i]["Valid"] + "</td><td class=\"pro_tableTd\">牙位C（下右位）</td><td>" + detailJson[i]["c_teeth"] + "</td><td class=\"pro_tableTd\" style=\"border-top-style:solid;border-left-style:solid;border-top-width:1px;border-left-width:1px;\">牙位D（下左位）</td><td style=\"border-top-style:solid;border-top-width:1px;\">" + detailJson[i]["d_teeth"] + "</td></tr>";
                         }
 
                         $("#gridLayer").append(OrdersDetail);
@@ -181,14 +184,26 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
             <td width="10%" class="pro_tableTd">防伪卡号开始</td>
-            <td width="25%"><input type="text" id="CardNoStart" class="pro_input CardNoStart" /></td>
-              <td width="10%" class="pro_tableTd">防伪卡号开始</td>
-            <td width="25%"><input type="text" id="CardNoEnd" value="99999999" class="pro_input CardNoEnd" /></td>
-            <td width="10%" class="pro_tableTd">&nbsp;</td>
-            <td width="20%">&nbsp;</td>
+            <td width="15%"><input type="text" id="CardNoStart" class="pro_input CardNoStart" /></td>
+              <td width="10%" class="pro_tableTd">防伪卡号结束</td>
+            <td width="15%"><input type="text" id="CardNoEnd" value="99999999" class="pro_input CardNoEnd" /></td>
+            <td width="10%" class="pro_tableTd">加工厂</td>
+            <td width="15%"><input type="text" id="FilterSerial" class="pro_input" /></td>
+            <td width="10%" class="pro_tableTd">业务员</td>
+            <td width="15%"><input type="text" id="FilterSalesperson" class="pro_input" /></td>
+          </tr>
+         <tr>
+            
+            <td width="10%" class="pro_tableTd">经销商</td>
+            <td width="15%"><input type="text" id="FilterSeller" class="pro_input" /></td>
+            <td width="10%" class="pro_tableTd">销售开始日期</td>
+            <td width="15%"><input type="text" id="FilterSalesDateStart" class="pro_input detepickers" /></td>
+            <td width="10%"  class="pro_tableTd">销售结束日期</td>
+              <td><input type="text"  id="FilterSalesDateEnd" class="pro_input detepickers" /></td>
+            <td colspan="2">&nbsp;</td>  
           </tr>
           <tr>
-            <td colspan="6" style="text-align:right;">
+            <td colspan="8" style="text-align:right;">
               <button class="ui-button" type="button" onclick="SearchList()">查询</button>
               <button class="ui-button" type="button" onclick="ExportSale()">导出</button>
               <button class="ui-button" type="button"  onclick="printDirent()">打印</button>
@@ -210,7 +225,7 @@
                 <th>存货编码</th>
                 <th>订货编号</th>
                 <th>业务员</th>
-                <th>加工厂编码</th>
+                <th>加工厂名称</th>
                 <th>订单条码</th>
               </tr>        
           </thead>
@@ -256,7 +271,7 @@
                 <td class="pro_tableTd">批次数量</td>
                 <td><input type="text" id="BtQty" maxlength="10"  class="pro_input number" /></td>
               </tr>
-             <tr class="SC" >
+             <tr class="SABC" >
                 <td class="pro_tableTd">电话</td>
                 <td><input type="text" id="Tel" maxlength="20"  class="pro_input" /></td>               
                 <td class="pro_tableTd">快递单号</td>
@@ -299,7 +314,7 @@
                  <td class="pro_tableTd">收缩比</td>
                 <td><input type="text" id="SRate" maxlength="50"  class="pro_input" /></td>
               </tr>
-               <tr>
+               <tr class="SABCD">
                     <td class="pro_tableTd">收货单位或地址</td>
                     <td colspan="5"><input type="text" id="Addr" maxlength="50"  class="pro_input" /></td>
                </tr>           

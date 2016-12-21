@@ -92,6 +92,8 @@
                     $('.cd-popup-add').removeClass('is-visible');
                 }
             });
+            $(".cd-popup-container").draggable();
+            $("#SettingModal").draggable();
         })
 
       
@@ -203,10 +205,10 @@
                   title:"历史数据删除",
                   type: 1,
                   skin: 'layui-layer-rim', //加上边框
-                  area: ['360px', '200px'], //宽高
-                  content: '<div style="width:80%;margin:auto;"><div style="margin:15px;"><button type="button" class="ui-button" onclick="DeleteHisData()">删除</button></div>'
-                      + '<div style="margin:15px;">开始日期：<input type="text"  id="StartDate" readonly="readonly" style="width:160px;"  class="detepickers pro_input1 required" /> </div>'
-                      + '<div style="margin:15px;">结束日期：<input type="text" id="EndDate"  readonly="readonly"  style="width:160px;" class="detepickers pro_input1 required" /></div></div>'
+                  area: ['500px', '200px'], //宽高
+                  content: '<div style="width:95%;margin:auto;"><div style="margin:15px;"><button type="button" class="ui-button" onclick="DeleteHisData()">确认</button></div>'
+                      + '<div style="margin:15px;">1.加工成订单数据<input type="checkbox"  id="factoryHistory" style="width:20px; margin-left:10px;"  class=" pro_input1 " />截至日期：<input type="text" id="factoryEndDate"  readonly="readonly"  style="width:160px;" class="detepickers pro_input1 " /> </div>'
+                      + '<div style="margin:15px;">2.销售订单数据<input type="checkbox"  id="salesHistory" style="width:20px; margin-left:26px;"  class=" pro_input1 " />截至日期：<input type="text" id="salesEndDate"  readonly="readonly"  style="width:160px;" class="detepickers pro_input1 " /></div></div>'
             });
 
             deleteDialogIndex = layer.index ;
@@ -215,18 +217,32 @@
 
         function DeleteHisData()
         {
-            var startDate = $("#StartDate").val();
-            var endDate = $("#EndDate").val();
-            if (startDate == "")
+            var factoryCheck = $("#factoryHistory").prop("checked")
+            var salesCheck = $("#salesHistory").prop("checked")
+            var factoryEndDate = $("#factoryEndDate").val();
+            var salesEndDate = $("#salesEndDate").val();
+            if (factoryCheck == false && salesCheck == false)
             {
-                layer.msg("开始日期不能为空");
+                layer.msg("请选择要删除的对象");
                 return;
             }
-
-            if (endDate == "") {
-                layer.msg("结束日期不能为空");
+            if (factoryCheck == false)
+            {
+                factoryEndDate = "";
+            }
+            if (factoryCheck == true && factoryEndDate == "") {
+                layer.msg("截至日期不能为空");
                 return;
             }
+            
+            if (salesCheck == false) {
+                salesEndDate = "";
+            }
+            if (salesCheck == true && salesEndDate == "") {
+                layer.msg("截至日期不能为空");
+                return;
+            }
+           
 
             $.ajax({
                 type: "post",
@@ -234,7 +250,7 @@
                 cache: false,
                 async: false,
                 data: {
-                    actiontype: "DeleteHisData", "startDate": startDate, "endDate": endDate
+                    actiontype: "DeleteHisData", "factoryEndDate": factoryEndDate, "salesEndDate": salesEndDate
                 },
                 dataType: "text",
                 success: function (data) {
@@ -374,9 +390,13 @@
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageUserTrace" value="UserTrace" /><span class="folder-open"></span>患者查询跟踪</td></tr>
 
                 <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" class="System"   value="SystemSetting" name="SystemSetting" /><span class="folder-open"></span>系统设置</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingDictManagement" value="DictManagement"/><span class="folder-open"></span>数据字段</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingDictManagement" value="DictManagement"/><span class="folder-open"></span>数据字典</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingSpecManage" value="SpecManage"/><span class="folder-open"></span>规格型号维护</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingCustomerManage" value="CustomerManage"/><span class="folder-open"></span>客户管理</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingSeller" value="CustomerSeller"/><span class="folder-open"></span>经销商登记</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingFactory" value="CustomerFactory"/><span class="folder-open"></span>加工厂登记</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingEmployee" value="CustomerEmployee"/><span class="folder-open"></span>本公司员工登记</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingClerk" value="CustomerClerk"/><span class="folder-open"></span>本公司文员登记</td></tr>
+                <%--<tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingCustomerManage" value="CustomerManage"/><span class="folder-open"></span>客户管理</td></tr>--%>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingBasicInfo" value="BasicInfo"/><span class="folder-open"></span>基础信息</td></tr>
             </table>
     </div>

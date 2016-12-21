@@ -91,7 +91,7 @@
             }
             
 
-         
+            $(".cd-popup-container").draggable();
 
              $("#gridLayer input").attr("disabled","disabled")
         });
@@ -185,7 +185,8 @@
                 cache: false,
                 async: false,
                 data: {
-                    "actiontype": "GetSaleList", "PageIndex": PageIndex, "CardNoStart": $("#CardNoStart").val(), "CardNoEnd": $("#CardNoEnd").val(), "Salesperson": $("#Salesperson").val()
+                    "actiontype": "GetSaleList", "PageIndex": PageIndex, "CardNoStart": $("#CardNoStart").val(), "CardNoEnd": $("#CardNoEnd").val(), "FilterSerial": $("#FilterSerial").val()
+                    , "FilterOrder_ID": $("#FilterOrder_ID").val(), "FilterOutDateStart": $("#FilterOutDateStart").val(), "FilterOutDateEnd": $("#FilterOutDateEnd").val()
                 },
                 dataType: "text",
                 success: function (data) {
@@ -242,8 +243,8 @@
                     var OrdersDetail = "<tr class=\"detailTR\"><td colspan=\"6\"><b>订单详细：</b></td></tr>"
                     //遍历行结果
                     for (var i = 0; i < detailJson.length; i++) {
-                        OrdersDetail = OrdersDetail + "<tr class=\"detailTR\"><td class=\"pro_tableTd\">产品名称</td><td>" + detailJson[i]["Itemname"] + "</td><td class=\"pro_tableTd\">牙位A（上右位）</td><td>" + detailJson[i]["a_teeth"] + "</td><td class=\"pro_tableTd\">牙位B（上左位）</td><td>" + detailJson[i]["b_teeth"] + "</td></tr>";
-                        OrdersDetail = OrdersDetail + "<tr class=\"detailTR\" style=\"border-bottom-style:dotted;border-bottom-width:1px;\"><td class=\"pro_tableTd\">产品数量</td><td>" + detailJson[i]["Qty"] + "</td><td class=\"pro_tableTd\">牙位C（下右位）</td><td>" + detailJson[i]["c_teeth"] + "</td><td class=\"pro_tableTd\">牙位D（下左位）</td><td>" + detailJson[i]["d_teeth"] + "</td></tr>";
+                        OrdersDetail = OrdersDetail + "<tr class=\"detailTR\"><td class=\"pro_tableTd\">产品名称</td><td>" + detailJson[i]["Itemname"] + "</td><td class=\"pro_tableTd\" style=\"border-bottom-style:solid;border-bottom-width:1px;\">牙位A（上右位）</td><td style=\"border-bottom-style:solid;border-right-style:solid;border-bottom-width:1px;border-right-width:1px;\">" + detailJson[i]["a_teeth"] + "</td><td class=\"pro_tableTd\">牙位B（上左位）</td><td>" + detailJson[i]["b_teeth"] + "</td></tr>";
+                        OrdersDetail = OrdersDetail + "<tr class=\"detailTR\" style=\"border-bottom-style:dotted;border-bottom-width:1px;\"><td class=\"pro_tableTd\">产品数量</td><td>" + detailJson[i]["Qty"] + "</td><td class=\"pro_tableTd\">牙位C（下右位）</td><td>" + detailJson[i]["c_teeth"] + "</td><td class=\"pro_tableTd\" style=\"border-top-style:solid;border-left-style:solid;border-top-width:1px;border-left-width:1px;\">牙位D（下左位）</td><td style=\"border-top-style:solid;border-top-width:1px;\">" + detailJson[i]["d_teeth"] + "</td></tr>";
                       
                     }
                   
@@ -291,11 +292,20 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
             <td width="10%" class="pro_tableTd">防伪卡号开始</td>
-            <td width="25%"><input type="text" id="CardNoStart" class="pro_input" /></td>
-              <td width="10%" class="pro_tableTd">防伪卡号开始</td>
-            <td width="25%"><input type="text" id="CardNoEnd" class="pro_input" /></td>
-            <td width="10%" class="pro_tableTd">业务员</td>
-            <td width="20%"><input type="text" id="Salesperson" class="pro_input" /></td>
+            <td width="15%"><input type="text" id="CardNoStart" class="pro_input CardNoStart" /></td>
+              <td width="10%" class="pro_tableTd">防伪卡号结束</td>
+            <td width="15%"><input type="text" id="CardNoEnd" value="99999999" class="pro_input CardNoEnd" /></td>            
+            <td width="10%" class="pro_tableTd">加工厂编码</td>
+            <td width="15%"><input type="text" id="FilterSerial" class="pro_input" /></td>
+          </tr>
+            <tr>
+            
+            <td width="10%" class="pro_tableTd">订单号</td>
+            <td width="15%"><input type="text" id="FilterOrder_ID" class="pro_input" /></td>
+            <td width="10%" class="pro_tableTd">出货开始日期</td>
+            <td width="15%"><input type="text" id="FilterOutDateStart" class="pro_input detepickers" /></td>
+            <td width="10%"  class="pro_tableTd">出货结束日期</td>
+            <td><input type="text"  id="FilterOutDateEnd" class="pro_input detepickers" /></td>           
           </tr>
           <tr>
             <td colspan="6" style="text-align:right;">

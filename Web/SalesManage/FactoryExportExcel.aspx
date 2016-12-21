@@ -23,7 +23,18 @@
         function isIe() {
             return ("ActiveXObject" in window);
         }
+
+        function CheckFie()
+        {
+            if ($("#fileExport").val() == "")
+            {
+                layer.msg("请上传附件！")
+                return false;
+            }
+        }
 </script>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -33,7 +44,7 @@
       <div class="divWidth" >
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
-              <td rowspan="3" style="width:150px;"><a href="../Template/上传表模板.xlsx" title="点击下载模板"><img src="../Css/images/Excel.png" alt="点击下载" /></a></td>
+              <td rowspan="3" style="width:150px;"><a href="../Template/上传模板表.xlsx" title="点击下载模板"><img src="../Css/images/Excel.png" alt="点击下载" /></a></td>
               <td class="pro_tableTd">1.请点击左侧图标下载数据上传模板</td>
           </tr>
           <tr>             
@@ -53,8 +64,8 @@
       <div class="divWidth" >
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr style="height:40px;">
-            <td  class="pro_tableTd" style="width:420px;"><asp:FileUpload runat="server" Width="600px" Height="30px"  class="pro_input required" ID="fileExport" /></td>
-              <td class="pro_tableTd"><asp:button runat="server"  class="ui-button" Text="上传" ID="btnFile" OnClick="btnFile_Click" /></td>
+            <td  class="pro_tableTd" style="width:420px;"><asp:FileUpload runat="server" Width="600px" Height="30px"   ClientIDMode="Static"   class="pro_input required" ID="fileExport" /></td>
+              <td class="pro_tableTd"><asp:button runat="server"  class="ui-button" Text="上传" ID="btnFile" OnClientClick="return CheckFie()" OnClick="btnFile_Click" /></td>
           </tr>
         </table>   
       </div>

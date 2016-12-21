@@ -43,7 +43,7 @@
             if ($(obj).attr("checked") == "checked")
             {
                 $("#Serial").val(SerialIndex);
-                var arrSelect = $.map(json, function (value) {
+                arrSelect = $.map(json, function (value) {
                     return value.Serial == SerialIndex ? value : null;//isNaN:is Not a Number的缩写 
                 }
                 );
@@ -53,7 +53,7 @@
             }          
 
         }
-
+        var arrSelect = null;
         function SelectAll(obj)
         {
             $("#gridDetail tbody input[type='checkbox']").each(function () {
@@ -227,7 +227,7 @@
 
         $(function ()
         {
-            
+            $(".cd-popup-container").draggable();
             var userClass = "<%=LoginUser.Class%>"
             if (userClass == "S" || userClass == "C") {
                 
@@ -272,6 +272,7 @@
             //打开窗口
             $('.cd-popup-addbtn').on('click', function (event) {
                 $("#Serial").val(-1);
+                $(".cd-popup-container input").val("");
                 $.ajax({
                     type: "post",
                     url: "ProductSales.aspx",
@@ -294,6 +295,7 @@
                     }
                 });
                 event.preventDefault();
+               
                 $('.cd-popup-add').addClass('is-visible');
             });
             
@@ -323,7 +325,13 @@
                     layer.msg("只能选择一条订单进行操作！");
                     return false;
                 }
+                
                 event.preventDefault();
+                if (arrSelect != null && arrSelect.length > 0) {
+                    $.each(arrSelect[0], function (i, n) {
+                        $("#" + i).val(arrSelect[0][i]);
+                    });
+                }
                 $('.cd-popup-add').addClass('is-visible');
             });
             //关闭窗口
@@ -357,12 +365,12 @@
 
             $("#orderid").blur(function ()
             {
-                var arrSelect = $.map(test_list, function (value) {
+                var arrOrderSelect = $.map(test_list, function (value) {
                     return value.OrderNo == $("#orderid").val() ? value : null;//isNaN:is Not a Number的缩写 
                 }
               );
-                if (arrSelect.length > 0) {
-                    $("#Bh").val(arrSelect[0].Bh);
+                if (arrOrderSelect.length > 0) {
+                    $("#Bh").val(arrOrderSelect[0].Bh);
                 }
                 else {
                     $("#Bh").val("");
@@ -376,7 +384,7 @@
             }, false);
 
             
-
+           
             
         })
         
@@ -413,11 +421,15 @@
             <table width="100%" id="girdSales"  border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">经销商<span class="red" >*</span></td>
-                <td><input type="text" id="Seller" maxlength="50" class="pro_input required" /></td>
-                <td class="pro_tableTd">业务员</td>
-                <td><input type="text" id="Salesperson" maxlength="50"  class="pro_input" /></td>
+                <td><select class="pro_select" id="Seller" >
+                    <%foreach(ModelClient model in listSeler){ %>
+                        <option value="<%=model.Serial %>" ><%=model.Client %></option>
+                    <%} %>
+                    </select></td>   
                 <td class="pro_tableTd">发货日期<span class="red" >*</span></td>
                 <td><input type="text" id="SaleDate"  class="detepickers pro_input required" /></td>
+                <td class="pro_tableTd">业务员</td>
+                <td><input type="text" id="Salesperson" maxlength="50"  class="pro_input" /></td>
               </tr>
               <tr>
                 <td class="pro_tableTd">发票号</td>
@@ -509,26 +521,25 @@
                 <td><input type="text" id="NoQty" maxlength="10"  class="pro_input required number" /></td>
               </tr>
               <tr>
+                <td class="pro_tableTd">生产批号<span class="red" >*</span></td>
+                <td><input type="text" id="BatchNo" maxlength="50"  class="pro_input required" /></td>
+                <td class="pro_tableTd">生产日期<span class="red" >*</span></td>
+                <td><input type="text" id="ProdDate" class="detepickers pro_input required" /></td>
+                <td class="pro_tableTd">检验日期</td>
+                <td><input type="text" id="TestDate" class="detepickers pro_input" /></td>
+              </tr>
+              <tr>
                 <td class="pro_tableTd">粉料类型</td>
                 <td><input type="text" id="OClass" maxlength="10"  class="pro_input" /></td>
                 <td class="pro_tableTd">粉料批号</td>
                 <td><input type="text" id="ObatchNo" maxlength="50"  class="pro_input" /></td>
-                <td class="pro_tableTd">生产批号<span class="red" >*</span></td>
-                <td><input type="text" id="BatchNo" maxlength="50"  class="pro_input required" /></td>
-               
-              </tr>
-              <tr>
-                 <td class="pro_tableTd">生产日期<span class="red" >*</span></td>
-                <td><input type="text" id="ProdDate" class="detepickers pro_input required" /></td>
-                <td class="pro_tableTd">检验日期</td>
-                <td><input type="text" id="TestDate" class="detepickers pro_input" /></td>
                 <td class="pro_tableTd">批次数量</td>
                 <td><input type="text" id="BtQty" maxlength="10"  class="pro_input number" /></td>
                
               </tr>
               <tr>
                 <td class="pro_tableTd">收缩比</td>
-                <td><input type="text" id="SRate" maxlength="10"  class="pro_input" /></td>
+                <td><input type="text" id="SRate" maxlength="10"  class="pro_input decimal" /></td>
                 <td class="pro_tableTd">有效期</td>
                 <td><input type="text" id="Valid" class="pro_input" /></td>
                  <td class="pro_tableTd">货运单号</td>

@@ -72,10 +72,28 @@
                 $("#DictManagement").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("CustomerManage.aspx") > -1) {
-                $("#CustomerManage").attr("class", "active");
-                $("#CustomerManage").parent().parent().find("a").eq(0).click();
-                $("#CustomerManage").parent().parent().find("a span").eq(0).css("color", "white");
-                $("#CustomerManage").parent().parent().attr("class", "active");
+                var menuid = "CustomerSeller";
+                if (location.href.indexOf("customertype=A")>-1)
+                {
+                    menuid = "CustomerSeller";
+                }
+                else  if (location.href.indexOf("customertype=B")>-1)
+                {
+                    menuid = "CustomerFactory";
+                }
+                else if (location.href.indexOf("customertype=C")>-1)
+                {
+                    menuid = "CustomerEmployee";
+                }
+                else if (location.href.indexOf("customertype=D")>-1)
+                {
+                    menuid = "CustomerClerk";
+                }
+               
+                $("#" + menuid).attr("class", "active");
+                $("#" + menuid).parent().parent().find("a").eq(0).click();
+                $("#" + menuid).parent().parent().find("a span").eq(0).css("color", "white");
+                $("#" + menuid).parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("FactoryOrder.aspx") > -1) {
                 $("#FactoryOrder").attr("class", "active");
@@ -228,6 +246,11 @@
         body {
             font-family: 'Microsoft Yahei', '微软雅黑', '宋体', \5b8b\4f53, Tahoma, Arial, Helvetica, STHeiti;
             margin: 0;
+            -moz-user-select: text; /*火狐*/
+            -webkit-user-select: text; /*webkit浏览器*/
+            -ms-user-select: text; /*IE10*/
+            -khtml-user-select: text; /*早期浏览器*/
+            user-select: text;
         }
 
         .main-nav {
@@ -375,6 +398,8 @@
         .collapsed.glyphicon-chevron-toggle:before {
             content: "\e114";
         }
+
+       
     </style>
 
     <title></title>
@@ -391,7 +416,7 @@
                     <img class="navbar-brand" src="../Css/images/logo.png" /><a class="navbar-brand" href="#" style=" font-size:15px; font-family:'Microsoft YaHei'" id="logo">新&nbsp;华&nbsp;医&nbsp;疗&nbsp;订&nbsp;单&nbsp;信&nbsp;息&nbsp;追&nbsp;溯&nbsp;系&nbsp;统
                     </a>
                 </div>
-                <div  style="color:white; margin-top:20px; float:right;  margin-right:20%;">&nbsp;<span class="glyphicon glyphicon-user"><i style="font-size:10px;">&nbsp;<%=Session["UserName"] %></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="注销"  style="cursor:pointer;" onclick="Logout()"><i style="font-size:10px;">&nbsp;注销</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-lock" style="cursor:pointer;" title="密码修改" onclick="ModifyPassword();"><i style="font-size:10px;" >&nbsp;密码修改</i></span></div>
+                <div  style="color:white; margin-top:20px; float:left;  margin-left:40px;">&nbsp;<span class="glyphicon glyphicon-user"><i style="font-size:10px;">&nbsp;<%=Session["UserName"] %></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="注销"  style="cursor:pointer;" onclick="Logout()"><i style="font-size:10px;">&nbsp;注销</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-lock" style="cursor:pointer;" title="密码修改" onclick="ModifyPassword();"><i style="font-size:10px;" >&nbsp;密码修改</i></span></div>
         </div>
         </div>
          <div style="display:none;"><asp:Button ID="logout" runat="server" OnClick="logout_Click" /></div>
@@ -430,9 +455,12 @@
                         </a>
                         <ul id="configSetting" class="nav nav-list secondmenu collapse ">
                             <li id="DictManagement"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-bold"></i>&nbsp;数据字典</a></li>
-                            <li id="SpecManage"><a href="../SystemConfig/SpecManage.aspx"><i class="glyphicon glyphicon-th-large"></i>&nbsp;规格型号配置</a></li>
-                             <li id="CustomerManage"><a href="../SystemConfig/CustomerManage.aspx"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;客户管理</a></li>
+                            <li id="SpecManage"><a href="../SystemConfig/SpecManage.aspx"><i class="glyphicon glyphicon-th-large"></i>&nbsp;规格型号配置</a></li>                            
                              <li id="BasicInfo"><a href="../SystemConfig/BasicInfo.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;基础信息</a></li>
+                             <li id="CustomerSeller"><a href="../SystemConfig/CustomerManage.aspx?customertype=A"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;经销商登记</a></li>
+                             <li id="CustomerFactory"><a href="../SystemConfig/CustomerManage.aspx?customertype=B"><i class="glyphicon glyphicon-cog"></i>&nbsp;加工厂登记</a></li>
+                             <li id="CustomerEmployee"><a href="../SystemConfig/CustomerManage.aspx?customertype=C"><i class="glyphicon glyphicon-adjust"></i>&nbsp;本公司员工登记</a></li>
+                             <li id="CustomerClerk"><a href="../SystemConfig/CustomerManage.aspx?customertype=D"><i class="glyphicon glyphicon-check"></i>&nbsp;本公司文员登记</a></li>
                         </ul>
                     </li>
                 </ul>

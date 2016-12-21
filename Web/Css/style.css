@@ -384,6 +384,7 @@ input[type=checkbox].pro_checkbox{
 	top:50%;
 	margin-top:-154px;
 	left:15%;
+    cursor:pointer;
 	}
 .cd-popup-close{
 	position:absolute;

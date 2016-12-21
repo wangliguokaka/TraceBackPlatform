@@ -155,6 +155,44 @@ public partial class SalesManage_RelatedOrder : PageBase
         {
             ccwhere.AddComponent("CardNo", CardNoEnd, SearchComponent.LessOrEquals, SearchPad.And);
         }
-       
+
+        string FilterSerial = Request["FilterSerial"];
+        if (!String.IsNullOrEmpty(FilterSerial))
+        {
+            ccwhere.AddComponent("CardNo", '%'+FilterSerial+'%', SearchComponent.Like, SearchPad.And);
+        }
+
+        string FilterSalesperson = Request["FilterSalesperson"];
+        if (!String.IsNullOrEmpty(FilterSalesperson))
+        {
+            ccwhere.AddComponent("Salesperson", '%' + FilterSalesperson + '%', SearchComponent.Like, SearchPad.And);
+        }
+
+        string FilterSeller = Request["FilterSeller"];
+        if (!String.IsNullOrEmpty(FilterSeller))
+        {
+            ccwhere.AddComponent("seller", '%' + FilterSeller + '%', SearchComponent.Like, SearchPad.And);
+        }
+
+        if (LoginUser.Class == "B")
+        {
+            ccwhere.AddComponent("Serial", LoginUser.Serial, SearchComponent.Equals, SearchPad.And);
+        }
+
+        if (LoginUser.Class == "A")
+        {
+            ccwhere.AddComponent("seller", LoginUser.Serial, SearchComponent.Equals, SearchPad.And);
+        }
+
+        string FilterSalesDateStart = Request["FilterSalesDateStart"];
+        if (!String.IsNullOrEmpty(FilterSalesDateStart))
+        {
+            ccwhere.AddComponent("SaleDate", FilterSalesDateStart, SearchComponent.GreaterOrEquals, SearchPad.And);
+        }
+        string FilterSalesDateEnd = Request["FilterSalesDateEnd"];
+        if (!String.IsNullOrEmpty(FilterSalesDateEnd))
+        {
+            ccwhere.AddComponent("SaleDate", DateTime.Parse(FilterSalesDateEnd).AddDays(1).ToString(), SearchComponent.Less, SearchPad.And);
+        }
     }
 }

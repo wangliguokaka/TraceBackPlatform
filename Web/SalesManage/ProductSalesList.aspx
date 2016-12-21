@@ -237,11 +237,11 @@
       <div class="divWidth" >
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pro_table">
           <tr>
-            <td width="6%" class="pro_tableTd">发票号<span class="red" >*</span></td>
+            <td width="6%" class="pro_tableTd">发票号</td>
             <td width="20%"><input type="text" id="BillNo" class="pro_input" /></td>
             <td width="6%" class="pro_tableTd">业务员</td>
             <td width="20%"><input type="text" id="Salesperson" class="pro_input" /></td>
-            <td width="6%" style="text-align:right;"><input type="checkbox" id="IsDel" class="pro_checkbox" /></td>
+            <td width="6%" style="text-align:right;"><input type="checkbox" id="IsDel"  class="pro_checkbox" /></td>
             <td class="pro_tableTd">废止</td>
           </tr>
           <tr>

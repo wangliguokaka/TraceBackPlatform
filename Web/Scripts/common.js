@@ -13,6 +13,11 @@
         onlyNumber(this);
     });
 
+    $(".decimal").live('keyup', function () {
+        onlyDecimal(this);
+    });
+
+
     $(".CardNoStart").attr("maxlength", "8");
     $(".CardNoStart").val("00000000")
     $(".CardNoStart").bind("blur", function () {
@@ -41,10 +46,13 @@
    
 
 
+    $.datepicker.setDefaults({ showButtonPanel: true, closeText: '清空', beforeShow: function (input, inst) { datepicker_CurrentInput = input;  } });
 
-
+    $(".ui-datepicker-close").live("click", function () {
+        datepicker_CurrentInput.value = "";
+    });
     $(".detepickers").live("focus", function () {
-        
+        $(".ui-datepicker-current").hide();
         $(this).datepicker({
             dateFormat: "yy-mm-dd",
             //showOn: "button", 
@@ -79,7 +87,8 @@
             //  showOn: "both"
         });
     });
-
+   
+    $(".detepickers").attr("readonly", "readonly");
     //表格中必填项验证
     $(".required").live('blur', function () {
         if ($.trim($(this).val()) != "") {
@@ -211,6 +220,10 @@
                 $(this).children().removeAttr("disabled");
             });
     }));
+
+   
+    $(".cd-popup-contact").draggable();
+    
 
 });
 

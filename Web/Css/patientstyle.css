@@ -34,8 +34,7 @@ a, img{
 	}
 html, body{
 	/* 禁止选中文本(如无文本选中需求,此为必选项) */
-	-webkit-user-select:none;
-	user-select:none;
+	
 	}
 /*public*/
 @media screen and (max-width:319px) {
@@ -65,7 +64,7 @@ body {
 	font-size:16px;
 	color:#000;
 	background-color:#f8f8f8;
-	-webkit-user-select:none;
+	
 	-webkit-text-size-adjust:100%;
 	-webkit-tap-highlight-color:transparent;
 	outline:0;
@@ -232,7 +231,7 @@ section{
 	border-bottom:1px solid #ededed;
 	height:40px;
 	line-height:40px;
-	font-size:14px;
+	font-size:12px;
 	color:#333;
 	padding:0 0 0 8px;
 	}

@@ -50,7 +50,7 @@ public partial class login : System.Web.UI.Page
             Session["UserName"] = objUser.Client;
 
 
-            servComm.ExecuteSql("insert into Visitor values ( getdate())");
+            //servComm.ExecuteSql("insert into Visitor values ( getdate())");
 
             if (objUser.Class == "S")
             {

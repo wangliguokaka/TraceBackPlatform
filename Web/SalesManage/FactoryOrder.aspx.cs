@@ -33,6 +33,7 @@ public partial class SalesManage_FactoryOrder : PageBase
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
             string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
+            responseJson = responseJson.Replace(": null", ": \"\"");
             Response.Write("[{\"RowCount\":" + servComm.RowCount + ",\"JsonData\":" + responseJson + "}]");
             Response.End();
 
@@ -48,6 +49,7 @@ public partial class SalesManage_FactoryOrder : PageBase
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
             string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
+            responseJson = responseJson.Replace(": null", ": \"\"");
             responseJson = responseJson.Replace("\r\n", "");
             Response.Write(responseJson);
             Response.End();
@@ -110,17 +112,49 @@ public partial class SalesManage_FactoryOrder : PageBase
         string CardNoStart = Request["CardNoStart"];
         if (!String.IsNullOrEmpty(CardNoStart))
         {
-            ccwhere.AddComponent("CardNoStart", CardNoStart, SearchComponent.GreaterOrEquals, SearchPad.And);
+            ccwhere.AddComponent("CardNo", CardNoStart, SearchComponent.GreaterOrEquals, SearchPad.And);
         }
         string CardNoEnd = Request["CardNoEnd"];
         if (!String.IsNullOrEmpty(CardNoEnd))
         {
-            ccwhere.AddComponent("CardNoEnd", CardNoEnd, SearchComponent.LessOrEquals, SearchPad.And);
+            ccwhere.AddComponent("CardNo", CardNoEnd, SearchComponent.LessOrEquals, SearchPad.And);
         }
         string Salesperson = Request["Salesperson"];
         if (!String.IsNullOrEmpty(Salesperson))
         {
             ccwhere.AddComponent("Salesperson", "%" + Salesperson + "%", SearchComponent.Like, SearchPad.And);
+        }
+        string FilterSerial = Request["FilterSerial"];
+        if (!String.IsNullOrEmpty(FilterSerial))
+        {
+            ccwhere.AddComponent("Serial", "%" + FilterSerial + "%", SearchComponent.Like, SearchPad.And);
+        }
+
+        if (LoginUser.Class == "B")
+        {
+            ccwhere.AddComponent("Serial", LoginUser.Serial, SearchComponent.Equals, SearchPad.And);
+        }
+
+        if (LoginUser.Class == "A")
+        {
+            ccwhere.AddComponent("CardNo", "( SELECT [CardNo] FROM [ViewRelatedOrder] where seller = '"+ LoginUser.Serial+ "')", SearchComponent.In, SearchPad.And);
+        }
+
+       
+      string FilterOrder_ID = Request["FilterOrder_ID"];
+        if (!String.IsNullOrEmpty(FilterOrder_ID))
+        {
+            ccwhere.AddComponent("Order_ID", "%" + FilterOrder_ID + "%", SearchComponent.Like, SearchPad.And);
+        }
+        string FilterOutDateStart = Request["FilterOutDateStart"];
+        if (!String.IsNullOrEmpty(FilterOutDateStart))
+        {
+            ccwhere.AddComponent("OutDate", FilterOutDateStart, SearchComponent.GreaterOrEquals, SearchPad.And);
+        }
+        string FilterOutDateEnd = Request["FilterOutDateEnd"];
+        if (!String.IsNullOrEmpty(FilterOutDateEnd))
+        {
+            ccwhere.AddComponent("OutDate", DateTime.Parse(FilterOutDateEnd).AddDays(1).ToString(), SearchComponent.Less, SearchPad.And);
         }
     }
 }

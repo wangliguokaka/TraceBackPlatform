@@ -15,21 +15,29 @@ public partial class SalesManage_FactoryExportExcel : PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+       
     }
 
     protected void btnFile_Click(object sender, EventArgs e)
     {
-        string shortName = LoginUser.UserName == null ? "" : LoginUser.UserName + DateTime.Now.ToString("yyyyMMddHHmmsshhh") + ".xlsx";
-        string fileName = Request.PhysicalApplicationPath + "UploadFile\\" + shortName;
-        fileExport.SaveAs(fileName);
-        
+        try
+        {
+            string shortName = LoginUser.UserName == null ? "" : LoginUser.UserName + DateTime.Now.ToString("yyyyMMddHHmmsshhh") + ".xlsx";
+            string fileName = Request.PhysicalApplicationPath + "UploadFile\\" + shortName;
+            fileExport.SaveAs(fileName);
 
-        ExcelToDataTable(fileName, null);
+
+            ExcelToDataTable(fileName, null);
+        }
+        catch (Exception ex)
+        {
+            UploadResult.Text = "数据上传失败，请检查附件中的数据。";
+        }
     }
 
     public DataTable ExcelToDataTable(string pathName, string sheetName)
     {
+        
         DataTable tbContainer = new DataTable();
         string strConn = string.Empty;
         if (string.IsNullOrEmpty(sheetName)) { sheetName = "Sheet1"; }

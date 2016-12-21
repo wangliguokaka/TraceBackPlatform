@@ -97,10 +97,10 @@
       <h3 class="details-title" >患者信息</h3>
       <table border="0" cellspacing="0" cellpadding="0" style="width:100%;" class="details-text">
         <tr>
-          <td >加工厂:</td>
-          <td ><span class="details-text-color details-text-solid" id="Serial"></span></td>
-            <td >订单号:</td>
-          <td ><span class="details-text-color" id="Order_ID"></span></td>
+          <td style="width:24%;">加工厂:</td>
+          <td style="width:26%;"><span class="details-text-color details-text-solid" id="Serial"></span></td>
+            <td style="width:24%;">订单号:</td>
+          <td style="width:26%;"><span class="details-text-color" id="Order_ID"></span></td>
         </tr>      
          <tr>
           <td style="width:24%;">医疗机构:</td>
@@ -109,8 +109,8 @@
           <td style="width:26%;"><span class="details-text-color"  id="doctor" ></span></td>
         </tr>
         <tr>
-          <td style="width:15%;">患者:</td>
-          <td style="width:35%;"><span class="details-text-color details-text-solid" id="patient" ></span></td>
+          <td >患者:</td>
+          <td><span class="details-text-color details-text-solid" id="patient" ></span></td>
              <td>生产日期:</td>
           <td><span class="details-text-color details-text-solid" id="OutDate" ></span></td>          
         </tr>

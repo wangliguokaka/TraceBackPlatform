@@ -18,12 +18,19 @@ public partial class SystemConfig_CustomerManage : PageBase
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();
     IList<ModelClient> listObj;
+    protected string CustomerType = "A";
     protected void Page_Load(object sender, EventArgs e)
     {
+       
+        if(!String.IsNullOrEmpty(Request["customertype"]))
+        {
+            CustomerType = Request["customertype"];
+        }
         string actiontype = Request["actiontype"];
         if (actiontype == "GetCustomerManageList")
         {
             string Serial = Request["Serial"];
+            ccwhere.AddComponent("Class", "S", SearchComponent.UnEquals, SearchPad.And);
             if (!String.IsNullOrEmpty(Serial))
             {
                 ccwhere.AddComponent("Serial", "%" + Serial + "%", SearchComponent.Like, SearchPad.And);
@@ -32,6 +39,12 @@ public partial class SystemConfig_CustomerManage : PageBase
             if (!String.IsNullOrEmpty(Class))
             {
                 ccwhere.AddComponent("Class", "%" + Class + "%", SearchComponent.Like, SearchPad.And);
+            }
+
+            string Client = Request["Client"];
+            if (!String.IsNullOrEmpty(Client))
+            {
+                ccwhere.AddComponent("Client", "%" + Client + "%", SearchComponent.Like, SearchPad.And);
             }
 
             string linkman = Request["linkman"];
@@ -108,13 +121,22 @@ public partial class SystemConfig_CustomerManage : PageBase
                     modelClient.Email = Request["Email"];
                     modelClient.Addr = Request["Addr"];
                     modelClient.UserName = Request["UserName"];
+
+                    if (servComm.ExecuteSqlDatatable("select ID from Client where UserName ='" + modelClient.UserName + "'").Rows.Count > 0)
+                    {
+                        identityID = -1;
+                    }
+                    else
+                    {
+                        string password = CryptoHelper.StaticEncrypt("1");
+                        //}
+                        modelClient.Passwd = password;
+                        identityID = servComm.Add(modelClient);
+                    }
                     //string password = Request["Passwd"];
                     //if (!String.IsNullOrEmpty(password))
                     //{
-                     string   password = CryptoHelper.StaticEncrypt("1");
-                    //}
-                    modelClient.Passwd = password;
-                    identityID = servComm.Add(modelClient);
+                    
                 }
                 else
                 {
@@ -139,14 +161,23 @@ public partial class SystemConfig_CustomerManage : PageBase
                         modelClient.Email = Request["Email"];
                         modelClient.Addr = Request["Addr"];
                         modelClient.UserName = Request["UserName"];
-                        string password = Request["Passwd"];
-                        if (!String.IsNullOrEmpty(password))
+
+                        if (servComm.ExecuteSqlDatatable("select ID from Client where UserName ='" + modelClient.UserName + "' and ID !="+ identityID).Rows.Count > 0)
                         {
-                            password = CryptoHelper.StaticEncrypt("1");
+                            identityID = -1;
                         }
-                        modelClient.Passwd = password;
-                        modelClient.ID = identityID;
-                        int result = servComm.Update(modelClient);
+                        else
+                        {
+                            string password = Request["Passwd"];
+                            if (!String.IsNullOrEmpty(password))
+                            {
+                                password = CryptoHelper.StaticEncrypt("1");
+                            }
+                            modelClient.Passwd = password;
+                            modelClient.ID = identityID;
+                            int result = servComm.Update(modelClient);
+                        }
+                       
                     }
                 }
 

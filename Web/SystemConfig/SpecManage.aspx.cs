@@ -17,9 +17,15 @@ public partial class SystemConfig_SpecManage : PageBase
 {
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();
+    protected List<ModelDictDetail> listClassType = new List<ModelDictDetail>();
     IList<ModelSpec> listObj;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            listClassType = DataCache.findAllDict().Where(model => model.ClassID == "SpecClass").ToList();
+            listClassType.Insert(0, new ModelDictDetail() { });
+        }
         string actiontype = Request["actiontype"];
         if (actiontype == "GetSpecManageList")
         {
@@ -32,7 +38,7 @@ public partial class SystemConfig_SpecManage : PageBase
             string Class = Request["Class"];
             if (!String.IsNullOrEmpty(Class))
             {
-                ccwhere.AddComponent("Class", "%" + Class + "%", SearchComponent.Like, SearchPad.And);
+                ccwhere.AddComponent("Class",  Class, SearchComponent.Equals, SearchPad.And);
             }
             string OrderNo = Request["OrderNo"];
             if (!String.IsNullOrEmpty(OrderNo))
@@ -44,12 +50,18 @@ public partial class SystemConfig_SpecManage : PageBase
 
             int iPageCount = 0;
             int iPageIndex = int.Parse(Request["PageIndex"]) + 1;
-            servComm.strOrderString = "Id desc";
+            servComm.strOrderString = "Id desc ";
             listObj = servComm.GetList<ModelSpec>("Spec", "*", "Id", 10, iPageIndex, iPageCount, ccwhere);
+            listObj.ToList().ForEach(eo => eo.Class = (listClassType.Where(le => le.Code == eo.Class).Count() > 0 ? listClassType.Where(le => le.Code == eo.Class).FirstOrDefault().DictName : ""));
+
+
             var timeConvert = new IsoDateTimeConverter();
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
+
+           
             string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
+            responseJson = responseJson.Replace(": null", ": \"\"");
             Response.Write("[{\"RowCount\":" + servComm.RowCount + ",\"JsonData\":" + responseJson + "}]");
             Response.End();
 

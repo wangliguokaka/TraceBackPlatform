@@ -18,12 +18,22 @@ public partial class SalesManage_ProductSalesList : PageBase
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();
     IList<ModelSale> listObj;
+    protected IList<ModelClient> listSeler = new List<ModelClient>();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string actiontype = Request["actiontype"];
+        if (!IsPostBack)
+        {
+            servComm.strOrderString = "Client";
+            ccwhere.Clear();
+            ccwhere.AddComponent("Class", "A", SearchComponent.Equals, SearchPad.NULL);
+            listSeler = servComm.GetListTop<ModelClient>(0, ccwhere);
+        }
         if (actiontype == "GetSaleList")
         {
             string BillNo = Request["BillNo"];
+            ccwhere.Clear();
             if (!String.IsNullOrEmpty(BillNo))
             {
                 ccwhere.AddComponent("BillNo", "%"+BillNo.Trim() + "%", SearchComponent.Like, SearchPad.And);
@@ -44,13 +54,18 @@ public partial class SalesManage_ProductSalesList : PageBase
             }
             int iPageCount = 0;
             int iPageIndex = int.Parse(Request["PageIndex"])+1;
-            servComm.strOrderString = "Id";
+            servComm.strOrderString = "Id desc";
             listObj = servComm.GetList<ModelSale>("Sale", "*", "Id", 10, iPageIndex, iPageCount, ccwhere);
+            listObj.ToList().ForEach(eo => eo.Seller = (listSeler.Where(le => le.Serial == eo.Seller).Count() > 0 ? listSeler.Where(le => le.Serial == eo.Seller).FirstOrDefault().Client : ""));
+
+
             var timeConvert = new IsoDateTimeConverter();
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
             string responseJson = JsonConvert.SerializeObject(listObj, Formatting.Indented, timeConvert);
+            responseJson = responseJson.Replace(": null", ": \"\"");
             Response.Write("[{\"RowCount\":"+servComm.RowCount + ",\"JsonData\":"+ responseJson+"}]");
+
             Response.End();
 
         }

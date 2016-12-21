@@ -20,14 +20,18 @@ public partial class SalesManage_ProductSales :PageBase
     protected List<ModelDictDetail> listDictType = new List<ModelDictDetail>();
     protected string EditJson;
     protected string OrderJson="[]";
+    protected IList<ModelClient> listSeler = new List<ModelClient>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            
+            servComm.strOrderString = "Client";
+            ccWhere.Clear();
+            ccWhere.AddComponent("Class", "A", SearchComponent.Equals, SearchPad.NULL);
+            listSeler = servComm.GetListTop<ModelClient>(0, ccWhere);
             listDictType = DataCache.findAllDict().Where(model => model.ClassID == "BillType").ToList();
             listDictType.Insert(0, new ModelDictDetail() { });
-            servComm.strOrderString = "OrderNo";
+            servComm.strOrderString = " OrderNo ";
             ccWhere.Clear();
             ccWhere.AddComponent("OrderNo", null, SearchComponent.ISNOT, SearchPad.NULL);
             ccWhere.AddComponent("Bh", null, SearchComponent.ISNOT, SearchPad.And);
@@ -76,15 +80,12 @@ public partial class SalesManage_ProductSales :PageBase
                 if (String.IsNullOrEmpty(Request["Id"]))
                 {
                     identityID = servComm.Add(modelSale);
-                    servComm.ExecuteSql("update CardNoMaintenance set IsSave = 1 where ID = '" + LoginUser.UserName + "'");
                 }
                 else
                 {
                     identityID = int.Parse(Request["Id"]);
                     modelSale.Id = identityID;
                     int result = servComm.Update(modelSale);
-                    servComm.ExecuteSql("update CardNoMaintenance set IsSave = 1 where ID = '" + identityID + "'");
-
                 }
                 string jsonResult = Request["SalesDetail"];
                 jsonResult = jsonResult.Replace("[", "").Replace("]", "").Replace("},{", "}|{").Replace("\"Id\":\"\"", "\"Id\":" + identityID.ToString());
@@ -97,6 +98,15 @@ public partial class SalesManage_ProductSales :PageBase
                     serialIndex = serialIndex + 1;
                     modelDetail.Serial = serialIndex;
                     servComm.Add(modelDetail);
+                }
+
+                if (String.IsNullOrEmpty(Request["Id"]))
+                {
+                    servComm.ExecuteSql("exec AutoDetectionNoCard " + identityID + "," + LoginUser.UserName);
+                }
+                else
+                {
+                    servComm.ExecuteSql("exec AutoDetectionNoCard " + identityID + "," + identityID);
                 }
 
             }
@@ -134,7 +144,7 @@ public partial class SalesManage_ProductSales :PageBase
             string NoEnd = Request["NoEnd"];
             if (!String.IsNullOrEmpty(NoStart) && !String.IsNullOrEmpty(NoEnd))
             {
-                servComm.ExecuteSql("delete from CardNoMaintenance where  NoEnd ='" + NoEnd + "' and NoStart = '" + NoStart + "'");
+                servComm.ExecuteSql("update CardNoMaintenance set IsSave = 2 where  NoEnd ='" + NoEnd + "' and NoStart = '" + NoStart + "'");
             }
         }
         else if (Request["actiontype"] == "ValidCardNo")

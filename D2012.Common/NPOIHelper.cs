@@ -121,11 +121,12 @@ namespace D2012.Common
                 {
                     fstemplate.Close();
                 }
+                Log.LogInfo("count:"+count.ToString());
                 return count;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.Message);
+                Log.LogInfo(ex.Message);
                 return -1;
             }
         }

@@ -80,9 +80,9 @@ public partial class SystemConfig_BasicInfo : PageBase
         {
             try
             {
-                string startDate = Request["startDate"];
-                string endDate = Request["endDate"];
-                servComm.ExecuteSql("exec SP_DeleteHistory '" + startDate + "','" + endDate+"'");
+                string factoryEndDate = Request["factoryEndDate"];
+                string salesEndDate = Request["salesEndDate"];
+                servComm.ExecuteSql("exec SP_DeleteHistory '" + factoryEndDate + "','" + salesEndDate + "'");
             }
             catch (Exception ex)
             {

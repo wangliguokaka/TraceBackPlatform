@@ -68,7 +68,7 @@ public partial class SystemConfig_DictManagement :PageBase
                     }
                    
                 }
-                servComm.strOrderString = "Sortno";
+                servComm.strOrderString = "MainClass,Sortno";
                 List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0, "*", "Dict", null).ToList<ModelDict>();
                 var timeConvert = new IsoDateTimeConverter();
                 timeConvert.DateTimeFormat = "yyyy-MM-dd";
@@ -80,7 +80,7 @@ public partial class SystemConfig_DictManagement :PageBase
             }
             else if (type == "GetMainClass")
             {
-                servComm.strOrderString = "Sortno";
+                servComm.strOrderString = "MainClass,Sortno";
                 List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0, "*", "Dict", null).ToList<ModelDict>();
                 var timeConvert = new IsoDateTimeConverter();
                 timeConvert.DateTimeFormat = "yyyy-MM-dd";
