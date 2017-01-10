@@ -34,7 +34,8 @@
             	$this.append('<li class="disabled"><a class="first" href="#">&laquo;</a></li>');
             	$this.append('<li class="disabled"><a class="pre" href="#">上一页</a></li>');
         		
-        		var pageCount = c.maxPages < c.maxPageButton ? c.maxPages : c.maxPageButton;
+            	var pageCount = c.maxPages < c.maxPageButton ? c.maxPages : c.maxPageButton;
+
         		var pNum = 0;
         		for(var index = 1; index <= pageCount; index++) {
         			pNum++;
@@ -43,7 +44,7 @@
         		
         		$this.append('<li class="disabled"><a class="next" href="#">下一页</a></li>');
         		$this.append('<li><a class="last" href="#">&raquo;</a></li>');
-        		
+
         		if(c.maxPageButton > c.maxPages) {
         			$this.find('li a.next').parent().addClass("disabled");
             		$this.find('li a.last').parent().addClass("disabled");
@@ -58,6 +59,7 @@
         		preBtn = $this.find('li a.pre').parent();
         		lastBtn = $this.find('li a.last').parent();
         		nextBtn = $this.find('li a.next').parent();
+        		
             }
             
             function mathPrePage(currButtonNum, currPage, maxPage, showPage) {

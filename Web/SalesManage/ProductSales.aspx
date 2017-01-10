@@ -127,9 +127,11 @@
 
             if (CardPass == false)
             {
-                layer.msg("防伪卡范围有冲突")
+                layer.msg("防伪卡号已经被占用")
                 return false;
             }
+
+           
 
             if ($("#Serial").val() == "-1") {
                 detailCount = detailCount + 1;
@@ -138,7 +140,7 @@
                 $.each(arr, function (i, n) {
                     arr[i] = $("#" + i).val();
                 });
-
+                $("#Serial").val("-1");
                 json.push($.extend(true, {}, arr))
             }
             else {
@@ -151,8 +153,12 @@
                 });
             }
             BindGrid();
-            $('.cd-popup-add').removeClass('is-visible');
-            
+            if ($("#Serial").val() == -1) {
+            } else {
+                $('.cd-popup-add').removeClass('is-visible');
+
+            }
+            layer.msg("已保存,请注意修改防伪卡号");
         }
        
         function BindGrid()
@@ -168,7 +174,7 @@
 
                 //遍历行中每一列的key 
 
-                var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail(this," + json[i]["Serial"] + ")\" value=\"" + json[i]["Serial"] + "\" /></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["orderid"] + "</td><td>" + json[i]["Qty"] + "</td><td>" + json[i]["OClass"] + "</td><td>" + json[i]["BatchNo"] + "</td><td>" + json[i]["ProdDate"] + "</td></tr>";
+                var trHtml = "<tr><td><input type=\"checkbox\" class=\"pro_checkbox\" onclick=\"CheckDetail(this," + json[i]["Serial"] + ")\" value=\"" + json[i]["Serial"] + "\" /></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["orderid"] + "</td><td>" + json[i]["Qty"] + "</td><td>" + json[i]["NoStart"] + "</td><td>" + json[i]["NoEnd"] + "</td><td>" + (json[i]["NoQty"] == null ? "" : json[i]["NoQty"]) + "</td></tr>";
 
                 $("#gridDetail tbody").append(trHtml);
             }
@@ -194,7 +200,8 @@
                 async: false,
                 data: {
                     actiontype: "SaveSales", Id: $("#Id").val(), SaleDate: $("#SaleDate").val(), Seller: $("#Seller").val(), Salesperson: $("#Salesperson").val()
-                , BillDate: $("#BillDate").val(), BillNo: $("#BillNo").val(), BillClass: $("#BillClass").val(), SalesDetail: JSON.stringify(json)
+                , BillDate: $("#BillDate").val(), BillNo: $("#BillNo").val(), BillClass: $("#BillClass").val(), Addr: $("#Addr").val(), Receiver: $("#Receiver").val()
+                    , Tel: $("#Tel").val(), Distri: $("#Distri").val(), DistriNo: $("#DistriNo").val(), SalesDetail: JSON.stringify(json)
                 },
                 dataType: "text",
                 success: function (data) {
@@ -229,8 +236,13 @@
         {
             $(".cd-popup-container").draggable();
             var userClass = "<%=LoginUser.Class%>"
-            if (userClass == "S" || userClass == "C") {
-                
+            if (userClass == "S" || userClass == "C" || userClass == "D") {
+                if (userClass == "D")
+                {
+                    $(".SalesTR").find("input").attr("disabled", "disabled")
+                    $(".SalesTR").find("input").css("background-color", "white").css("border-style", "none");
+                }
+                //
                 $("button").show();
                 $("#MakeContact").hide();
             }
@@ -251,6 +263,11 @@
                 $("#BillNo").val(EditJson["BillNo"]);
                 $("#BillDate").val(EditJson["BillDate"]);
                 $("#BillClass").val(EditJson["BillClass"]);
+                $("#Addr").val(EditJson["Addr"]);
+                $("#Receiver").val(EditJson["Receiver"]);
+                $("#Tel").val(EditJson["Tel"]);
+                $("#Distri").val(EditJson["Distri"]);
+                $("#DistriNo").val(EditJson["DistriNo"]);
                 json = EditJson.DetailJson;
                 detailCount = json.length;
                 BindGrid();
@@ -347,21 +364,7 @@
                     $('.cd-popup-add').removeClass('is-visible');
                 }
             });
-            old_value = $("#orderid").val();
-            $("#orderid").focus(function () {
-                if ($("#orderid").val() == "") {
-                    AutoComplete("auto_div", "orderid", test_list);
-                }
-            });
-
-            var test_list = $.parseJSON('<%=OrderJson%>');
-
-            $("#orderid").keyup(function () {
-
-                AutoComplete("auto_div", "orderid", test_list);
-            });
-
-            $("#auto_div").css("width", $("#orderid").width());
+            
 
             $("#orderid").blur(function ()
             {
@@ -377,39 +380,14 @@
                 }
             })
 
-            var search_text = document.getElementById("orderid");
+            old_value = $("#orderid").val();
+            var test_list = $.parseJSON('<%=OrderJson%>');
 
-            search_text.addEventListener("input", function () {
-                AutoComplete("auto_div", "orderid", test_list);
-            }, false);
-
-            
-           
-            
+            BindAutoCompleteEvent("orderid", "auto_div", test_list)
         })
         
 </script>
-    <style type="text/css">
-        .search
-        {
-            left: 0;
-            position: relative;
-        }
 
-        #auto_div
-        {
-            display: none;
-            width: 200px;
-            height:200px;
-            border: 1px #EDEDED solid;
-            background: #FFF;
-            position: absolute;
-            top: 22px;
-            left: 0;
-            color: #323232;
-            overflow:auto;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div  >
@@ -420,14 +398,14 @@
           <div class="divWidth" >
             <table width="100%" id="girdSales"  border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
-                <td class="pro_tableTd">经销商<span class="red" >*</span></td>
+                <td class="pro_tableTd">客户<span class="red" >*</span></td>
                 <td><select class="pro_select" id="Seller" >
                     <%foreach(ModelClient model in listSeler){ %>
                         <option value="<%=model.Serial %>" ><%=model.Client %></option>
                     <%} %>
                     </select></td>   
-                <td class="pro_tableTd">发货日期<span class="red" >*</span></td>
-                <td><input type="text" id="SaleDate"  class="detepickers pro_input required" /></td>
+                <td class="pro_tableTd">发货日期</td>
+                <td><input type="text" id="SaleDate"  class="detepickers pro_input" /></td>
                 <td class="pro_tableTd">业务员</td>
                 <td><input type="text" id="Salesperson" maxlength="50"  class="pro_input" /></td>
               </tr>
@@ -442,6 +420,21 @@
                     </select></td>
                 <td class="pro_tableTd">开票日期</td>
                 <td><input type="text" id="BillDate" class="detepickers pro_input" /></td>
+              </tr>
+             
+              <tr>
+                <td class="pro_tableTd">联系人</td>
+                <td><input type="text" id="Receiver" maxlength="20"  class="pro_input" /></td>
+                <td class="pro_tableTd">联系电话</td>
+                <td><input type="text" id="Tel" maxlength="50"  class="pro_input number" /></td>
+                <td class="pro_tableTd">货运公司</td>
+                <td><input type="text" id="Distri" maxlength="100"  class="pro_input" /></td>
+              </tr>
+                 <tr>
+                <td class="pro_tableTd">货运单号</td>
+                <td><input type="text" id="DistriNo" maxlength="50"  class="pro_input" /></td>
+                <td class="pro_tableTd">收货单位地址</td>
+                <td colspan="3"><input id="Addr" maxlength="100"  type="text" class="pro_input" /></td>
               </tr>
               <tr>
                 <td colspan="6" style="text-align:right;">
@@ -468,9 +461,9 @@
                         <th>存货编码</th>
                         <th>订货号</th>
                         <th>销售数量</th>
-                        <th>材料类型</th>
-                        <th>生产批号</th>
-                        <th>生产日期</th>
+                        <th>防伪卡开始号</th>
+                        <th>防伪卡结束号</th>
+                        <th>防伪卡数量</th>
                     </tr>
                 </thead>
               
@@ -498,21 +491,20 @@
       </div>
  </div>
   <div class="cd-popup-add">
-    <div class="cd-popup-container">
+    <div class="cd-popup-container" style="height:268px;">
         <div class="box" >
           <div class="title" >订单详细</div>
           <div class="divWidth"  style="overflow:auto;" >
             <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
-              <tr>
+              <tr class="SalesTR">
                 <td class="pro_tableTd">订货号<span class="red" >*</span></td>
-                <td><div class="search"><input type="text" id="orderid" maxlength="50"  class="pro_input required" /><div id="auto_div"></div></div></td>
+                <td><div class="search"><input type="text" id="orderid" maxlength="50"  class="pro_input required" /><div id="auto_div" style="height:150px;" class="auto_div"></div></div></td>
                 <td class="pro_tableTd">存货编码<span class="red" >*</span></td>
                 <td><input type="text" id="Bh" value="" maxlength="50"   class="pro_input required" /></td>
                 <td class="pro_tableTd">销售数量<span class="red" >*</span></td>
                 <td><input type="text" id="Qty" maxlength="10" class="pro_input required number" /></td>
               </tr>
-              <tr>
-               
+              <tr class="SalesTR">               
                 <td class="pro_tableTd">防伪卡开始号<span class="red" >*</span></td>
                 <td><input type="text" id="NoStart"   class="pro_input required number CardNoStart" /></td>
                   <td class="pro_tableTd">防伪卡结束号<span class="red" >*</span></td>
@@ -521,17 +513,21 @@
                 <td><input type="text" id="NoQty" maxlength="10"  class="pro_input required number" /></td>
               </tr>
               <tr>
-                <td class="pro_tableTd">生产批号<span class="red" >*</span></td>
-                <td><input type="text" id="BatchNo" maxlength="50"  class="pro_input required" /></td>
-                <td class="pro_tableTd">生产日期<span class="red" >*</span></td>
-                <td><input type="text" id="ProdDate" class="detepickers pro_input required" /></td>
+                <td class="pro_tableTd">生产批号</td>
+                <td><input type="text" id="BatchNo" maxlength="50"  class="pro_input" /></td>
+                <td class="pro_tableTd">生产日期</td>
+                <td><input type="text" id="ProdDate" class="detepickers pro_input" /></td>
                 <td class="pro_tableTd">检验日期</td>
                 <td><input type="text" id="TestDate" class="detepickers pro_input" /></td>
               </tr>
               <tr>
-                <td class="pro_tableTd">粉料类型</td>
-                <td><input type="text" id="OClass" maxlength="10"  class="pro_input" /></td>
-                <td class="pro_tableTd">粉料批号</td>
+                <td class="pro_tableTd">材料类型</td>
+                <td><select class="pro_select" id="OClass" >
+                    <%foreach(ModelDictDetail model in listClassType){ %>
+                        <option value="<%=model.Code %>" ><%=model.DictName %></option>
+                    <%} %>
+                    </select></td>
+                <td class="pro_tableTd">材料批号</td>
                 <td><input type="text" id="ObatchNo" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">批次数量</td>
                 <td><input type="text" id="BtQty" maxlength="10"  class="pro_input number" /></td>
@@ -542,21 +538,9 @@
                 <td><input type="text" id="SRate" maxlength="10"  class="pro_input decimal" /></td>
                 <td class="pro_tableTd">有效期</td>
                 <td><input type="text" id="Valid" class="pro_input" /></td>
-                 <td class="pro_tableTd">货运单号</td>
-                <td><input type="text" id="DistriNo" maxlength="50"  class="pro_input" /></td>
+               <td colspan="2">&nbsp;</td>
               </tr>
-              <tr>
-                <td class="pro_tableTd">收货单位地址</td>
-                <td colspan="5"><input id="Addr" maxlength="100"  type="text" class="pro_input" /></td>
-              </tr>
-              <tr>
-                <td class="pro_tableTd">联系人</td>
-                <td><input type="text" id="Receiver" maxlength="20"  class="pro_input" /></td>
-                <td class="pro_tableTd">联系电话</td>
-                <td><input type="text" id="Tel" maxlength="50"  class="pro_input" /></td>
-                <td class="pro_tableTd">货运公司</td>
-                <td><input type="text" id="Distri" maxlength="100"  class="pro_input" /></td>
-              </tr>
+             
               <tr>
                 <td colspan="6" style="text-align:right;">
                   <button type="button" onclick="SaveOrderDetail()" class="ui-button">保存</button>

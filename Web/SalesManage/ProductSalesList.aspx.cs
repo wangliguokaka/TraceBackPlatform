@@ -28,6 +28,7 @@ public partial class SalesManage_ProductSalesList : PageBase
             servComm.strOrderString = "Client";
             ccwhere.Clear();
             ccwhere.AddComponent("Class", "A", SearchComponent.Equals, SearchPad.NULL);
+            ccwhere.AddComponent("Class", "B", SearchComponent.Equals, SearchPad.Or);
             listSeler = servComm.GetListTop<ModelClient>(0, ccwhere);
         }
         if (actiontype == "GetSaleList")
@@ -53,7 +54,8 @@ public partial class SalesManage_ProductSalesList : PageBase
                 ccwhere.AddComponent("Isnull(IsDel,0)", "1", SearchComponent.UnEquals, SearchPad.And);
             }
             int iPageCount = 0;
-            int iPageIndex = int.Parse(Request["PageIndex"])+1;
+            string strPageIndex = Request["PageIndex"] == null ? "0" : Request["PageIndex"];
+            int iPageIndex = int.Parse(strPageIndex) +1;
             servComm.strOrderString = "Id desc";
             listObj = servComm.GetList<ModelSale>("Sale", "*", "Id", 10, iPageIndex, iPageCount, ccwhere);
             listObj.ToList().ForEach(eo => eo.Seller = (listSeler.Where(le => le.Serial == eo.Seller).Count() > 0 ? listSeler.Where(le => le.Serial == eo.Seller).FirstOrDefault().Client : ""));
@@ -103,6 +105,7 @@ public partial class SalesManage_ProductSalesList : PageBase
         }
         else if (actiontype == "ExportExcel")
         {
+            ccwhere.Clear();
             string BillNo = Request["BillNo"];
             if (!String.IsNullOrEmpty(BillNo))
             {
@@ -124,7 +127,7 @@ public partial class SalesManage_ProductSalesList : PageBase
             }
 
             servComm.strOrderString = "Id";
-            string fieldShow = "[Id],[SaleDate],[seller],[Salesperson],[BillDate],[BillNo],[BillClass],[Reg],[RegTime]";
+            string fieldShow = "[Id],[SaleDate],[seller],[Salesperson],[BillDate],[BillNo],[BillClass],[Addr],[receiver],[Tel],[distri],[distriNo],[Reg],[RegTime]";
             listObj = servComm.GetListTop<ModelSale>(0, fieldShow, "Sale", ccwhere);
             string shortName = DateTime.Now.ToString("yyyyMMddHHmmsshhh") + ".xlsx";
             string fileName = Request.PhysicalApplicationPath + "UploadFile\\" + shortName;

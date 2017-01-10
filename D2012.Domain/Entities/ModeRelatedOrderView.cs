@@ -41,7 +41,7 @@ namespace D2012.Domain.Entities
         [Column("Bh", DataType.Varchar, false, false)]
         public string Bh { set; get; }
 
-
+       
         /// <summary>
         /// 
         /// </summary>
@@ -243,6 +243,26 @@ namespace D2012.Domain.Entities
         /// </summary>
         [Column("factoryValid", DataType.Nvarchar, false, false)]
         public string factoryValid { set; get; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("SaleDate", DataType.Varchar, false, false)]
+        public DateTime? SaleDate { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("BillNo", DataType.Varchar, false, false)]
+        public string BillNo { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("BillDate", DataType.Varchar, false, false)]
+        public DateTime? BillDate { set; get; }
+
 
         /// <summary>
         /// 

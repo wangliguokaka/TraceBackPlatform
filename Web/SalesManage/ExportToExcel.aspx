@@ -366,7 +366,7 @@
                         <ul id="SalesManage" class="nav nav-list secondmenu collapse" style="height: 0px;">
                             <li id="ProductSales"><a href="../SalesManage/ProductSales.aspx"><i class="glyphicon glyphicon-user"></i>&nbsp;产品销售</a></li>
                             <li id="ProductSalesQuery"><a href="../SalesManage/ProductSalesList.aspx"><i class="glyphicon glyphicon-th-list"></i>&nbsp;产品销售查询</a></li>
-                            <li id="FactoryOrder"><a href="../SalesManage/FactoryOrder.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;加工厂订单查询</a></li>
+                            <li id="FactoryOrder"><a href="../SalesManage/FactoryOrder.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;客户订单查询</a></li>
                             <li id="RelatedOrder"><a href="../SalesManage/RelatedOrder.aspx"><i class="glyphicon glyphicon-edit"></i>&nbsp;关联查询</a></li>
                             <li id="UserTrace"><a href="../SalesManage/UserTrace.aspx"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;用户追踪</a></li>
                         </ul>

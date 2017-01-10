@@ -6,13 +6,14 @@
         $(function () {
             GetDataList(0);
             createPage(10, 10, allRowCount);
-           
+            $(".pagination .page.active a").eq(0).click();
 
             //打开窗口
             $('.cd-popup-addbtn').on('click', function (event) {
                 $("#ID").val("-1");
                 
                 $(".cd-popup-container input").val("");
+                $(".cd-popup-container select").val("");
                 event.preventDefault();
                 $('.cd-popup-add').addClass('is-visible');
             });
@@ -36,11 +37,11 @@
             $('.cd-popup-editbtn').on('click', function (event) {
                 $("#ID").val("0");
                 if (arrayCheck.length == 0) {
-                    layer.msg("请选择订单进行编辑！");
+                    layer.msg("请选择记录进行编辑！");
                     return false;
                 }
                 else if (arrayCheck.length > 1) {
-                    layer.msg("只能选择一条订单进行编辑！");
+                    layer.msg("只能选择一条记录进行编辑！");
                     return false;
                 }
                 event.preventDefault();
@@ -313,7 +314,7 @@
           <tr>
             <td width="6%" class="pro_tableTd">编码</td>
             <td width="20%"><input type="text" id="Bh" class="pro_input" /></td>
-            <td width="6%" class="pro_tableTd" >类别</td>
+            <td width="6%" class="pro_tableTd" >材料类型</td>
             <td width="20%"><select class="pro_select" id="Class" >
                     <%foreach(ModelDictDetail model in listClassType){ %>
                         <option value="<%=model.Code %>" ><%=model.DictName %></option>
@@ -345,7 +346,7 @@
             <tr>
                 <th><input type="checkbox" id="selectAllCheck" class="pro_checkbox" onclick="SelectAll(this)" /></th>
                 <th>编码</th>
-                <th>类别</th>
+                <th>材料类型</th>
                 <th>产品名称</th>
                 <th>订货号</th>
                 <th>颜色</th>
@@ -377,7 +378,7 @@
                 <td><input type="text"  maxlength="50" class="pro_input required" id="detailBh" /></td>
                   <td class="pro_tableTd">订货号<span class="red" >*</span></td>
                 <td><input type="text" class="pro_input required" id="detailOrderNo" /></td>
-                <td class="pro_tableTd">类别<span class="red" >*</span></td>
+                <td class="pro_tableTd">材料类型<span class="red" >*</span></td>
                 <td><select class="pro_select required" id="detailClass" >
                     <%foreach (ModelDictDetail model in listClassType)
                                  {

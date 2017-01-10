@@ -21,13 +21,18 @@ public partial class SalesManage_ProductSales :PageBase
     protected string EditJson;
     protected string OrderJson="[]";
     protected IList<ModelClient> listSeler = new List<ModelClient>();
+    protected List<ModelDictDetail> listClassType = new List<ModelDictDetail>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
+            listClassType = DataCache.findAllDict().Where(model => model.ClassID == "MaterialType").ToList();
+            listClassType.Insert(0, new ModelDictDetail() { });
+
             servComm.strOrderString = "Client";
             ccWhere.Clear();
             ccWhere.AddComponent("Class", "A", SearchComponent.Equals, SearchPad.NULL);
+            ccWhere.AddComponent("Class", "B", SearchComponent.Equals, SearchPad.Or);
             listSeler = servComm.GetListTop<ModelClient>(0, ccWhere);
             listDictType = DataCache.findAllDict().Where(model => model.ClassID == "BillType").ToList();
             listDictType.Insert(0, new ModelDictDetail() { });
@@ -73,6 +78,11 @@ public partial class SalesManage_ProductSales :PageBase
                 modelSale.Salesperson = Request["Salesperson"];
                 modelSale.BillDate = String.IsNullOrEmpty(Request["BillDate"]) ? TimeNull : DateTime.Parse(Request["BillDate"].ToString()); ;
                 modelSale.BillNo = Request["BillNo"];
+                modelSale.Addr = Request["Addr"];
+                modelSale.Receiver = Request["Receiver"];
+                modelSale.Tel = Request["Tel"];
+                modelSale.Distri = Request["Distri"];
+                modelSale.DistriNo = Request["DistriNo"];
                 modelSale.BillClass = Request["BillClass"];
                 modelSale.IsDel = "0";
                 modelSale.Reg = LoginUser.UserName;

@@ -522,6 +522,28 @@ input[type=checkbox].pro_checkbox{
 	}
 
 
+ .search
+{
+    left: 0;
+    position: relative;
+    z-index:9999;
+}
+
+.auto_div
+{
+    display: none;
+    min-width: 220px;
+    height:200px;
+    border: 1px #EDEDED solid;
+    background: #FFF;
+    position: absolute;
+    top: 22px;
+    left: 0;
+    color: #323232;
+    overflow:auto;
+}
+
+
 
 
 

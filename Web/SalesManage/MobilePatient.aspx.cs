@@ -24,7 +24,7 @@ public partial class SalesManage_MobilePatient : System.Web.UI.Page
             ccwhere.Clear(); 
             ccwhere.AddComponent("CardNo", CardNo, SearchComponent.Equals, SearchPad.NULL);
             ccwhere.AddComponent("patient", PatientName, SearchComponent.Equals, SearchPad.And);
-            DataTable dtOrders = servComm.GetListTop(0, "orders", ccwhere);
+            DataTable dtOrders = servComm.GetListTop(0, "(select a.*,b.Client from orders a left join Client b on a.Serial = b.Serial) c", ccwhere);
             var timeConvert = new IsoDateTimeConverter();
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";

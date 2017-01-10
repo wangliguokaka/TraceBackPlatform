@@ -67,6 +67,43 @@ namespace D2012.Domain.Entities
         [Column("BillClass", DataType.Varchar, false, false)]
         public string BillClass { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("Addr", DataType.Varchar, false, false)]
+        public string Addr { set; get; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("Receiver", DataType.Varchar, false, false)]
+        public string Receiver { set; get; }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("Tel", DataType.Varchar, false, false)]
+        public string Tel { set; get; }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("Distri", DataType.Varchar, false, false)]
+        public string Distri { set; get; }
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column("DistriNo", DataType.Varchar, false, false)]
+        public string DistriNo { set; get; }
 
         /// <summary>
         /// 

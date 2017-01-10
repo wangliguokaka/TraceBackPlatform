@@ -268,7 +268,7 @@
   </data>
   <data name="FactoryList" xml:space="preserve">
     <value>Lab.'s List</value>
-    <comment>加工厂列表</comment>
+    <comment>客户列表</comment>
   </data>
   <data name="FactoryManagement" xml:space="preserve">
     <value>Lab. Management</value>

@@ -6,7 +6,7 @@
             GetProductList();
             GetDataList(0);
             createPage(10, 10, allRowCount);
-
+            $(".pagination .page.active a").eq(0).click();
             //关闭窗口
             $('.cd-popup-add').on('click', function (event) {
                 if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup-edit')) {
@@ -93,7 +93,12 @@
 
             $(".cd-popup-container").draggable();
 
-             $("#gridLayer input").attr("disabled","disabled")
+            $("#gridLayer input").attr("disabled", "disabled")
+
+            old_value = $("#FilterSerial").val();
+            var test_list = $.parseJSON('<%=BindingJson%>');
+            BindCommonAutoCompleteEvent("FilterSerial", "auto_div", test_list)
+
         });
 
 
@@ -293,15 +298,15 @@
           <tr>
             <td width="10%" class="pro_tableTd">防伪卡号开始</td>
             <td width="15%"><input type="text" id="CardNoStart" class="pro_input CardNoStart" /></td>
-              <td width="10%" class="pro_tableTd">防伪卡号结束</td>
+            <td width="10%" class="pro_tableTd">防伪卡号结束</td>
             <td width="15%"><input type="text" id="CardNoEnd" value="99999999" class="pro_input CardNoEnd" /></td>            
-            <td width="10%" class="pro_tableTd">加工厂编码</td>
-            <td width="15%"><input type="text" id="FilterSerial" class="pro_input" /></td>
+           <td width="10%" class="pro_tableTd">订单号</td>
+            <td width="15%"><input type="text" id="FilterOrder_ID" class="pro_input" /></td>
           </tr>
             <tr>
+             <td width="10%" class="pro_tableTd">客户</td>
+            <td width="15%"><div class="search"><input type="text" id="FilterSerial" maxlength="50"  class="pro_input" /><div id="auto_div" class="auto_div"></div></div></td>
             
-            <td width="10%" class="pro_tableTd">订单号</td>
-            <td width="15%"><input type="text" id="FilterOrder_ID" class="pro_input" /></td>
             <td width="10%" class="pro_tableTd">出货开始日期</td>
             <td width="15%"><input type="text" id="FilterOutDateStart" class="pro_input detepickers" /></td>
             <td width="10%"  class="pro_tableTd">出货结束日期</td>
@@ -328,7 +333,7 @@
           <thead>
             <tr>
                 <th>防伪卡号</th>
-                <th>加工厂编码</th>
+                <th>客户</th>
                 <th>订单条码</th>
                 <th>医疗机构</th>
                 <th>医生</th>
@@ -368,13 +373,13 @@
     <div class="cd-popup-add">
     <div class="cd-popup-container" style="overflow:auto !important; height:240px;">
         <div class="box" >
-          <div class="title" >工厂订单详细</div>
+          <div class="title" >客户订单详细</div>
           <div class="divWidth" style="overflow:auto !important; height:190px;">
             <table width="100%" id="gridLayer" border="0" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd">防伪卡号</td>
-                <td><div class="search"><input type="text" id="CardNo" maxlength="50"  class="pro_input required" /><div id="auto_div"></div></div></td>
-                <td class="pro_tableTd">加工厂编码</td>
+                <td><input type="text" id="CardNo" maxlength="50"  class="pro_input required" /></td>
+                <td class="pro_tableTd">客户编码</td>
                 <td><input type="text" id="Serial" value="" maxlength="50"   class="pro_input required" /></td>
                 <td class="pro_tableTd">订单条码</td>
                 <td><input type="text" id="Order_ID" maxlength="10" class="pro_input required number" /></td>

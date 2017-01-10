@@ -23,7 +23,7 @@ public partial class SystemConfig_SpecManage : PageBase
     {
         if (!IsPostBack)
         {
-            listClassType = DataCache.findAllDict().Where(model => model.ClassID == "SpecClass").ToList();
+            listClassType = DataCache.findAllDict().Where(model => model.ClassID == "MaterialType").ToList();
             listClassType.Insert(0, new ModelDictDetail() { });
         }
         string actiontype = Request["actiontype"];

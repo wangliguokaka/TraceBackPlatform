@@ -253,19 +253,19 @@
     <value>保质期</value>
   </data>
   <data name="Factory" xml:space="preserve">
-    <value>加工厂</value>
+    <value>客户</value>
   </data>
   <data name="FactoryCode" xml:space="preserve">
     <value>工厂编码</value>
   </data>
   <data name="FactoryCodeExists" xml:space="preserve">
-    <value>该加工厂编码已存在</value>
+    <value>该客户编码已存在</value>
   </data>
   <data name="FactoryCodeNull" xml:space="preserve">
-    <value>加工厂编码不能为空</value>
+    <value>客户编码不能为空</value>
   </data>
   <data name="FactoryList" xml:space="preserve">
-    <value>加工厂列表</value>
+    <value>客户列表</value>
   </data>
   <data name="FactoryManagement" xml:space="preserve">
     <value>工厂管理</value>
@@ -274,7 +274,7 @@
     <value>工厂名称</value>
   </data>
   <data name="FactoryNameNull" xml:space="preserve">
-    <value>加工厂名称不能为空</value>
+    <value>客户名称不能为空</value>
   </data>
   <data name="Hospital" xml:space="preserve">
     <value>医院</value>

@@ -1,4 +1,5 @@
 ﻿using D2012.Common.DbCommon;
+using D2012.Domain.Entities;
 using D2012.Domain.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -13,9 +14,11 @@ using System.Web.UI.WebControls;
 public partial class SalesManage_PCPatient : System.Web.UI.Page
 {
     ServiceCommon servComm = new ServiceCommon();
+    protected ModelBase modelBase = new ModelBase();
     ConditionComponent ccwhere = new ConditionComponent();
     protected void Page_Load(object sender, EventArgs e)
     {
+        modelBase = servComm.GetEntity<ModelBase>("1");
         string actiontype = Request["actiontype"];
         if (actiontype == "ValidCardNo")
         {
@@ -24,7 +27,7 @@ public partial class SalesManage_PCPatient : System.Web.UI.Page
             ccwhere.Clear(); 
             ccwhere.AddComponent("CardNo", CardNo, SearchComponent.Equals, SearchPad.NULL);
             ccwhere.AddComponent("patient", PatientName, SearchComponent.Equals, SearchPad.And);
-            DataTable dtOrders = servComm.GetListTop(0, "orders", ccwhere);
+            DataTable dtOrders = servComm.GetListTop(0, "(select a.*,b.Client from orders a left join Client b on a.Serial = b.Serial) c", ccwhere);
             var timeConvert = new IsoDateTimeConverter();
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";

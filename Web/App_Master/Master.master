@@ -27,48 +27,54 @@
             $(".col-md-10").css("height", $(window).height() - 100);
         });
 
+       
 
         $(function () {
+
+           
+
             $(".col-md-10").css("height",$(window).height() - 100);
             //$("#SalesMenu").click();
             //$("#SalesMenu").parent().attr("class", "active");
-           
+            $(".pull-right").css("color", "#0b7ebd");
+            $(".pull-right").addClass("glyphicon glyphicon-plus");
+            $(".pull-right").removeClass("glyphicon glyphicon-minus");
             if (location.href.indexOf("ProductSales.aspx") > -1)
             {
                 $("#ProductSales").attr("class", "active");
                 $("#ProductSales").parent().parent().find("a").eq(0).click();
-                $("#ProductSales").parent().parent().find("a span").eq(0).css("color","white");
+                $("#ProductSales").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#ProductSales").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("ProductSalesList.aspx") > -1) {
                 $("#ProductSalesList").attr("class", "active");
                 $("#ProductSalesList").parent().parent().find("a").eq(0).click();
-                $("#ProductSalesList").parent().parent().find("a span").eq(0).css("color","white");
+                $("#ProductSalesList").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#ProductSalesList").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("FactoryExportExcel.aspx") > -1) {
                 $("#FactoryExportExcel").attr("class", "active");
                 $("#FactoryExportExcel").parent().parent().find("a").eq(0).click();
-                $("#FactoryExportExcel").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#FactoryExportExcel").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#FactoryExportExcel").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("RelatedOrder.aspx") > -1) {
                 $("#RelatedOrder").attr("class", "active");
                 $("#RelatedOrder").parent().parent().find("a").eq(0).click();
-                $("#RelatedOrder").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#RelatedOrder").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#RelatedOrder").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("UserTrace.aspx") > -1) {
                
                 $("#UserTrace").attr("class", "active");
                 $("#UserTrace").parent().parent().find("a").eq(0).click();
-                $("#UserTrace").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#UserTrace").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#UserTrace").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("DictManagement.aspx") > -1) {
                 $("#DictManagement").attr("class", "active");
                 $("#DictManagement").parent().parent().find("a").eq(0).click();
-                $("#DictManagement").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#DictManagement").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#DictManagement").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("CustomerManage.aspx") > -1) {
@@ -92,25 +98,25 @@
                
                 $("#" + menuid).attr("class", "active");
                 $("#" + menuid).parent().parent().find("a").eq(0).click();
-                $("#" + menuid).parent().parent().find("a span").eq(0).css("color", "white");
+                $("#" + menuid).parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#" + menuid).parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("FactoryOrder.aspx") > -1) {
                 $("#FactoryOrder").attr("class", "active");
                 $("#FactoryOrder").parent().parent().find("a").eq(0).click();
-                $("#FactoryOrder").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#FactoryOrder").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#FactoryOrder").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("BasicInfo.aspx") > -1) {
                 $("#BasicInfo").attr("class", "active");
                 $("#BasicInfo").parent().parent().find("a").eq(0).click();
-                $("#BasicInfo").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#BasicInfo").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#BasicInfo").parent().parent().attr("class", "active");
             }
             else if (location.href.indexOf("SpecManage.aspx") > -1) {
                 $("#SpecManage").attr("class", "active");
                 $("#SpecManage").parent().parent().find("a").eq(0).click();
-                $("#SpecManage").parent().parent().find("a span").eq(0).css("color", "white");
+                $("#SpecManage").parent().parent().find("a span").eq(0).addClass("glyphicon glyphicon-minus");
                 $("#SpecManage").parent().parent().attr("class", "active");
             }
            
@@ -142,11 +148,15 @@
                     })
                 }
                
-            $(".nav-header").each(function () {
-
-                $(this).bind("click", function ()
+                $(".nav-header").each(function ()
                     {
-                         $("ul").removeClass("in");
+                        $(this).bind("click", function ()
+                        {
+                            $("ul").removeClass("in");
+                            
+                            $(".pull-right").removeClass("glyphicon glyphicon-minus");
+                            $(".pull-right").addClass("glyphicon glyphicon-plus");
+                            $(this).find("span").eq(0).addClass("glyphicon glyphicon-minus")
                         })
                     }
                 );
@@ -158,7 +168,7 @@
                 title: "密码修改",
                 type: 1,
                 skin: 'layui-layer-rim', //加上边框
-                area: ['360px', '240px'], //宽高
+                area: ['400px', '260px'], //宽高
                 content: '<div style="width:80%;margin:auto;"><div style="margin:15px;"><button type="button" class="ui-button" onclick="ModifyPass()">修改</button></div>'
                     + '<div style="margin:15px;">旧密码&nbsp;&nbsp;&nbsp;：<input type="password"  id="OldPass" style="width:160px;"  class=" pro_input1 required" /> </div>'
                     + '<div style="margin:15px;">新密码&nbsp;&nbsp;&nbsp;：<input type="password" id="NewPass"   style="width:160px;" class=" pro_input1 required" /></div>'
@@ -283,7 +293,7 @@
                     }
 
                 .main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover {
-                    color: #FFF;
+                    /*color: #FFF;
                     background: #3C4049;
                     background: -moz-linear-gradient(top, #4A515B 0%, #3C4049 100%);
                     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4A515B), color-stop(100%,#3C4049));
@@ -293,11 +303,11 @@
                     background: linear-gradient(top, #4A515B 0%,#3C4049 100%);
                     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049');
                     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049')";
-                    border-color: #2B2E33;
+                    border-color: #2B2E33;*/
                 }
 
                     #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover > span {
-                        color: #FFF;
+                        /*color: #FFF;*/
                     }
 
             .main-nav.nav-tabs.nav-stacked > li {
@@ -364,7 +374,8 @@
         }
 
         .secondmenu li.active {
-            background-color: #6f7782;
+            /*background-color:cornflowerblue;*/
+            background-color:#F8B62C;
             border-color: #428bca;
             border-radius: 4px;
         }
@@ -373,21 +384,25 @@
                 color: #ffffff;
             }
 
-        .navbar-static-top {
+        /*.navbar-static-top {
             background-color: #212121;
             margin-bottom: 5px;
-        }
+        }*/
 
+         .navbar-static-top {
+            background-color: white;
+            
+        }
         .navbar-brand {
            
             display: inline-block;
             vertical-align: middle;
             padding-left: 50px;
-            color: #fff;
+            color: black;
         }
 
             .navbar-brand:hover {
-                color: #fff;
+                /*color: #fff;*/
             }
 
 
@@ -398,8 +413,22 @@
         .collapsed.glyphicon-chevron-toggle:before {
             content: "\e114";
         }
+        .HeaderBorder 
+        {
+            border-bottom:1px solid #D2D2D2;
+            margin-bottom:1px;
+           
+        }
 
-       
+        .HeaderBackgroud
+        {
+
+            background:#fff url(../Css/images/header_bg.jpg) 0px 0px repeat-x
+        }
+        .footer-btn 
+        {
+            background-color:#706E6F;
+        }
     </style>
 
     <title></title>
@@ -409,20 +438,20 @@
 <body>
     <form id="form1" runat="server">
     <div>
-     <header class="header header-positive border-b Noprint">
-         <div class="navbar navbar-duomi navbar-static-top" role="navigation">
+     <header class="header header-positive border-b Noprint HeaderBorder">
+         <div class="navbar navbar-duomi navbar-static-top HeaderBackgroud" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header" style="margin-left:20%;" >
                     <img class="navbar-brand" src="../Css/images/logo.png" /><a class="navbar-brand" href="#" style=" font-size:15px; font-family:'Microsoft YaHei'" id="logo">新&nbsp;华&nbsp;医&nbsp;疗&nbsp;订&nbsp;单&nbsp;信&nbsp;息&nbsp;追&nbsp;溯&nbsp;系&nbsp;统
                     </a>
                 </div>
-                <div  style="color:white; margin-top:20px; float:left;  margin-left:40px;">&nbsp;<span class="glyphicon glyphicon-user"><i style="font-size:10px;">&nbsp;<%=Session["UserName"] %></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="注销"  style="cursor:pointer;" onclick="Logout()"><i style="font-size:10px;">&nbsp;注销</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-lock" style="cursor:pointer;" title="密码修改" onclick="ModifyPassword();"><i style="font-size:10px;" >&nbsp;密码修改</i></span></div>
-        </div>
+                <div  style="color:black; margin-top:20px; float:left;  margin-left:40px;">&nbsp;<span class="glyphicon glyphicon-user"><i style="font-size:10px;">&nbsp;<%=Session["UserName"] %></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="注销"  style="cursor:pointer;" onclick="Logout()"><i style="font-size:10px;">&nbsp;注销</i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-lock" style="cursor:pointer;" title="密码修改" onclick="ModifyPassword();"><i style="font-size:10px;" >&nbsp;密码修改</i></span></div>
+            </div>
         </div>
          <div style="display:none;"><asp:Button ID="logout" runat="server" OnClick="logout_Click" /></div>
     </header>
     
-          <div class="col-md-2 Noprint">
+          <div class="col-md-2 Noprint" >
               
                 <ul id="main-nav" class="main-nav nav nav-tabs nav-stacked" style="max-width:300px;">
                    <%-- <li>
@@ -436,12 +465,12 @@
                             <i class="glyphicon glyphicon-cog"></i>
                             订单管理
                             
-                            <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                            <span class="pull-right glyphicon glyphicon glyphicon-plus"></span>
                         </a>
                         <ul id="SalesManage" class="nav nav-list secondmenu collapse" style="height: 0px;">
                             <li id="ProductSales"><a href="../SalesManage/ProductSales.aspx"><i class="glyphicon glyphicon-user"></i>&nbsp;产品销售</a></li>
                             <li id="ProductSalesList"><a href="../SalesManage/ProductSalesList.aspx"><i class="glyphicon glyphicon-th-list"></i>&nbsp;产品销售查询</a></li>
-                            <li id="FactoryOrder"><a href="../SalesManage/FactoryOrder.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;加工厂订单查询</a></li>
+                            <li id="FactoryOrder"><a href="../SalesManage/FactoryOrder.aspx"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;客户订单查询</a></li>
                             <li id="FactoryExportExcel"><a href="../SalesManage/FactoryExportExcel.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;数据导入</a></li>
                             <li id="RelatedOrder"><a href="../SalesManage/RelatedOrder.aspx"><i class="glyphicon glyphicon-edit"></i>&nbsp;关联查询</a></li>
                             <li id="UserTrace"><a href="../SalesManage/UserTrace.aspx"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;用户追踪</a></li>
@@ -451,16 +480,16 @@
                         <a href="#configSetting" class="nav-header collapsed" data-toggle="collapse">
                             <i class="glyphicon glyphicon-credit-card"></i>
                             配置管理	
-                                   <span class="pull-right glyphicon  glyphicon-chevron-toggle"></span>
+                                   <span class="pull-right glyphicon  glyphicon glyphicon-plus"></span>
                         </a>
                         <ul id="configSetting" class="nav nav-list secondmenu collapse ">
                             <li id="DictManagement"><a href="../SystemConfig/DictManagement.aspx"><i class="glyphicon glyphicon-bold"></i>&nbsp;数据字典</a></li>
                             <li id="SpecManage"><a href="../SystemConfig/SpecManage.aspx"><i class="glyphicon glyphicon-th-large"></i>&nbsp;规格型号配置</a></li>                            
                              <li id="BasicInfo"><a href="../SystemConfig/BasicInfo.aspx"><i class="glyphicon glyphicon-tasks"></i>&nbsp;基础信息</a></li>
                              <li id="CustomerSeller"><a href="../SystemConfig/CustomerManage.aspx?customertype=A"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;经销商登记</a></li>
-                             <li id="CustomerFactory"><a href="../SystemConfig/CustomerManage.aspx?customertype=B"><i class="glyphicon glyphicon-cog"></i>&nbsp;加工厂登记</a></li>
-                             <li id="CustomerEmployee"><a href="../SystemConfig/CustomerManage.aspx?customertype=C"><i class="glyphicon glyphicon-adjust"></i>&nbsp;本公司员工登记</a></li>
-                             <li id="CustomerClerk"><a href="../SystemConfig/CustomerManage.aspx?customertype=D"><i class="glyphicon glyphicon-check"></i>&nbsp;本公司文员登记</a></li>
+                             <li id="CustomerFactory"><a href="../SystemConfig/CustomerManage.aspx?customertype=B"><i class="glyphicon glyphicon-cog"></i>&nbsp;客户登记</a></li>
+                             <li id="CustomerEmployee"><a href="../SystemConfig/CustomerManage.aspx?customertype=C"><i class="glyphicon glyphicon-adjust"></i>&nbsp;销售人员登记</a></li>
+                             <li id="CustomerClerk"><a href="../SystemConfig/CustomerManage.aspx?customertype=D"><i class="glyphicon glyphicon-check"></i>&nbsp;生产人员登记</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -476,8 +505,10 @@
 
    
         <footer class="footer footer-btn Noprint">
-            <div style="text-align:center; vertical-align:middle; margin-top:15px;">
+            <div style="text-align:center; vertical-align:middle; margin-top:8px;">
                  版权所有：山东新华医疗器械股份有限公司　　ICP备案号：鲁ICP备07005707号-1　互联网药品信息服务资格证书编号：（鲁）-非经营性-2016-0001
+                <div style="font-size:15px;">销售电话：<%=modelBase.phone %>
+                    &nbsp;&nbsp;&nbsp;&nbsp;销售传真：<%=modelBase.fax %>&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<%=modelBase.Email %></div>
             </div>
         </footer>
 

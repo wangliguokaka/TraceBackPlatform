@@ -18,8 +18,19 @@ public partial class SalesManage_RelatedOrder : PageBase
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();
     IList<ModeRelatedOrderView> listObj;
+    IList<ModelClient> listSeler = new List<ModelClient>();
+    protected string BindingJson = "[]";
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            ccwhere.Clear();
+            ccwhere.AddComponent("Class", "B", SearchComponent.Equals, SearchPad.NULL);
+            listSeler = servComm.GetListTop<ModelClient>(0, "*", "Client", ccwhere);
+            BindingJson = JsonConvert.SerializeObject(listSeler, Formatting.Indented, new IsoDateTimeConverter());
+
+            BindingJson = BindingJson.Replace("\r\n", "").Replace("Client", "NodeName");
+        }
         string actiontype = Request["actiontype"];
         if (actiontype == "GetSaleList")
         {
@@ -159,7 +170,7 @@ public partial class SalesManage_RelatedOrder : PageBase
         string FilterSerial = Request["FilterSerial"];
         if (!String.IsNullOrEmpty(FilterSerial))
         {
-            ccwhere.AddComponent("CardNo", '%'+FilterSerial+'%', SearchComponent.Like, SearchPad.And);
+            ccwhere.AddComponent("factoryBM", '%'+FilterSerial+'%', SearchComponent.Like, SearchPad.And);
         }
 
         string FilterSalesperson = Request["FilterSalesperson"];

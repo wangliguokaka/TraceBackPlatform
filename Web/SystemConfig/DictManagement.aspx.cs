@@ -80,7 +80,7 @@ public partial class SystemConfig_DictManagement :PageBase
             }
             else if (type == "GetMainClass")
             {
-                servComm.strOrderString = "MainClass,Sortno";
+                servComm.strOrderString = "Sortno";
                 List<ModelDict> listObj = servComm.GetListTop<ModelDict>(0, "*", "Dict", null).ToList<ModelDict>();
                 var timeConvert = new IsoDateTimeConverter();
                 timeConvert.DateTimeFormat = "yyyy-MM-dd";

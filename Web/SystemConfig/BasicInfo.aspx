@@ -361,9 +361,9 @@
                 <div class="modal-body">
                     <ul id="myTab" class="nav nav-tabs">
 	                    <li class="active"><a href="#RoleA" data-toggle="tab">经销商</a></li>
-	                    <li><a href="#RoleB" data-toggle="tab">加工厂</a></li>
-	                    <li><a href="#RoleC" data-toggle="tab">本公司员工</a></li>
-                        <li><a href="#RoleD" data-toggle="tab">本公司文员</a></li>
+	                    <li><a href="#RoleB" data-toggle="tab">客户</a></li>
+	                    <li><a href="#RoleC" data-toggle="tab">本公司销售人员</a></li>
+                        <li><a href="#RoleD" data-toggle="tab">本公司生产人员</a></li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
 	                    <div class="tab-pane  in active" id="RoleA">
@@ -384,7 +384,7 @@
                 <tr style="height:30px;"><td style="width:30px;"><input type="checkbox" name="SaleManage"class="Sales"   value="SaleManage" /><span class="folder-open"></span>订单管理</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductSales" value="ProductSales" /><span class="folder-open"></span>产品销售</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductSaleList" value="ProductSalesList" /><span class="folder-open"></span>产品销售查询</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductFactoryOrder" value="FactoryOrder" /><span class="folder-open"></span>加工厂订单查询</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductFactoryOrder" value="FactoryOrder" /><span class="folder-open"></span>客户订单查询</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageFactoryExportExcel" value="FactoryExportExcel" /><span class="folder-open"></span>数据导入</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageProductRelatedOrder" value="RelatedOrder" /><span class="folder-open"></span>订单关联查询</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="Sales"  name="SaleManageUserTrace" value="UserTrace" /><span class="folder-open"></span>患者查询跟踪</td></tr>
@@ -393,9 +393,9 @@
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingDictManagement" value="DictManagement"/><span class="folder-open"></span>数据字典</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingSpecManage" value="SpecManage"/><span class="folder-open"></span>规格型号维护</td></tr>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingSeller" value="CustomerSeller"/><span class="folder-open"></span>经销商登记</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingFactory" value="CustomerFactory"/><span class="folder-open"></span>加工厂登记</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingEmployee" value="CustomerEmployee"/><span class="folder-open"></span>本公司员工登记</td></tr>
-                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingClerk" value="CustomerClerk"/><span class="folder-open"></span>本公司文员登记</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingFactory" value="CustomerFactory"/><span class="folder-open"></span>客户登记</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingEmployee" value="CustomerEmployee"/><span class="folder-open"></span>销售人员登记</td></tr>
+                <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingClerk" value="CustomerClerk"/><span class="folder-open"></span>生产人员登记</td></tr>
                 <%--<tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingCustomerManage" value="CustomerManage"/><span class="folder-open"></span>客户管理</td></tr>--%>
                 <tr style="height:30px;"><td style="width:30px;"><span class="folder-line"></span><input type="checkbox" class="System"  name="SystemSettingBasicInfo" value="BasicInfo"/><span class="folder-open"></span>基础信息</td></tr>
             </table>

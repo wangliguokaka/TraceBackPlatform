@@ -472,7 +472,7 @@
     <value>欠款查询</value>
   </data>
   <data name="FactoryManage" xml:space="preserve">
-    <value>加工厂管理</value>
+    <value>客户管理</value>
   </data>
   <data name="FactoryQuery" xml:space="preserve">
     <value>加工进程查询</value>

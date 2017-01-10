@@ -411,6 +411,52 @@ function AutoComplete(auto, search, mylist) {
 
 }
 
+function BindAutoCompleteEvent(inputId, DivID, test_list)
+{
+    $("#" + inputId).focus(function () {
+        if ($("#" + inputId).val() == "") {
+            AutoComplete(DivID, inputId, test_list);
+        }
+    });
+
+
+    $("#" + inputId).keyup(function () {
+
+        AutoComplete(DivID, inputId, test_list);
+    });
+
+    $("#" + DivID).css("width", $("#" + inputId).width());
+
+    var search_text = document.getElementById(inputId);
+
+    search_text.addEventListener("input", function () {
+        AutoComplete(DivID, inputId, test_list);
+    }, false);
+}
+
+
+function BindCommonAutoCompleteEvent(inputId, DivID, test_list) {
+    $("#" + inputId).focus(function () {
+        if ($("#" + inputId).val() == "") {
+            CommonAutoComplete(DivID, inputId, test_list);
+        }
+    });
+
+
+    $("#" + inputId).keyup(function () {
+
+        CommonAutoComplete(DivID, inputId, test_list);
+    });
+
+    $("#" + DivID).css("width", $("#" + inputId).width());
+
+    var search_text = document.getElementById(inputId);
+
+    search_text.addEventListener("input", function () {
+        CommonAutoComplete(DivID, inputId, test_list);
+    }, false);
+}
+
 function CommonAutoComplete(auto, search, mylist) {
     //if ($("#" + search).val() != old_value || old_value == "") {
       
@@ -425,9 +471,9 @@ function CommonAutoComplete(auto, search, mylist) {
         //    }
         //}
         $(mylist).each(function (index, item) {
-          //  if (item.NodeName.indexOf(old_value) >= 0) {
+            if (item.NodeName.indexOf(old_value) >= 0) {
                 carlist[n++] = item.NodeName;
-           // }
+            }
         }
         )
         if (carlist.length == 0) {

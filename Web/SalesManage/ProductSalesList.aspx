@@ -6,6 +6,8 @@
 
             GetDataList(0);
             createPage(10, 10, allRowCount);
+            $(".pagination .page.active a").eq(0).click();
+
             ControlButton();
             
            

@@ -18,8 +18,19 @@ public partial class SalesManage_FactoryOrder : PageBase
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();
     IList<ModelOrders> listObj;
+    IList<ModelClient> listSeler = new List<ModelClient>();
+    protected string BindingJson = "[]";
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            ccwhere.Clear();
+            ccwhere.AddComponent("Class", "B", SearchComponent.Equals, SearchPad.NULL);
+            listSeler = servComm.GetListTop<ModelClient>(0, "*", "Client", ccwhere);
+            BindingJson = JsonConvert.SerializeObject(listSeler, Formatting.Indented, new IsoDateTimeConverter());
+
+            BindingJson = BindingJson.Replace("\r\n", "").Replace("Client", "NodeName");
+        }
         string actiontype = Request["actiontype"];
         if (actiontype == "GetSaleList")
         {
@@ -29,6 +40,8 @@ public partial class SalesManage_FactoryOrder : PageBase
             int iPageIndex = int.Parse(Request["PageIndex"]) + 1;
             servComm.strOrderString = "CardNo";
             listObj = servComm.GetList<ModelOrders>("orders", "*", "CardNo", 10, iPageIndex, iPageCount, ccwhere);
+            listObj.ToList().ForEach(eo => eo.Serial = (listSeler.Where(le => le.Serial == eo.Serial).Count() > 0 ? listSeler.Where(le => le.Serial == eo.Serial).FirstOrDefault().Client : ""));
+
             var timeConvert = new IsoDateTimeConverter();
             //timeConvert.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
             timeConvert.DateTimeFormat = "yyyy-MM-dd";
@@ -127,7 +140,7 @@ public partial class SalesManage_FactoryOrder : PageBase
         string FilterSerial = Request["FilterSerial"];
         if (!String.IsNullOrEmpty(FilterSerial))
         {
-            ccwhere.AddComponent("Serial", "%" + FilterSerial + "%", SearchComponent.Like, SearchPad.And);
+            ccwhere.AddComponent("Serial", "( SELECT [Serial] FROM [Client] where Client = '" + FilterSerial + "')", SearchComponent.In, SearchPad.And);
         }
 
         if (LoginUser.Class == "B")

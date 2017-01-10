@@ -58,9 +58,9 @@
 
                        $(this).bind("click", function () {
                            $("#ClassAdd").removeAttr("disabled");
-                           $("#selectMainClass").val($(this).find("input").eq(1).val());
+                           $("#selectMainClass").val($(this).find("input").eq(2).val());
                            ShowValue($(this).find("input").eq(0).val(), $(this).find("input").eq(1).val(), $(this).find("input").eq(2).val(), $(this).find("input").eq(3).val());
-                           AjaxHandle({ actiontype: "GetDetail", selectMainClass: $("#selectMainClass").val() })
+                           AjaxHandle({ actiontype: "GetDetail", selectMainClass: $(this).find("input").eq(1).val() })
                        })
                    });
                }
@@ -187,7 +187,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <table style="width:100%;">
         <tr>
-            <td style=" width:40%; vertical-align:top;">
+            <td style=" width:25%; vertical-align:top;">
               
                     
                  
@@ -195,15 +195,15 @@
                         <table  id="tbMainClass" border="0" class="pro_table1" style="width:100%; " >
                         <thead>
                             <tr>
-                                <th >大类编码：</th>
-                                <th >分类编码：</th>
+                                <th style="display:none;">大类编码：</th>
+                                <th style="display:none;">分类编码：</th>
                                 <th >分类名称：</th>
                                 <th >序号：</th>
                                 <th style="display:none;" >操作</th>                      
                             </tr>
                             <tr style="display:none;">
-                                <td ><input id="MainClass" type="text" style="width:120px;" maxlength="1"  class="required" /></td>
-                                <td ><input id="ClassID" type="text" style="width:120px;" maxlength="20"   class="required" /></td>
+                                <td style="display:none;"><input id="MainClass" type="text" style="width:120px;" maxlength="1"  class="required" /></td>
+                                <td style="display:none;"><input id="ClassID" type="text" style="width:120px;" maxlength="20"   class="required" /></td>
                                 <td><input id="ClassName" type="text" style="width:120px;" maxlength="50"   class="required" /></td>
                                 <td><input id="Sortno" type="text" style="width:30px;"  class="required" /></td>
                                 <td style="display:none;" ><input type="button" style="width:60px;" class="ui-button" value="保存" onclick="SaveMainClass()" /></td>
@@ -211,9 +211,9 @@
                         </thead>
                         <tbody>
                             <tr style="display:none; cursor:pointer;">
-                                <td><input type="text" name="MainClass"  style="border:none;width:150px;" class="disabled" disabled="disabled" /> </td>
-                                <td><input type="text" name="ClassID"  style="border:none;width:150px;" class="disabled" disabled="disabled" /> </td>
-                                <td><input type="text" name="ClassName" style="border:none;width:150px;"class="disabled" disabled="disabled"/></td>
+                                <td style="display:none;"><input type="text" name="MainClass"  style="border:none;width:150px;" class="disabled" disabled="disabled" /> </td>
+                                <td style="display:none;"><input type="text" name="ClassID"  style="border:none;width:150px;" class="disabled" disabled="disabled" /> </td>
+                                <td><input type="text" name="ClassName" style="border:none;width:200px;"class="disabled" disabled="disabled"/></td>
                                 <td><input type="text" name="Sortno" style="border:none;width:40px;" class="disabled" disabled="disabled"/></td>  
                                 <td style="display:none;" ><%--<button type="button" name="Id" class="ui-button" style="width:60px;" onclick="deleteMainClassRow(this)">删除</button>--%></td>                 
                             </tr>
@@ -223,7 +223,7 @@
                
             </td>
             <td style="width:10px;">&nbsp;</td>
-            <td style=" width:58%; vertical-align:top;">
+            <td style=" width:73%; vertical-align:top;">
                 <div class="divWidth1" id="ClassDiv" style="min-height:100px; overflow:auto;" >
                         <div style="margin:5px;5px;">
                             <input type="button" class="ui-button" value="保存" onclick="SaveClass()" />
@@ -231,14 +231,14 @@
                             
                         </div>
                     <div style="padding-left:10px; margin:4px;">
-                        分类编码:<input id="selectMainClass" style="border:none;" readonly="readonly" name="selectMainClass" type="text" />
+                        分类名称 : <input id="selectMainClass" style="border:none;" readonly="readonly" name="selectMainClass" type="text" />
                     </div>
                          
                         <table  id="tbClass" border="0" class="pro_table1" style="width:100%;" >
                             <thead>
                                 <tr>
-                                    <th style="width:120px;">项目编码</th>
-                                    <th style="width:200px;">项目名称</th>
+                                    <th style="width:150px;">项目编码</th>
+                                    <th style="width:300px;">项目名称</th>
                                     <th style="width:120px;">项目序号</th>                         
                                     <th><span class="icon icon-add">操作</span></th>
                                 </tr>

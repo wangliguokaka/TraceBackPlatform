@@ -55,7 +55,7 @@
                         layer.msg("防伪卡号被重复使用");
                     }
                     else {
-                        $("#Serial").html(json[0].Serial)
+                        $("#Client").html(json[0].Client)
                         $("#Order_ID").html(json[0].Order_ID)
                         $("#hospital").html(json[0].hospital)
                         $("#doctor").html(json[0].doctor)
@@ -66,8 +66,8 @@
                         //遍历行结果
                         for (var i = 0; i < detailJson.length; i++) {
                             OrdersDetail = OrdersDetail + "<tr><td>种类:</td><td><span class=\"details-text-color details-text-solid\" >&nbsp;" + detailJson[i]["Itemname"] + "</span></td><td>保修期:</td><td><span class=\"details-text-color\" >" + detailJson[i]["Valid"] + "</span></td></tr>";
-                            OrdersDetail = OrdersDetail + "<tr><td>上右牙位:</td><td><span class=\"details-text-color details-text-solid\" >&nbsp;" + detailJson[i]["a_teeth"] + "</span></td><td>上左牙位:</td><td><span class=\"details-text-color\" >" + detailJson[i]["b_teeth"] + "</span></td></tr>";
-                            OrdersDetail = OrdersDetail + "<tr><td>下右牙位:</td><td><span class=\"details-text-color details-text-solid\" >&nbsp;" + detailJson[i]["c_teeth"] + "</span></td><td>下左牙位:</td><td><span class=\"details-text-color\" >" + detailJson[i]["d_teeth"] + "</span></td></tr>";
+                            OrdersDetail = OrdersDetail + "<tr><td colspan=\"4\"  ><table style=\"width:100%; \"><tr><td rowspan=\"2\" style=\"width:20%; text-align:center;border-top-style:none;border-bottom-style:none; border-right:1px solid #ededed;\">牙位:</td><td style=\" width:40%;border-top-style:none;border-bottom-style:none;border-right:1px solid #ededed;\" >&nbsp;" + detailJson[i]["a_teeth"] + "</td><td style=\"border-top-style:none;border-bottom-style:none;border-left-style:none;\">" + detailJson[i]["b_teeth"] + "</td></tr>";
+                            OrdersDetail = OrdersDetail + "<tr><td style=\"width:40%;border-bottom-style:none;border-right:1px solid #ededed;\">&nbsp;" + detailJson[i]["c_teeth"] + "</td><td style=\"text-align:left;border-bottom-style:none;\">" + detailJson[i]["d_teeth"] + "&nbsp;</td></tr></table></td></tr>";
                         }
 
                         $(".details-text").append(OrdersDetail);
@@ -80,7 +80,7 @@
         }
     </script>
     <style type="text/css">
-        /*.layui-layer-demo {background:black; color:#fff; border: none;}*/
+        /*.layui-layer-demo {background:#ededed; color:#fff; border: none;}*/
         header .inner 
         {
             height:100px;
@@ -181,10 +181,10 @@
     <div class="details"  >
       <div class="details_img" ><img src="../Css/images/xinhuaimg.jpg"  alt="" ></div>
       <h3 class="details-title" style="background-color:cornflowerblue;" >患者信息</h3>
-      <table border="0" cellspacing="0" cellpadding="0" style="width:80%; margin:15px auto;" class="details-text">
+      <table border="0" cellspacing="0" cellpadding="0"  style="width:80%; margin:15px auto;" class="details-text">
         <tr>
-          <td >加工厂:</td>
-          <td ><span class="details-text-color details-text-solid" id="Serial"></span></td>
+          <td >制作单位:</td>
+          <td ><span class="details-text-color details-text-solid" id="Client"></span></td>
             <td >订单号:</td>
           <td ><span class="details-text-color" id="Order_ID"></span></td>
         </tr>      
@@ -209,6 +209,8 @@
 	<div class="inner">
 		<div class="foot-text">
 			版权所有：山东新华医疗器械股份有限公司　　ICP备案号：鲁ICP备07005707号-1　互联网药品信息服务资格证书编号：（鲁）-非经营性-2016-0001
+            <div style="font-size:15px;">销售电话：<%=modelBase.phone %>
+                    &nbsp;&nbsp;&nbsp;&nbsp;销售传真：<%=modelBase.fax %>&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<%=modelBase.Email %></div>
 		</div>
 	<div class="clear"></div>
 	</div>

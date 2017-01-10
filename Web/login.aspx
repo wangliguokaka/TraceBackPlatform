@@ -23,6 +23,21 @@ html,body{
         }
 
         $(function () {
+
+            //$(document).on('keydown', '#username', function (e) {
+
+
+            //    e = e || event;
+            //    var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+            //    alert(keyCode)
+            //    if (keyCode == 13) {
+
+            //        e.preventDefault();
+            //        //do something
+            //        return false;
+            //    }
+            //});
+
             refreshcode();
             $("#username").val("admin")
         })

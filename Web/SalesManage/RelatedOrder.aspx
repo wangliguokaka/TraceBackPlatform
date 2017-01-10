@@ -6,7 +6,7 @@
 
             GetDataList(0);
             createPage(10, 10, allRowCount);
-
+            $(".pagination .page.active a").eq(0).click();
             //关闭窗口
             $('.cd-popup-add').on('click', function (event) {
                 if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup-edit')) {
@@ -29,6 +29,10 @@
             });
 
             $(".cd-popup-container").draggable();
+
+            old_value = $("#FilterSerial").val();
+            var test_list = $.parseJSON('<%=BindingJson%>');
+            BindCommonAutoCompleteEvent("FilterSerial", "auto_div", test_list)
         });
 
         function SearchList()
@@ -95,7 +99,7 @@
 
                         //遍历行中每一列的key 
 
-                        var trHtml = "<tr><td><a href=\"javascript:OpenDetail(" + json[i]["CardNo"] + ")\">" + json[i]["CardNo"] + "</a></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["orderid"] + "</td><td>" + json[i]["Salesperson"] + "</td><td>" + json[i]["factoryBM"] + "</td><td>" + json[i]["Order_ID"] + "</td></tr>";
+                        var trHtml = "<tr><td><a href=\"javascript:OpenDetail('" + json[i]["CardNo"] + "')\">" + json[i]["CardNo"] + "</a></td><td>" + json[i]["Bh"] + "</td><td>" + json[i]["orderid"] + "</td><td>" + json[i]["Salesperson"] + "</td><td>" + json[i]["factoryBM"] + "</td><td>" + json[i]["Order_ID"] + "</td></tr>";
 
                         $("#SalesDetail tbody").append(trHtml);
                     }
@@ -136,8 +140,8 @@
                         var OrdersDetail = "<tr class=\"detailTR\"><td colspan=\"6\"><b>订单详细：</b></td></tr>"
                         //遍历行结果
                         for (var i = 0; i < detailJson.length; i++) {
-                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\"><td class=\"pro_tableTd\">产品名称</td><td>" + detailJson[i]["Itemname"] + "</td><td class=\"pro_tableTd\" style=\"border-bottom-style:solid;border-bottom-width:1px;\">牙位A（上右位）</td><td style=\"border-bottom-style:solid;border-right-style:solid;border-bottom-width:1px;border-right-width:1px;\">" + detailJson[i]["a_teeth"] + "</td><td class=\"pro_tableTd\">牙位B（上左位）</td><td>" + detailJson[i]["b_teeth"] + "</td></tr>";
-                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\" style=\"border-bottom-style:dotted;border-bottom-width:1px;\"><td class=\"pro_tableTd\">保修期</td><td>" + detailJson[i]["Valid"] + "</td><td class=\"pro_tableTd\">牙位C（下右位）</td><td>" + detailJson[i]["c_teeth"] + "</td><td class=\"pro_tableTd\" style=\"border-top-style:solid;border-left-style:solid;border-top-width:1px;border-left-width:1px;\">牙位D（下左位）</td><td style=\"border-top-style:solid;border-top-width:1px;\">" + detailJson[i]["d_teeth"] + "</td></tr>";
+                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\"><td class=\"pro_tableTd\">产品名称</td><td>" + detailJson[i]["Itemname"] + "</td><td style=\"border-bottom-style:solid;border-right-style:solid;border-bottom-width:1px;border-right-width:1px;text-align:right;\" colspan=\"2\">" + detailJson[i]["a_teeth"] + "&nbsp;&nbsp;</td><td>&nbsp;&nbsp;" + detailJson[i]["b_teeth"] + "</td></tr>";
+                            OrdersDetail = OrdersDetail + "<tr class=\"detailTR\" style=\"border-bottom-style:dotted;border-bottom-width:1px;\"><td class=\"pro_tableTd\">保修期</td><td>" + detailJson[i]["Valid"] + "</td><td colspan=\"2\" style=\"text-align:right;\">" + detailJson[i]["c_teeth"] + "&nbsp;&nbsp;</td><td colspan=\"2\" style=\"border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;\">&nbsp;&nbsp;" + detailJson[i]["d_teeth"] + "</td></tr>";
                         }
 
                         $("#gridLayer").append(OrdersDetail);
@@ -187,8 +191,8 @@
             <td width="15%"><input type="text" id="CardNoStart" class="pro_input CardNoStart" /></td>
               <td width="10%" class="pro_tableTd">防伪卡号结束</td>
             <td width="15%"><input type="text" id="CardNoEnd" value="99999999" class="pro_input CardNoEnd" /></td>
-            <td width="10%" class="pro_tableTd">加工厂</td>
-            <td width="15%"><input type="text" id="FilterSerial" class="pro_input" /></td>
+            <td width="10%" class="pro_tableTd">客户</td>
+            <td width="15%"><div class="search"><input type="text" id="FilterSerial" maxlength="50"  class="pro_input" /><div id="auto_div" class="auto_div"></div></div></td>
             <td width="10%" class="pro_tableTd">业务员</td>
             <td width="15%"><input type="text" id="FilterSalesperson" class="pro_input" /></td>
           </tr>
@@ -225,7 +229,7 @@
                 <th>存货编码</th>
                 <th>订货编号</th>
                 <th>业务员</th>
-                <th>加工厂名称</th>
+                <th>客户名称</th>
                 <th>订单条码</th>
               </tr>        
           </thead>
@@ -275,7 +279,7 @@
                 <td class="pro_tableTd">电话</td>
                 <td><input type="text" id="Tel" maxlength="20"  class="pro_input" /></td>               
                 <td class="pro_tableTd">快递单号</td>
-                <td><input type="text" id="distriNo" maxlength="100"  class="pro_input" /></td>
+                <td><input type="text" id="DistriNo" maxlength="100"  class="pro_input" /></td>
                   <td class="pro_tableTd">防伪卡数量</td>
                 <td><input type="text" id="NoQty" maxlength="100"  class="pro_input" /></td>
               </tr >
@@ -285,14 +289,14 @@
                 <td class="pro_tableTd">防伪卡结束号</td>
                 <td><input type="text" id="NoEnd" maxlength="50"  class="pro_input" /></td>
                  <td class="pro_tableTd">货运公司</td>
-                <td><input type="text" id="distri" maxlength="50"  class="pro_input" /></td>
+                <td><input type="text" id="Distri" maxlength="50"  class="pro_input" /></td>
                 
               </tr >
               <tr class="SABCD" >
                 <td class="pro_tableTd">单位名称/磁块经销商</td>
                 <td><input type="text" id="seller" value="" maxlength="50"   class="pro_input required" /></td>
                 <td class="pro_tableTd">产品名称</td>
-                <td><input type="text" id="ProductName" maxlength="50"  class="pro_input" /></td>
+                <td><input type="text" id="Itemname" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">订货号</td>
                 <td><input type="text" id="orderid" maxlength="50"  class="pro_input required" /></td>
                
@@ -310,7 +314,7 @@
                 <td class="pro_tableTd">有效期/年</td>
                 <td><input type="text" id="Valid" maxlength="10"  class="pro_input" /></td>
                 <td class="pro_tableTd">联系人</td>
-                <td><input type="text" id="receiver" class="pro_input" /></td>
+                <td><input type="text" id="Receiver" class="pro_input" /></td>
                  <td class="pro_tableTd">收缩比</td>
                 <td><input type="text" id="SRate" maxlength="50"  class="pro_input" /></td>
               </tr>
@@ -319,12 +323,12 @@
                     <td colspan="5"><input type="text" id="Addr" maxlength="50"  class="pro_input" /></td>
                </tr>           
             <tr  class="SBCD">
-                <td colspan="6"><b>加工厂订单信息:</b></td>
+                <td colspan="6"><b>客户订单信息:</b></td>
             </tr>
             <tr  class="SBCD">
-                <td class="pro_tableTd">加工厂</td>
+                <td class="pro_tableTd">客户</td>
                 <td><input type="text" id="factoryBM" maxlength="20"  class="pro_input" /></td>
-                <td class="pro_tableTd">加工厂订单号</td>
+                <td class="pro_tableTd">客户订单号</td>
                 <td><input type="text" id="Order_ID" maxlength="50"  class="pro_input" /></td>
                 <td class="pro_tableTd">医疗机构</td>
                 <td><input type="text" id="hospital" maxlength="100"  class="pro_input" /></td>

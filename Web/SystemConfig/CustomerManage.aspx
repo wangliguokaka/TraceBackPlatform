@@ -51,6 +51,7 @@
             $("#detailClass").val('<%=CustomerType%>')
             GetDataList(0);
             createPage(10, 10, allRowCount);
+            $(".pagination .page.active a").eq(0).click();
             $("#detailCountry").change();
            
            
@@ -78,11 +79,11 @@
             $('.cd-popup-editbtn').on('click', function (event) {
                
                 if (arrayCheck.length == 0) {
-                    layer.msg("请选择订单进行编辑！");
+                    layer.msg("请选择记录进行编辑！");
                     return false;
                 }
                 else if (arrayCheck.length > 1) {
-                    layer.msg("只能选择一条订单进行编辑！");
+                    layer.msg("只能选择一条记录进行编辑！");
                     return false;
                 }
                 event.preventDefault();
@@ -157,7 +158,7 @@
                 layer.msg("请选择要删除的记录");
                 return false;
             }
-            layer.confirm('确认删除这个客户吗？', {
+            layer.confirm('确认删除选中的记录吗？', {
 
             }, function (index) {
 
@@ -287,15 +288,15 @@
             }
             else  if (Class == "B")
             {
-                return "加工厂";
+                return "客户";
             }
             else if (Class == "C")
             {
-                return "本公司员工";
+                return "销售人员";
             }
             else
             {
-                return "本公司文员";
+                return "生产人员";
             }
         }
 
@@ -338,7 +339,7 @@
             <td width="24%"><input type="text" id="linkman" class="pro_input" /></td>
               <%} %>
             <td width="6%" class="pro_tableTd" style="display:none;">公司类别</td>
-            <td width="20%"><select class="pro_select required" id="Class" style="display:none;"><option value=""></option><option value="A">经销商</option><option value="B">加工厂</option><option value="C">本公司员工</option><option value="D">本公司文员</option></select></td>
+            <td width="20%"><select class="pro_select required" id="Class" style="display:none;"><option value=""></option><option value="A">经销商</option><option value="B">客户</option><option value="C">销售人员</option><option value="D">生产人员</option></select></td>
 
           </tr>
           <tr>
@@ -384,12 +385,12 @@
     <div class="cd-popup-add">
     <div class="cd-popup-container">
         <div class="box" >
-          <div class="title" >客户信息</div>
+          <div class="title" >登记信息</div>
           <div class="divWidth"  style="overflow:auto;" >
             <table width="100%" border="0" id="gridCustomer" cellspacing="0" cellpadding="0" class="pro_table">
               <tr>
                 <td class="pro_tableTd" style="display:none;">公司类别<span class="red" >*</span></td>
-                <td style="display:none;"><select class="pro_select required" id="detailClass" disabled="disabled" ><option value="A">经销商</option><option value="B">加工厂</option><option value="C">本公司员工</option><option value="D">本公司文员</option></select></td>
+                <td style="display:none;"><select class="pro_select required" id="detailClass" disabled="disabled" ><option value="A">经销商</option><option value="B">客户</option><option value="C">销售人员</option><option value="D">生产人员</option></select></td>
                 <td class="pro_tableTd"><%if (("C,D").IndexOf(CustomerType) > -1){ %>员工编码<%}else{ %>公司编码<%} %><span class="red" >*</span></td>
                 <td><input type="text" class="pro_input required" maxlength="50" id="detailSerial" /></td>
                 <td class="pro_tableTd"><%if (("C,D").IndexOf(CustomerType) > -1){ %>员工姓名<%}else{ %>公司名称<%} %><span class="red" >*</span></td>
@@ -419,7 +420,7 @@
                  <%} %>
               <tr>
                 <td class="pro_tableTd">密码重置</td>
-                <td style="float:left;"><input type="checkbox" class="pro_input"   id="detailPasswd"/></td>
+                <td style="float:left;"><input type="checkbox" class=""   id="detailPasswd"/></td>
                    <%if (("A,B").IndexOf(CustomerType) > -1){ %>
                     <td class="pro_tableTd">联系人</td>
                     <td><input type="text" class="pro_input" maxlength="50"  id="detaillinkman"  /></td>

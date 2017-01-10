@@ -1,5 +1,6 @@
 ﻿using D2012.Common;
 using D2012.Common.DbCommon;
+using D2012.Domain.Entities;
 using D2012.Domain.Services;
 using Microsoft.Reporting.WebForms;
 using System;
@@ -19,13 +20,18 @@ public partial class SalesManage_GenerateContract : PageBase
 {
     protected string strAction = "0";
     protected DataTable OrderDetail = new DataTable() ;
+    protected ModelSale modelSale = new ModelSale();
     ServiceCommon servComm = new ServiceCommon();
     ConditionComponent ccwhere = new ConditionComponent();
     protected void Page_Load(object sender, EventArgs e)
     {
+        IList<ModelClient> listSeler = servComm.GetListTop<ModelClient>(0, null);
         string orderid = Request["orderid"];
         ccwhere.AddComponent("Id", orderid, SearchComponent.Equals, SearchPad.NULL);
         OrderDetail = servComm.GetListTop(0, "ViewSalesDetail", ccwhere);
+        modelSale = servComm.GetEntity<ModelSale>(orderid);
+        modelSale.Seller = listSeler.Where(le => le.Serial == modelSale.Seller).Count() > 0 ? listSeler.Where(le => le.Serial == modelSale.Seller).FirstOrDefault().Client : "";
+
         if (!IsPostBack)
         {
             try
@@ -52,6 +58,8 @@ public partial class SalesManage_GenerateContract : PageBase
                         }
                     }
                 }
+                this.Buyer.Text = modelSale.Seller;
+                this.BuyerBottom.Text = modelSale.Seller;
             }
             catch (Exception excrt)
             {
@@ -191,15 +199,15 @@ public partial class SalesManage_GenerateContract : PageBase
         oneRowData.Rows.Add(oneRowData.NewRow());
         this.ReportViewerExcel.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtGoodsTicket));
         this.ReportViewerExcel.LocalReport.DataSources.Add(new ReportDataSource("DataSet2", oneRowData));
-        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("ContactNo", this.ContactBH.Text));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("ContactNo", this.ContactBH.Text==""?" ": this.ContactBH.Text));
         this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Department", "口腔技术分厂"));
         this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("PrintDate", DateTime.Now.ToString("yyyy/MM/dd")));
-        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Customer", "吉星"));
-        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("RecieveAddr", "淄博高新区北辛路99号"));
-        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Receiver", "张总"));
-        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Telephone", "18669803591"));
-        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Operator", "颉宏勇"));
-        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Maker", "颉宏勇"));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Customer", BuyerBottom.Text == "" ? " " : this.BuyerBottom.Text));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("RecieveAddr", ProvideGoods.Text == "" ? " " : this.ProvideGoods.Text));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Receiver", BuyerOperator.Text == "" ? " " : this.BuyerOperator.Text));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Telephone", BuyerTel.Text == "" ? " " : this.BuyerTel.Text));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Operator", SellerOperator.Text == "" ? " " : this.SellerOperator.Text));
+        this.ReportViewerExcel.LocalReport.SetParameters(new ReportParameter("Maker", SellerOperator.Text == "" ? " " : this.SellerOperator.Text));
         this.ReportViewerExcel.DataBind();
         this.ReportViewerExcel.LocalReport.Refresh();
 
